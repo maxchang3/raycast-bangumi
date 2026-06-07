@@ -1,4 +1,4 @@
-import { ActionPanel, List, Action, Icon, Color, getPreferenceValues } from "@raycast/api"
+import { ActionPanel, List, Action, Icon, Color, getPreferenceValues, showToast, Toast } from "@raycast/api"
 import { usePromise } from "@raycast/utils"
 import { useRef } from "react"
 import { bangumi, SubjectCollectionType, SubjectType, SubjectVerb } from "@/bangumi"
@@ -18,7 +18,10 @@ const enabledTypes = new Set<SubjectType>(
 
 const PAGE_SIZE = 20
 
-type CollectionTag = Extract<List.Item.Accessory, { tag: unknown }>["tag"]
+type CollectionTag = {
+  value: string
+  color: Color.ColorLike
+}
 
 const SubjectCollectionColor: Record<SubjectCollectionType, Color.ColorLike> = {
   [SubjectCollectionType.Wish]: Color.Blue,
@@ -55,7 +58,7 @@ interface CollectionListProps {
 export default function CollectionList({ filterType }: CollectionListProps) {
   const abortControllerRef = useRef<AbortController>(null)
 
-  const { data, isLoading, pagination } = usePromise(
+  const { data, isLoading, pagination, mutate } = usePromise(
     () => async (options: { page: number }) => {
       const offset = options.page * PAGE_SIZE
       const { data, total } = await bangumi.getMyCollections(
@@ -70,6 +73,24 @@ export default function CollectionList({ filterType }: CollectionListProps) {
     [],
     { abortable: abortControllerRef }
   )
+
+  const handleUpdateStatus = async (subjectId: number, status: SubjectCollectionType) => {
+    const toast = await showToast({ style: Toast.Style.Animated, title: "Updating status..." })
+    try {
+      await mutate(bangumi.updateSubjectCollection(subjectId, status), {
+        optimisticUpdate: (currentData) => {
+          if (!currentData) return currentData!
+          return currentData.map((item) => (item.subject_id === subjectId ? { ...item, type: status } : item))
+        },
+      })
+      toast.style = Toast.Style.Success
+      toast.title = "Updated successfully"
+    } catch (e) {
+      toast.style = Toast.Style.Failure
+      toast.title = "Failed to update"
+      toast.message = String(e)
+    }
+  }
 
   const safePagination = pagination
     ? {
@@ -94,22 +115,43 @@ export default function CollectionList({ filterType }: CollectionListProps) {
             accessories={[{ tag: getCollectionTag(item.type, item.subject_type) }]}
             actions={
               <ActionPanel title={`${item.subject?.name_cn || item.subject?.name}`}>
-                {item.subject_type === SubjectType.Anime && (
-                  <Action.Push
-                    title="View Progress"
-                    icon={Icon.BarChart}
-                    target={
-                      <ViewProgress
-                        subjectId={item.subject_id}
-                        subjectName={item.subject?.name}
-                        subjectNameCn={item.subject?.name_cn}
-                        epStatus={item.ep_status}
-                        totalEps={item.subject?.eps || 0}
+                <ActionPanel.Section>
+                  {item.subject_type === SubjectType.Anime && (
+                    <Action.Push
+                      title="View Progress"
+                      icon={Icon.BarChart}
+                      target={
+                        <ViewProgress
+                          subjectId={item.subject_id}
+                          subjectName={item.subject?.name}
+                          subjectNameCn={item.subject?.name_cn}
+                          epStatus={item.ep_status}
+                          totalEps={item.subject?.eps || 0}
+                        />
+                      }
+                    />
+                  )}
+                  <Action.OpenInBrowser url={`https://bgm.tv/subject/${item.subject_id}`} />
+                </ActionPanel.Section>
+                <ActionPanel.Section title="Change Status">
+                  {[
+                    SubjectCollectionType.Wish,
+                    SubjectCollectionType.Doing,
+                    SubjectCollectionType.Collect,
+                    SubjectCollectionType.OnHold,
+                    SubjectCollectionType.Dropped,
+                  ].map((statusType) => {
+                    if (statusType === item.type) return null
+                    return (
+                      <Action
+                        key={statusType}
+                        title={`Mark as ${getCollectionTag(statusType, item.subject_type).value}`}
+                        icon={Icon.Pencil}
+                        onAction={() => handleUpdateStatus(item.subject_id, statusType)}
                       />
-                    }
-                  />
-                )}
-                <Action.OpenInBrowser url={`https://bgm.tv/subject/${item.subject_id}`} />
+                    )
+                  })}
+                </ActionPanel.Section>
               </ActionPanel>
             }
           />

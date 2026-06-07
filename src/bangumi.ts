@@ -147,6 +147,15 @@ class Bangumi {
     })
     if (error) throw new BangumiApiError(error)
   }
+
+  async updateSubjectCollection(subjectId: number, type: SubjectCollectionType, signal?: AbortSignal) {
+    const { error } = await this.client.PATCH("/v0/users/-/collections/{subject_id}", {
+      params: { path: { subject_id: subjectId } },
+      body: { type },
+      signal,
+    })
+    if (error) throw new BangumiApiError(error)
+  }
 }
 
 export const bangumi = new Bangumi()
