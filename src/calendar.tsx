@@ -44,7 +44,10 @@ const Calendar = () => {
                         target={<SubjectDetail subjectId={item.id} />}
                         icon={Icon.Sidebar}
                       />
-                      <Action.OpenInBrowser url={item.url || `https://bgm.tv/subject/${item.id}`} />
+                      <Action.OpenInBrowser
+                        url={item.url || `https://bgm.tv/subject/${item.id}`}
+                        shortcut={{ modifiers: ["cmd"], key: "o" }}
+                      />
                     </ActionPanel>
                   }
                 />

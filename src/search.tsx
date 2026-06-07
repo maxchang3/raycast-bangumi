@@ -74,7 +74,10 @@ const SearchSubjects = (props: LaunchProps<{ arguments: SearchArguments }>) => {
                   icon={Icon.Sidebar}
                   target={<SubjectDetail subjectId={subject.id} />}
                 />
-                <Action.OpenInBrowser url={`https://bgm.tv/subject/${subject.id}`} />
+                <Action.OpenInBrowser
+                  url={`https://bgm.tv/subject/${subject.id}`}
+                  shortcut={{ modifiers: ["cmd"], key: "o" }}
+                />
               </ActionPanel>
             }
           />

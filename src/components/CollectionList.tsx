@@ -137,7 +137,10 @@ export default function CollectionList({ filterType }: CollectionListProps) {
                     icon={Icon.Sidebar}
                     target={<SubjectDetail subjectId={item.subject_id} />}
                   />
-                  <Action.OpenInBrowser url={`https://bgm.tv/subject/${item.subject_id}`} />
+                  <Action.OpenInBrowser
+                    url={`https://bgm.tv/subject/${item.subject_id}`}
+                    shortcut={{ modifiers: ["cmd"], key: "o" }}
+                  />
                 </ActionPanel.Section>
                 <ActionPanel.Section title="Change Status">
                   {[

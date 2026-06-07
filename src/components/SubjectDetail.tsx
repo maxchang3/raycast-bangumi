@@ -73,7 +73,10 @@ ${data.summary || "No summary available."}
       }
       actions={
         <ActionPanel>
-          <Action.OpenInBrowser url={`https://bgm.tv/subject/${subjectId}`} />
+          <Action.OpenInBrowser
+            url={`https://bgm.tv/subject/${subjectId}`}
+            shortcut={{ modifiers: ["cmd"], key: "o" }}
+          />
         </ActionPanel>
       }
     />

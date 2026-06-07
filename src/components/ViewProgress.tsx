@@ -190,7 +190,10 @@ export default function ViewProgress({ subjectId, subjectName, subjectNameCn, ep
                   )}
                 </ActionPanel.Section>
                 <ActionPanel.Section>
-                  <Action.OpenInBrowser title="Open Episode in Browser" url={`https://bgm.tv/ep/${ep.episode.id}`} />
+                  <Action.OpenInBrowser
+                    url={`https://bgm.tv/ep/${ep.episode.id}`}
+                    shortcut={{ modifiers: ["cmd"], key: "o" }}
+                  />
                 </ActionPanel.Section>
               </ActionPanel>
             }
