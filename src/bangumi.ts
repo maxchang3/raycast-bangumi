@@ -1,6 +1,6 @@
 import createClient from "openapi-fetch"
 import type { paths } from "./types/generated"
-import { getPreferenceValues } from "@raycast/api"
+import { getAccessToken } from "@raycast/utils"
 
 interface BangumiErrorResponse {
   title: string
@@ -76,16 +76,17 @@ export const SubjectVerb: Record<SubjectType, string> = {
   [SubjectType.Real]: "看",
 }
 
-const preferences = getPreferenceValues<Preferences>()
-
 class Bangumi {
-  client = createClient<paths>({
-    baseUrl: "https://api.bgm.tv/",
-    headers: {
-      "User-Agent": `maxchang3/raycast-bangumi (https://github.com/maxchang3/raycast-bangumi)`,
-      Authorization: `Bearer ${preferences.accessToken}`,
-    },
-  })
+  private get client() {
+    const { token } = getAccessToken()
+    return createClient<paths>({
+      baseUrl: "https://api.bgm.tv/",
+      headers: {
+        "User-Agent": `maxchang3/raycast-bangumi (https://github.com/maxchang3/raycast-bangumi)`,
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  }
 
   private username?: string
 

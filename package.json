@@ -59,14 +59,6 @@
   ],
   "preferences": [
     {
-      "name": "accessToken",
-      "type": "password",
-      "required": true,
-      "title": "Access Token",
-      "description": "Your Bangumi Access Token",
-      "placeholder": "Enter your access token"
-    },
-    {
       "name": "showBook",
       "type": "checkbox",
       "required": false,
