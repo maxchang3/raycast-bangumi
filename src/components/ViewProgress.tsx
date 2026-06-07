@@ -109,6 +109,28 @@ export default function ViewProgress({ subjectId, subjectName, subjectNameCn, ep
     }
   }
 
+  const handleBatchUpdateStatus = async (episodesToUpdate: number[], status: EpisodeCollectionType) => {
+    const toast = await showToast({ style: Toast.Style.Animated, title: "Batch updating status..." })
+    try {
+      await mutate(bangumi.updateSubjectEpisodesCollection(subjectId, episodesToUpdate, status), {
+        optimisticUpdate: (currentData) => {
+          if (!currentData) return currentData!
+          const idsSet = new Set(episodesToUpdate)
+          return {
+            ...currentData,
+            data: currentData.data?.map((item) => (idsSet.has(item.episode.id) ? { ...item, type: status } : item)),
+          }
+        },
+      })
+      toast.style = Toast.Style.Success
+      toast.title = "Batch updated successfully"
+    } catch (e) {
+      toast.style = Toast.Style.Failure
+      toast.title = "Failed to batch update"
+      toast.message = String(e)
+    }
+  }
+
   const episodes = data?.data ?? []
 
   const title = subjectNameCn || subjectName
@@ -167,6 +189,25 @@ export default function ViewProgress({ subjectId, subjectName, subjectNameCn, ep
                       onAction={() => handleUpdateStatus(ep.episode.id, EpisodeCollectionType.Watched)}
                     />
                   )}
+                  <Action
+                    title="Mark up to Here as 看过"
+                    icon={Icon.CheckCircle}
+                    onAction={() => {
+                      const idsToUpdate = sortedEps
+                        .filter(
+                          (e) =>
+                            e.episode.type === ep.episode.type &&
+                            (e.episode.sort ?? 0) <= (ep.episode.sort ?? 0) &&
+                            e.type !== EpisodeCollectionType.Watched
+                        )
+                        .map((e) => e.episode.id)
+                      if (idsToUpdate.length > 0) {
+                        handleBatchUpdateStatus(idsToUpdate, EpisodeCollectionType.Watched)
+                      } else {
+                        showToast({ title: "Already marked as watched", style: Toast.Style.Success })
+                      }
+                    }}
+                  />
                   {statusType !== EpisodeCollectionType.Wish && (
                     <Action
                       title="Mark as 想看"

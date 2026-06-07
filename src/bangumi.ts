@@ -183,12 +183,37 @@ class Bangumi {
   }
 
   async updateEpisodeCollection(episodeId: number, type: EpisodeCollectionType, signal?: AbortSignal) {
-    const { error } = await this.client.PUT("/v0/users/-/collections/-/episodes/{episode_id}", {
-      params: { path: { episode_id: episodeId } },
-      body: { type },
+    const { data, error } = await this.client.PUT("/v0/users/-/collections/-/episodes/{episode_id}", {
+      params: {
+        path: { episode_id: episodeId },
+      },
+      body: {
+        type,
+      },
       signal,
     })
     if (error) throw new BangumiApiError(error)
+    return data
+  }
+
+  async updateSubjectEpisodesCollection(
+    subjectId: number,
+    episodeIds: number[],
+    type: EpisodeCollectionType,
+    signal?: AbortSignal
+  ) {
+    const { data, error } = await this.client.PATCH("/v0/users/-/collections/{subject_id}/episodes", {
+      params: {
+        path: { subject_id: subjectId },
+      },
+      body: {
+        episode_id: episodeIds,
+        type,
+      },
+      signal,
+    })
+    if (error) throw new BangumiApiError(error)
+    return data
   }
 
   async getSubjectCollection(subjectId: number, signal?: AbortSignal) {
