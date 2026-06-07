@@ -150,6 +150,27 @@ class Bangumi {
     return data
   }
 
+  async searchSubjects(
+    keyword: string,
+    limit: number,
+    offset: number,
+    subjectType?: SubjectType,
+    signal?: AbortSignal
+  ) {
+    const { data, error } = await this.client.POST("/v0/search/subjects", {
+      params: {
+        query: { limit, offset },
+      },
+      body: {
+        keyword,
+        filter: subjectType ? { type: [subjectType] } : undefined,
+      },
+      signal,
+    })
+    if (error) throw new BangumiApiError(error)
+    return data
+  }
+
   async updateEpisodeCollection(episodeId: number, type: EpisodeCollectionType, signal?: AbortSignal) {
     const { error } = await this.client.PUT("/v0/users/-/collections/-/episodes/{episode_id}", {
       params: { path: { episode_id: episodeId } },
