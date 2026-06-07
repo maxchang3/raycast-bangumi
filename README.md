@@ -1,6 +1,6 @@
 # raycast-bangumi
 
-直接在 Raycast 中管理你的 [bangumi.tv](https://bgm.tv) 上进度。
+直接在 Raycast 中管理你在 [bangumi.tv](https://bgm.tv) 上进度。
 
 ## 功能
 
