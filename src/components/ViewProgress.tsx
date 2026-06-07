@@ -2,7 +2,7 @@ import { ActionPanel, Action, Grid } from "@raycast/api"
 import { usePromise } from "@raycast/utils"
 import { useState } from "react"
 import { bangumi, EpisodeCollectionType, EpisodeType } from "@/bangumi"
-import type { components } from "../types/generated"
+import type { components } from "@/types/generated"
 
 interface ViewProgressProps {
   subjectId: number
