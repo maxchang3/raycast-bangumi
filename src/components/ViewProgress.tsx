@@ -1,8 +1,9 @@
-import { ActionPanel, Action, Grid, showToast, Toast, Icon } from "@raycast/api"
+import { ActionPanel, Action, Grid, showToast, Toast } from "@raycast/api"
 import { usePromise } from "@raycast/utils"
 import { useState } from "react"
 import { bangumi, EpisodeCollectionType, EpisodeType } from "@/api/bangumi"
 import type { components } from "@/types/generated"
+import { EpisodeStatusActions } from "./EpisodeStatusActions"
 
 interface ViewProgressProps {
   subjectId: number
@@ -156,6 +157,22 @@ export default function ViewProgress({ subjectId, subjectName, subjectNameCn, ep
     ? `${getEpisodeLabel(currentEp.episode)} — ${currentEp.episode.name_cn || currentEp.episode.name}`
     : "Loading…"
 
+  const groupedEps = sortedEps.reduce(
+    (acc, ep) => {
+      const type = ep.episode.type
+      if (!acc[type]) {
+        acc[type] = []
+      }
+      acc[type].push(ep)
+      return acc
+    },
+    {} as Record<number, typeof sortedEps>
+  )
+
+  const sortedTypes = Object.keys(groupedEps)
+    .map(Number)
+    .sort((a, b) => a - b)
+
   return (
     <Grid
       isLoading={isLoading}
@@ -164,83 +181,44 @@ export default function ViewProgress({ subjectId, subjectName, subjectNameCn, ep
       onSelectionChange={(id) => setSelectedId(id ?? undefined)}
       searchBarPlaceholder={searchPlaceholder}
     >
-      {sortedEps.map((ep) => {
-        const epTitle = ep.episode.name_cn || ep.episode.name || ""
-        const epLabel = getEpisodeLabel(ep.episode)
-        const epNum = String(ep.episode.sort)
-        const statusType = ep.type
-        return (
-          <Grid.Item
-            id={String(ep.episode.id)}
-            key={ep.episode.id}
-            content={{
-              source: buildEpisodeIcon(epNum, getEpisodeAppearance(ep.episode, statusType)),
-              tooltip: EPISODE_COLLECTION_NAME[statusType],
-            }}
-            title={epLabel}
-            keywords={[epLabel, epTitle]}
-            actions={
-              <ActionPanel>
-                <ActionPanel.Section>
-                  {statusType !== EpisodeCollectionType.Watched && (
-                    <Action
-                      title="Mark as 看过"
-                      icon={Icon.Checkmark}
-                      onAction={() => handleUpdateStatus(ep.episode.id, EpisodeCollectionType.Watched)}
+      {sortedTypes.map((type) => (
+        <Grid.Section key={type} title={EP_TYPE_PREFIX[type] || "Other"}>
+          {groupedEps[type]?.map((ep) => {
+            const epTitle = ep.episode.name_cn || ep.episode.name || ""
+            const epLabel = getEpisodeLabel(ep.episode)
+            const epNum = String(ep.episode.sort)
+            const statusType = ep.type
+            return (
+              <Grid.Item
+                id={String(ep.episode.id)}
+                key={ep.episode.id}
+                content={{
+                  source: buildEpisodeIcon(epNum, getEpisodeAppearance(ep.episode, statusType)),
+                  tooltip: EPISODE_COLLECTION_NAME[statusType],
+                }}
+                keywords={[epLabel, epTitle]}
+                actions={
+                  <ActionPanel>
+                    <EpisodeStatusActions
+                      episode={ep.episode}
+                      statusType={statusType}
+                      onUpdateStatus={handleUpdateStatus}
+                      onBatchUpdateStatus={handleBatchUpdateStatus}
+                      sortedEps={sortedEps}
                     />
-                  )}
-                  <Action
-                    title="Mark up to Here as 看过"
-                    icon={Icon.CheckCircle}
-                    onAction={() => {
-                      const idsToUpdate = sortedEps
-                        .filter(
-                          (e) =>
-                            e.episode.type === ep.episode.type &&
-                            (e.episode.sort ?? 0) <= (ep.episode.sort ?? 0) &&
-                            e.type !== EpisodeCollectionType.Watched
-                        )
-                        .map((e) => e.episode.id)
-                      if (idsToUpdate.length > 0) {
-                        handleBatchUpdateStatus(idsToUpdate, EpisodeCollectionType.Watched)
-                      } else {
-                        showToast({ title: "Already marked as watched", style: Toast.Style.Success })
-                      }
-                    }}
-                  />
-                  {statusType !== EpisodeCollectionType.Wish && (
-                    <Action
-                      title="Mark as 想看"
-                      icon={Icon.Star}
-                      onAction={() => handleUpdateStatus(ep.episode.id, EpisodeCollectionType.Wish)}
-                    />
-                  )}
-                  {statusType !== EpisodeCollectionType.Dropped && (
-                    <Action
-                      title="Mark as 抛弃"
-                      icon={Icon.Trash}
-                      onAction={() => handleUpdateStatus(ep.episode.id, EpisodeCollectionType.Dropped)}
-                    />
-                  )}
-                  {statusType !== EpisodeCollectionType.NotCollected && (
-                    <Action
-                      title="Reset to 未看"
-                      icon={Icon.XMarkCircle}
-                      onAction={() => handleUpdateStatus(ep.episode.id, EpisodeCollectionType.NotCollected)}
-                    />
-                  )}
-                </ActionPanel.Section>
-                <ActionPanel.Section>
-                  <Action.OpenInBrowser
-                    url={`https://bgm.tv/ep/${ep.episode.id}`}
-                    shortcut={{ modifiers: ["cmd"], key: "o" }}
-                  />
-                </ActionPanel.Section>
-              </ActionPanel>
-            }
-          />
-        )
-      })}
+                    <ActionPanel.Section>
+                      <Action.OpenInBrowser
+                        url={`https://bgm.tv/ep/${ep.episode.id}`}
+                        shortcut={{ modifiers: ["cmd"], key: "o" }}
+                      />
+                    </ActionPanel.Section>
+                  </ActionPanel>
+                }
+              />
+            )
+          })}
+        </Grid.Section>
+      ))}
     </Grid>
   )
 }
