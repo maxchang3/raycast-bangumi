@@ -1,8 +1,10 @@
 import { Action, ActionPanel, Detail, Icon } from "@raycast/api"
 import { usePromise, withAccessToken } from "@raycast/utils"
 import { useRef } from "react"
-import { bangumi } from "@/bangumi"
+import { bangumi, SubjectCollectionType } from "@/bangumi"
 import { bangumiAuth } from "@/oauth"
+import { ChangeCollectionStatusActionSection } from "./ChangeCollectionStatusActionSection"
+import { getCollectionTag, SubjectCollectionIcon } from "@/utils"
 
 interface SubjectDetailProps {
   subjectId: number
@@ -10,12 +12,28 @@ interface SubjectDetailProps {
 
 const SubjectDetail = ({ subjectId }: SubjectDetailProps) => {
   const abortable = useRef<AbortController>(null)
+  const collectionAbortable = useRef<AbortController>(null)
+
   const { data, isLoading } = usePromise(
     async (id) => {
-      return bangumi.getSubjectById(id, abortable.current?.signal)
+      const res = await bangumi.getSubjectById(id, abortable.current?.signal)
+      return res
     },
     [subjectId],
     { abortable }
+  )
+
+  const {
+    data: collection,
+    isLoading: isCollectionLoading,
+    mutate: mutateCollection,
+  } = usePromise(
+    async (id) => {
+      const res = await bangumi.getSubjectCollection(id, collectionAbortable.current?.signal)
+      return res
+    },
+    [subjectId],
+    { abortable: collectionAbortable }
   )
 
   const coverUrl = data?.images?.large
@@ -34,17 +52,17 @@ ${data.summary || "No summary available."}
 
   return (
     <Detail
-      isLoading={isLoading}
+      isLoading={isLoading || isCollectionLoading}
       markdown={markdown}
       metadata={
         data ? (
           <Detail.Metadata>
             <Detail.Metadata.Label
               title="Rating（评分）"
-              text={data.rating.score ? `${data.rating.score.toFixed(1)} / 10` : "N/A"}
+              text={data.rating?.score ? `${data.rating.score.toFixed(1)} / 10` : "N/A"}
               icon={Icon.Star}
             />
-            {data.rating.rank && (
+            {data.rating?.rank && (
               <Detail.Metadata.Label title="Rank（排名）" text={`#${data.rating.rank}`} icon={Icon.Trophy} />
             )}
             {data.date && <Detail.Metadata.Label title="Air Date（放送开始）" text={data.date} icon={Icon.Calendar} />}
@@ -61,11 +79,29 @@ ${data.summary || "No summary available."}
               </Detail.Metadata.TagList>
             )}
             <Detail.Metadata.Separator />
-            <Detail.Metadata.Label title="Doing（在看）" text={data.collection.doing.toString()} icon={Icon.Play} />
-            <Detail.Metadata.Label title="Wish（想看）" text={data.collection.wish.toString()} icon={Icon.Heart} />
+            <Detail.Metadata.Label
+              title="My Status（我的状态）"
+              text={
+                collection
+                  ? getCollectionTag(collection.type as SubjectCollectionType, data.type).value
+                  : "Uncollected（未收藏）"
+              }
+              icon={collection ? SubjectCollectionIcon[collection.type as SubjectCollectionType] : Icon.Circle}
+            />
+            <Detail.Metadata.Separator />
+            <Detail.Metadata.Label
+              title="Doing（在看）"
+              text={data.collection?.doing?.toString() || "0"}
+              icon={Icon.Play}
+            />
+            <Detail.Metadata.Label
+              title="Wish（想看）"
+              text={data.collection?.wish?.toString() || "0"}
+              icon={Icon.Heart}
+            />
             <Detail.Metadata.Label
               title="Collected（已看）"
-              text={data.collection.collect.toString()}
+              text={data.collection?.collect?.toString() || "0"}
               icon={Icon.Check}
             />
           </Detail.Metadata>
@@ -73,9 +109,17 @@ ${data.summary || "No summary available."}
       }
       actions={
         <ActionPanel>
-          <Action.OpenInBrowser
-            url={`https://bgm.tv/subject/${subjectId}`}
-            shortcut={{ modifiers: ["cmd"], key: "o" }}
+          <ActionPanel.Section>
+            <Action.OpenInBrowser
+              url={`https://bgm.tv/subject/${subjectId}`}
+              shortcut={{ modifiers: ["cmd"], key: "o" }}
+            />
+          </ActionPanel.Section>
+          <ChangeCollectionStatusActionSection
+            subjectId={subjectId}
+            subjectType={data?.type}
+            currentStatus={collection?.type as SubjectCollectionType}
+            onStatusChange={mutateCollection}
           />
         </ActionPanel>
       }

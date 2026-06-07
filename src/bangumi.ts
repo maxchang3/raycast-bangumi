@@ -180,8 +180,25 @@ class Bangumi {
     if (error) throw new BangumiApiError(error)
   }
 
+  async getSubjectCollection(subjectId: number, signal?: AbortSignal) {
+    try {
+      const username = await this.getUsername(signal)
+      const { data, error } = await this.client.GET("/v0/users/{username}/collections/{subject_id}", {
+        params: { path: { username, subject_id: subjectId } },
+        signal,
+      })
+      if (error) {
+        // Return null if not collected (usually 404 or specific error)
+        return null
+      }
+      return data
+    } catch {
+      return null
+    }
+  }
+
   async updateSubjectCollection(subjectId: number, type: SubjectCollectionType, signal?: AbortSignal) {
-    const { error } = await this.client.PATCH("/v0/users/-/collections/{subject_id}", {
+    const { error } = await this.client.POST("/v0/users/-/collections/{subject_id}", {
       params: { path: { subject_id: subjectId } },
       body: { type },
       signal,
