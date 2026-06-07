@@ -150,6 +150,17 @@ class Bangumi {
     return data
   }
 
+  async getSubjectCharacters(subjectId: number, signal?: AbortSignal) {
+    const { data, error } = await this.client.GET("/v0/subjects/{subject_id}/characters", {
+      params: {
+        path: { subject_id: subjectId },
+      },
+      signal,
+    })
+    if (error) throw new BangumiApiError(error)
+    return data
+  }
+
   async searchSubjects(
     keyword: string,
     limit: number,

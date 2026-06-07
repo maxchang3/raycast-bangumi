@@ -13,6 +13,7 @@ interface SubjectDetailProps {
 const SubjectDetail = ({ subjectId }: SubjectDetailProps) => {
   const abortable = useRef<AbortController>(null)
   const collectionAbortable = useRef<AbortController>(null)
+  const charactersAbortable = useRef<AbortController>(null)
 
   const { data, isLoading } = usePromise(
     async (id) => {
@@ -36,6 +37,15 @@ const SubjectDetail = ({ subjectId }: SubjectDetailProps) => {
     { abortable: collectionAbortable }
   )
 
+  const { data: characters, isLoading: isCharactersLoading } = usePromise(
+    async (id) => {
+      const res = await bangumi.getSubjectCharacters(id, charactersAbortable.current?.signal)
+      return res
+    },
+    [subjectId],
+    { abortable: charactersAbortable }
+  )
+
   const coverUrl = data?.images?.large
   const markdown = data
     ? `
@@ -47,12 +57,24 @@ ${coverUrl ? `<img src="${coverUrl}" width="120%" />` : ""}
 
 
 ${data.summary || "No summary available."}
+
+${
+  characters && characters.length > 0
+    ? `## 声优\n\n${characters
+        .slice(0, 10)
+        .map((char) => {
+          const cvs = char.actors && char.actors.length > 0 ? char.actors.map((a) => a.name).join(", ") : "N/A"
+          return `- **${char.name}** (${char.relation}) - CV: ${cvs}`
+        })
+        .join("\n")}`
+    : ""
+}
 `
     : ""
 
   return (
     <Detail
-      isLoading={isLoading || isCollectionLoading}
+      isLoading={isLoading || isCollectionLoading || isCharactersLoading}
       markdown={markdown}
       metadata={
         data ? (
