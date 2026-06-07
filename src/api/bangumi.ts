@@ -77,13 +77,19 @@ export const SubjectVerb: Record<SubjectType, string> = {
 }
 
 class Bangumi {
-  private get client() {
-    const { token } = getAccessToken()
-    return createClient<paths>({
-      baseUrl: "https://api.bgm.tv/",
-      headers: {
-        "User-Agent": `maxchang3/raycast-bangumi (https://github.com/maxchang3/raycast-bangumi)`,
-        Authorization: `Bearer ${token}`,
+  client = createClient<paths>({
+    baseUrl: "https://api.bgm.tv/",
+    headers: {
+      "User-Agent": `maxchang3/raycast-bangumi (https://github.com/maxchang3/raycast-bangumi)`,
+    },
+  })
+
+  constructor() {
+    this.client.use({
+      onRequest({ request }) {
+        const { token } = getAccessToken()
+        request.headers.set("Authorization", `Bearer ${token}`)
+        return request
       },
     })
   }
