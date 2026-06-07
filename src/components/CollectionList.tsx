@@ -95,7 +95,7 @@ export default function CollectionList({ filterType }: CollectionListProps) {
                 </ActionPanel.Section>
                 <CollectionStatusActions
                   subjectId={item.subject_id}
-                  currentStatus={item.type as SubjectCollectionType}
+                  currentStatus={item.type}
                   onStatusChange={mutate}
                 />
               </ActionPanel>

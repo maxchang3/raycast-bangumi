@@ -26,7 +26,7 @@ export const getCollectionTag = (
   collectionType: SubjectCollectionType,
   subjectType: SubjectType = SubjectType.Anime
 ): CollectionTag => {
-  const verb = SubjectVerb[subjectType] || "看"
+  const verb = SubjectVerb[subjectType]
   const color = SubjectCollectionColor[collectionType]
 
   switch (collectionType) {

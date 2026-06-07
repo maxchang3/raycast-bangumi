@@ -1,7 +1,7 @@
 import { Action, ActionPanel, Detail, Icon } from "@raycast/api"
 import { usePromise, withAccessToken } from "@raycast/utils"
 import { useRef } from "react"
-import { bangumi, SubjectCollectionType } from "@/api/bangumi"
+import { bangumi } from "@/api/bangumi"
 import { bangumiAuth } from "@/api/oauth"
 import { CollectionStatusActions } from "./CollectionStatusActions"
 import { getCollectionTag, SubjectCollectionIcon } from "@/utils"
@@ -103,12 +103,8 @@ ${
             <Detail.Metadata.Separator />
             <Detail.Metadata.Label
               title="My Status（我的状态）"
-              text={
-                collection
-                  ? getCollectionTag(collection.type as SubjectCollectionType, data.type).value
-                  : "Uncollected（未收藏）"
-              }
-              icon={collection ? SubjectCollectionIcon[collection.type as SubjectCollectionType] : Icon.Circle}
+              text={collection ? getCollectionTag(collection.type, data.type).value : "Uncollected（未收藏）"}
+              icon={collection ? SubjectCollectionIcon[collection.type] : Icon.Circle}
             />
             <Detail.Metadata.Separator />
             <Detail.Metadata.Label
@@ -140,7 +136,7 @@ ${
           <CollectionStatusActions
             subjectId={subjectId}
             subjectType={data?.type}
-            currentStatus={collection?.type as SubjectCollectionType}
+            currentStatus={collection?.type}
             onStatusChange={mutateCollection}
           />
         </ActionPanel>
