@@ -1,0 +1,142 @@
+import createClient from "openapi-fetch"
+import type { paths } from "./types/generated"
+import { getPreferenceValues } from "@raycast/api"
+
+interface BangumiErrorResponse {
+  title: string
+  description: string
+  details?:
+    | string
+    | {
+        error?: string
+        path?: string
+      }
+}
+
+class BangumiApiError extends Error {
+  readonly response: BangumiErrorResponse
+
+  constructor(response: BangumiErrorResponse) {
+    super(response.description)
+
+    this.name = "BangumiApiError"
+    this.response = response
+  }
+}
+
+export enum SubjectCollectionType {
+  Wish = 1,
+  Collect = 2,
+  Doing = 3,
+  OnHold = 4,
+  Dropped = 5,
+}
+
+export enum SubjectType {
+  Book = 1,
+  Anime = 2,
+  Music = 3,
+  Game = 4,
+  Real = 6,
+}
+
+export enum EpisodeCollectionType {
+  /** 未收藏 */
+  NotCollected = 0,
+  /** 想看 */
+  Wish = 1,
+  /** 看过 */
+  Watched = 2,
+  /** 抛弃 */
+  Dropped = 3,
+}
+
+export enum EpisodeType {
+  /** 本篇 */
+  Main = 0,
+  /** 特别篇 */
+  SP = 1,
+  /** OP */
+  OP = 2,
+  /** ED */
+  ED = 3,
+  /** 预告/宣传/广告 */
+  Trailer = 4,
+  /** MAD */
+  MAD = 5,
+  /** 其他 */
+  Other = 6,
+}
+
+export const SubjectVerb: Record<SubjectType, string> = {
+  [SubjectType.Anime]: "看",
+  [SubjectType.Book]: "读",
+  [SubjectType.Music]: "听",
+  [SubjectType.Game]: "玩",
+  [SubjectType.Real]: "看",
+}
+
+const preferences = getPreferenceValues<Preferences>()
+
+class Bangumi {
+  client = createClient<paths>({
+    baseUrl: "https://api.bgm.tv/",
+    headers: {
+      "User-Agent": `maxchang3/raycast-bangumi (https://github.com/maxchang3/raycast-bangumi)`,
+      Authorization: `Bearer ${preferences.accessToken}`,
+    },
+  })
+
+  private username?: string
+
+  private async getUsername(signal?: AbortSignal): Promise<string> {
+    if (this.username) return this.username
+    const { data, error } = await this.client.GET("/v0/me", { signal })
+    if (error) throw new BangumiApiError(error)
+    this.username = data.username
+    return this.username
+  }
+
+  async getUserSubjectEpisodeCollection(
+    subjectId: number,
+    query?: {
+      offset?: number
+      limit?: number
+      episode_type?: EpisodeType
+    },
+    signal?: AbortSignal
+  ) {
+    const { data, error } = await this.client.GET("/v0/users/-/collections/{subject_id}/episodes", {
+      params: {
+        query,
+        path: { subject_id: subjectId },
+      },
+      signal,
+    })
+    if (error) throw new BangumiApiError(error)
+    return data
+  }
+
+  async getMyCollections(
+    query: {
+      subject_type?: SubjectType
+      type?: SubjectCollectionType
+      limit?: number
+      offset?: number
+    },
+    signal?: AbortSignal
+  ) {
+    const username = await this.getUsername(signal)
+    const { data, error } = await this.client.GET("/v0/users/{username}/collections", {
+      params: {
+        query,
+        path: { username },
+      },
+      signal,
+    })
+    if (error) throw new BangumiApiError(error)
+    return data
+  }
+}
+
+export const bangumi = new Bangumi()

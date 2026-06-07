@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "raycast-extensions": {
+      "source": "alexi-build/raycast-extensions-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "49a1192d4e2163872705889b05717512ee0695f29c7d5ba5b36cffc325f60626"
+    }
+  }
+}
