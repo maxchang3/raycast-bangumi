@@ -1,4 +1,4 @@
-import { ActionPanel, Action, Grid } from "@raycast/api"
+import { ActionPanel, Action, Grid, showToast, Toast, Icon } from "@raycast/api"
 import { usePromise } from "@raycast/utils"
 import { useState } from "react"
 import { bangumi, EpisodeCollectionType, EpisodeType } from "@/bangumi"
@@ -12,11 +12,11 @@ interface ViewProgressProps {
   totalEps: number
 }
 
-const EPISODE_COLLECTION_COLOR: Record<EpisodeCollectionType, string> = {
-  [EpisodeCollectionType.NotCollected]: "#8E8E93",
-  [EpisodeCollectionType.Watched]: "#34C759",
-  [EpisodeCollectionType.Wish]: "#007AFF",
-  [EpisodeCollectionType.Dropped]: "#FF3B30",
+const EPISODE_COLLECTION_NAME: Record<EpisodeCollectionType, string> = {
+  [EpisodeCollectionType.NotCollected]: "未看",
+  [EpisodeCollectionType.Watched]: "已看",
+  [EpisodeCollectionType.Wish]: "想看",
+  [EpisodeCollectionType.Dropped]: "抛弃",
 }
 
 const EP_TYPE_PREFIX: Record<number, string> = {
@@ -33,15 +33,52 @@ type Episode = components["schemas"]["Episode"]
 
 const getEpisodeLabel = (ep: Episode) => `${EP_TYPE_PREFIX[ep.type] ?? "EP"}.${ep.sort}`
 
-const buildEpisodeIcon = (text: string, type: EpisodeCollectionType): string => {
-  const colorHex = EPISODE_COLLECTION_COLOR[type]
+interface EpAppearance {
+  bg: string
+  color: string
+  textDeco: string
+}
+
+const getEpisodeAppearance = (ep: Episode, collectionType: EpisodeCollectionType): EpAppearance => {
+  if (collectionType === EpisodeCollectionType.Dropped) {
+    return { bg: "#555555", color: "#FFFFFF", textDeco: "line-through" }
+  }
+  if (collectionType === EpisodeCollectionType.Watched) {
+    return { bg: "#4997FF", color: "#FFFFFF", textDeco: "none" }
+  }
+  if (collectionType === EpisodeCollectionType.Wish) {
+    return { bg: "#C7E2BD", color: "#3A7D22", textDeco: "none" }
+  }
+
+  const today = new Date()
+  const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`
+  const isToday = ep.airdate === todayStr
+
+  if (isToday) {
+    return { bg: "#C7E2BD", color: "#3A7D22", textDeco: "none" }
+  }
+
+  const isAired = ep.airdate ? ep.airdate <= todayStr : false
+
+  if (isAired) {
+    return { bg: "#DAEBFF", color: "#4997FF", textDeco: "none" }
+  } else {
+    return { bg: "#E0E0E0", color: "#666666", textDeco: "none" }
+  }
+}
+
+const buildEpisodeIcon = (text: string, appearance: EpAppearance): string => {
+  const { bg, color, textDeco } = appearance
+  const lineStr =
+    textDeco === "line-through" ? `<line x1="12" y1="32" x2="52" y2="32" stroke="${color}" stroke-width="2" />` : ""
   const svg = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">`,
-    `<rect x="0" y="0" width="64" height="64" rx="10" fill="${colorHex}"/>`,
-    `<text x="32" y="32" text-anchor="middle" dominant-baseline="central"`,
-    `  font-family="system-ui,-apple-system,sans-serif" font-size="${text.length > 3 ? "13" : "22"}" font-weight="700" fill="white">`,
+    `<rect x="0" y="0" width="64" height="64" rx="10" fill="${bg}"/>`,
+    `<text x="32" y="32" text-anchor="middle" dominant-baseline="central" text-decoration="${textDeco}"`,
+    `  font-family="system-ui,-apple-system,sans-serif" font-size="${text.length > 3 ? "13" : "22"}" font-weight="700" fill="${color}">`,
     `  ${text}`,
     `</text>`,
+    lineStr,
     `</svg>`,
   ].join("")
 
@@ -49,12 +86,37 @@ const buildEpisodeIcon = (text: string, type: EpisodeCollectionType): string => 
 }
 
 export default function ViewProgress({ subjectId, subjectName, subjectNameCn, epStatus, totalEps }: ViewProgressProps) {
-  const { data, isLoading } = usePromise(() => bangumi.getUserSubjectEpisodeCollection(subjectId, {}), [])
+  const { data, isLoading, mutate } = usePromise(() => bangumi.getUserSubjectEpisodeCollection(subjectId, {}), [])
+
+  const handleUpdateStatus = async (episodeId: number, status: EpisodeCollectionType) => {
+    const toast = await showToast({ style: Toast.Style.Animated, title: "Updating status..." })
+    try {
+      await mutate(bangumi.updateEpisodeCollection(episodeId, status), {
+        optimisticUpdate: (currentData) => {
+          if (!currentData) return currentData!
+          return {
+            ...currentData,
+            data: currentData.data?.map((item) => (item.episode.id === episodeId ? { ...item, type: status } : item)),
+          }
+        },
+      })
+      toast.style = Toast.Style.Success
+      toast.title = "Updated successfully"
+    } catch (e) {
+      toast.style = Toast.Style.Failure
+      toast.title = "Failed to update"
+      toast.message = String(e)
+    }
+  }
 
   const episodes = data?.data ?? []
 
   const title = subjectNameCn || subjectName
-  const percent = totalEps > 0 ? Math.round((epStatus / totalEps) * 100) : 0
+  const displayEpStatus = data
+    ? episodes.filter((ep) => ep.episode.type === EpisodeType.Main && ep.type === EpisodeCollectionType.Watched).length
+    : epStatus
+
+  const percent = totalEps > 0 ? Math.round((displayEpStatus / totalEps) * 100) : 0
 
   const sortedEps = [...episodes].sort((a, b) => {
     if (a.episode.type !== b.episode.type) {
@@ -75,7 +137,7 @@ export default function ViewProgress({ subjectId, subjectName, subjectNameCn, ep
   return (
     <Grid
       isLoading={isLoading}
-      navigationTitle={`${title} · ${epStatus}/${totalEps} (${percent}%)`}
+      navigationTitle={`${title} · ${displayEpStatus}/${totalEps} (${percent}%)`}
       columns={8}
       onSelectionChange={(id) => setSelectedId(id ?? undefined)}
       searchBarPlaceholder={searchPlaceholder}
@@ -89,12 +151,47 @@ export default function ViewProgress({ subjectId, subjectName, subjectNameCn, ep
           <Grid.Item
             id={String(ep.episode.id)}
             key={ep.episode.id}
-            content={{ source: buildEpisodeIcon(epNum, statusType) }}
+            content={{
+              source: buildEpisodeIcon(epNum, getEpisodeAppearance(ep.episode, statusType)),
+              tooltip: EPISODE_COLLECTION_NAME[statusType],
+            }}
             title={epLabel}
             keywords={[epLabel, epTitle]}
             actions={
               <ActionPanel>
-                <Action.OpenInBrowser title="Open Episode" url={`https://bgm.tv/ep/${ep.episode.id}`} />
+                <ActionPanel.Section>
+                  {statusType !== EpisodeCollectionType.Watched && (
+                    <Action
+                      title="Mark as 看过"
+                      icon={Icon.Checkmark}
+                      onAction={() => handleUpdateStatus(ep.episode.id, EpisodeCollectionType.Watched)}
+                    />
+                  )}
+                  {statusType !== EpisodeCollectionType.Wish && (
+                    <Action
+                      title="Mark as 想看"
+                      icon={Icon.Star}
+                      onAction={() => handleUpdateStatus(ep.episode.id, EpisodeCollectionType.Wish)}
+                    />
+                  )}
+                  {statusType !== EpisodeCollectionType.Dropped && (
+                    <Action
+                      title="Mark as 抛弃"
+                      icon={Icon.Trash}
+                      onAction={() => handleUpdateStatus(ep.episode.id, EpisodeCollectionType.Dropped)}
+                    />
+                  )}
+                  {statusType !== EpisodeCollectionType.NotCollected && (
+                    <Action
+                      title="Reset to 未看"
+                      icon={Icon.XMarkCircle}
+                      onAction={() => handleUpdateStatus(ep.episode.id, EpisodeCollectionType.NotCollected)}
+                    />
+                  )}
+                </ActionPanel.Section>
+                <ActionPanel.Section>
+                  <Action.OpenInBrowser title="Open Episode in Browser" url={`https://bgm.tv/ep/${ep.episode.id}`} />
+                </ActionPanel.Section>
               </ActionPanel>
             }
           />
