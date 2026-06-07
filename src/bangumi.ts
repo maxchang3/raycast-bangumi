@@ -156,6 +156,12 @@ class Bangumi {
     })
     if (error) throw new BangumiApiError(error)
   }
+
+  async getCalendar(signal?: AbortSignal) {
+    const { data, error } = await this.client.GET("/calendar", { signal })
+    if (error) throw new BangumiApiError(error)
+    return data
+  }
 }
 
 export const bangumi = new Bangumi()

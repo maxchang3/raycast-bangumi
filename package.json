@@ -51,6 +51,12 @@
       "name": "list-current-collections",
       "title": "List Current Collections",
       "description": "View your current watching, playing, or reading items."
+    },
+    {
+      "mode": "view",
+      "name": "calendar",
+      "title": "Daily Calendar",
+      "description": "View the daily airing schedule of anime."
     }
   ],
   "platforms": [
