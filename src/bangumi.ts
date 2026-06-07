@@ -139,6 +139,17 @@ class Bangumi {
     return data
   }
 
+  async getSubjectById(subjectId: number, signal?: AbortSignal) {
+    const { data, error } = await this.client.GET("/v0/subjects/{subject_id}", {
+      params: {
+        path: { subject_id: subjectId },
+      },
+      signal,
+    })
+    if (error) throw new BangumiApiError(error)
+    return data
+  }
+
   async updateEpisodeCollection(episodeId: number, type: EpisodeCollectionType, signal?: AbortSignal) {
     const { error } = await this.client.PUT("/v0/users/-/collections/-/episodes/{episode_id}", {
       params: { path: { episode_id: episodeId } },

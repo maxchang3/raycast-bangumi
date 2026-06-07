@@ -2,6 +2,7 @@ import { Grid, Icon, ActionPanel, Action } from "@raycast/api"
 import { usePromise, withAccessToken } from "@raycast/utils"
 import { bangumi } from "./bangumi"
 import { bangumiAuth } from "./oauth"
+import SubjectDetail from "./components/SubjectDetail"
 
 import { useRef } from "react"
 
@@ -38,6 +39,11 @@ const Calendar = () => {
                   subtitle={item.name}
                   actions={
                     <ActionPanel>
+                      <Action.Push
+                        title="Show Details"
+                        target={<SubjectDetail subjectId={item.id} />}
+                        icon={Icon.Sidebar}
+                      />
                       <Action.OpenInBrowser url={item.url || `https://bgm.tv/subject/${item.id}`} />
                     </ActionPanel>
                   }

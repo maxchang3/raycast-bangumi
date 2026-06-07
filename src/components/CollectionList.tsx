@@ -3,6 +3,7 @@ import { usePromise } from "@raycast/utils"
 import { useRef } from "react"
 import { bangumi, SubjectCollectionType, SubjectType, SubjectVerb } from "@/bangumi"
 import ViewProgress from "./ViewProgress"
+import SubjectDetail from "./SubjectDetail"
 
 const preferences = getPreferenceValues<Preferences>()
 
@@ -131,6 +132,11 @@ export default function CollectionList({ filterType }: CollectionListProps) {
                       }
                     />
                   )}
+                  <Action.Push
+                    title="Show Details"
+                    icon={Icon.Sidebar}
+                    target={<SubjectDetail subjectId={item.subject_id} />}
+                  />
                   <Action.OpenInBrowser url={`https://bgm.tv/subject/${item.subject_id}`} />
                 </ActionPanel.Section>
                 <ActionPanel.Section title="Change Status">
