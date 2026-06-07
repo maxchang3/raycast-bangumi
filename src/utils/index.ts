@@ -1,5 +1,5 @@
 import { Color, Icon } from "@raycast/api"
-import { SubjectCollectionType, SubjectType, SubjectVerb } from "./bangumi"
+import { SubjectCollectionType, SubjectType, SubjectVerb } from "@/api/bangumi"
 
 export interface CollectionTag {
   value: string

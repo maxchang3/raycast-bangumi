@@ -1,11 +1,11 @@
 import { ActionPanel, List, Action, Icon, getPreferenceValues } from "@raycast/api"
 import { usePromise } from "@raycast/utils"
 import { useRef } from "react"
-import { bangumi, SubjectCollectionType, SubjectType } from "@/bangumi"
+import { bangumi, SubjectCollectionType, SubjectType } from "@/api/bangumi"
 import { getCollectionTag } from "@/utils"
 import ViewProgress from "./ViewProgress"
 import SubjectDetail from "./SubjectDetail"
-import { ChangeCollectionStatusActionSection } from "./ChangeCollectionStatusActionSection"
+import { CollectionStatusActions } from "./CollectionStatusActions"
 
 const preferences = getPreferenceValues<Preferences>()
 
@@ -93,7 +93,7 @@ export default function CollectionList({ filterType }: CollectionListProps) {
                     shortcut={{ modifiers: ["cmd"], key: "o" }}
                   />
                 </ActionPanel.Section>
-                <ChangeCollectionStatusActionSection
+                <CollectionStatusActions
                   subjectId={item.subject_id}
                   currentStatus={item.type as SubjectCollectionType}
                   onStatusChange={mutate}

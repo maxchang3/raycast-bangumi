@@ -1,7 +1,7 @@
 import { ActionPanel, Action, Grid, showToast, Toast, Icon } from "@raycast/api"
 import { usePromise } from "@raycast/utils"
 import { useState } from "react"
-import { bangumi, EpisodeCollectionType, EpisodeType } from "@/bangumi"
+import { bangumi, EpisodeCollectionType, EpisodeType } from "@/api/bangumi"
 import type { components } from "@/types/generated"
 
 interface ViewProgressProps {

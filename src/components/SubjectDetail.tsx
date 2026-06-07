@@ -1,9 +1,9 @@
 import { Action, ActionPanel, Detail, Icon } from "@raycast/api"
 import { usePromise, withAccessToken } from "@raycast/utils"
 import { useRef } from "react"
-import { bangumi, SubjectCollectionType } from "@/bangumi"
-import { bangumiAuth } from "@/oauth"
-import { ChangeCollectionStatusActionSection } from "./ChangeCollectionStatusActionSection"
+import { bangumi, SubjectCollectionType } from "@/api/bangumi"
+import { bangumiAuth } from "@/api/oauth"
+import { CollectionStatusActions } from "./CollectionStatusActions"
 import { getCollectionTag, SubjectCollectionIcon } from "@/utils"
 
 interface SubjectDetailProps {
@@ -137,7 +137,7 @@ ${
               shortcut={{ modifiers: ["cmd"], key: "o" }}
             />
           </ActionPanel.Section>
-          <ChangeCollectionStatusActionSection
+          <CollectionStatusActions
             subjectId={subjectId}
             subjectType={data?.type}
             currentStatus={collection?.type as SubjectCollectionType}

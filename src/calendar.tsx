@@ -1,7 +1,7 @@
 import { Grid, Icon, ActionPanel, Action } from "@raycast/api"
 import { usePromise, withAccessToken } from "@raycast/utils"
-import { bangumi } from "./bangumi"
-import { bangumiAuth } from "./oauth"
+import { bangumi } from "@/api/bangumi"
+import { bangumiAuth } from "@/api/oauth"
 import SubjectDetail from "./components/SubjectDetail"
 
 import { useRef } from "react"

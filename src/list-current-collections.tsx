@@ -1,7 +1,7 @@
 import { withAccessToken } from "@raycast/utils"
-import { bangumiAuth } from "@/oauth"
+import { bangumiAuth } from "@/api/oauth"
 import CollectionList from "@/components/CollectionList"
-import { SubjectCollectionType } from "@/bangumi"
+import { SubjectCollectionType } from "@/api/bangumi"
 
 const Command = () => <CollectionList filterType={SubjectCollectionType.Doing} />
 

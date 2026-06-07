@@ -1,8 +1,8 @@
 import { Action, ActionPanel, Icon, List, LaunchProps } from "@raycast/api"
 import { usePromise, withAccessToken } from "@raycast/utils"
 import { useRef, useState } from "react"
-import { bangumi, SubjectType } from "./bangumi"
-import { bangumiAuth } from "./oauth"
+import { bangumi, SubjectType } from "@/api/bangumi"
+import { bangumiAuth } from "@/api/oauth"
 import SubjectDetail from "./components/SubjectDetail"
 
 const PAGE_SIZE = 30

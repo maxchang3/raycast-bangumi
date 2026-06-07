@@ -1,5 +1,5 @@
 import { Action, ActionPanel, showToast, Toast } from "@raycast/api"
-import { bangumi, SubjectCollectionType, SubjectType } from "@/bangumi"
+import { bangumi, SubjectCollectionType, SubjectType } from "@/api/bangumi"
 import { getCollectionTag, SubjectCollectionIcon } from "@/utils"
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   onStatusChange?: () => void
 }
 
-export const ChangeCollectionStatusActionSection = ({
+export const CollectionStatusActions = ({
   subjectId,
   subjectType = SubjectType.Anime,
   currentStatus,
