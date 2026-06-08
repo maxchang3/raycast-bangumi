@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.1](https://github.com/maxchang3/raycast-bangumi/compare/v1.0.0...v1.0.1) (2026-06-08)
+
+
+### 🐞 Fixes
+
+* **MyCollection:** prevent infinite-load loop when subject types are filtered ([72c7162](https://github.com/maxchang3/raycast-bangumi/commit/72c7162f9a9881147f7c385955004178a32e4b45))
+* **update-collection:** pass subjectType to getCollectionTag for correct verb ([e32a212](https://github.com/maxchang3/raycast-bangumi/commit/e32a2125f77c582300b5093075f3bca76ba4e1a0))
+
+
+### 💎 Improvements
+
+* keep use English ([4595cd6](https://github.com/maxchang3/raycast-bangumi/commit/4595cd64c2d9dd59cad8ce2cfecd86abc7f065a5))
+
 ## 1.0.0 - 2026-06-08
 
 
