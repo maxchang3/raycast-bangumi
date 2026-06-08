@@ -16,16 +16,16 @@ A Raycast extension for Bangumi. Browse and manage your [bangumi.tv](https://ban
 
 | Current Collections | Progress Management |
 | - | - |
-| <img src="https://github.com/user-attachments/assets/105fd4de-4662-4f00-adbf-acae1cea7ad1" /> | <img src="https://github.com/user-attachments/assets/690ba032-2de6-4315-be00-0ec21b914584" /> |
+| <img src="https://github.com/user-attachments/assets/e7049ec1-936a-45ab-ad35-f1e66f9b4681" /> | <img src="https://github.com/user-attachments/assets/d2ea7cdc-3a20-46a3-afed-01e60d1eefa7" /> |
 
 | Subject Details | Daily Calendar |
 | - | - |
-| <img src="https://github.com/user-attachments/assets/608cffb8-c620-4a27-a4af-56655de220a8" /> | <img src="https://github.com/user-attachments/assets/1dcfdfa1-b30b-434c-a71e-11f99bcd7f25" /> |
+| <img src="https://github.com/user-attachments/assets/e5f5c33e-8f0d-4657-8c42-a01be8e67c78" /> | <img src="https://github.com/user-attachments/assets/641beeb6-6f2b-4215-832c-675528e2d078" /> |
 
 
 | View Progress | Daily Airing | Search | Update Status |
 | - | - | - | - |
-| ![](https://github.com/user-attachments/assets/b32423d6-b5ae-4b96-b512-727d8a8f8f43) | ![](https://github.com/user-attachments/assets/8b634fe7-f343-4e63-81c3-f24ddb5cd3bf) | ![](https://github.com/user-attachments/assets/805eadd0-8242-4f26-8864-4576363b42c3) | ![](https://github.com/user-attachments/assets/b365c2ce-6494-4765-9236-f81c60eb5cd2) |
+| ![](https://github.com/user-attachments/assets/ebfba7e3-7b0f-4324-92e1-f37637cf2755) | ![](https://github.com/user-attachments/assets/b2d4e85c-0224-411c-bc8f-1ed6b3acd14c) | ![](https://github.com/user-attachments/assets/1665953f-ca15-460e-bb30-45b32a968101) | ![](https://github.com/user-attachments/assets/46f8d7e6-f35b-43f7-9025-3f2d19dd9284) |
 
 
 ## Installation Guide
@@ -33,7 +33,7 @@ A Raycast extension for Bangumi. Browse and manage your [bangumi.tv](https://ban
 1. Search for `bangumi` in the Raycast Store and select install.
 2. Upon first use, you will need to log in to your Bangumi account. Please follow the prompts to complete the login process.
 
-   <img width="50%" src="https://github.com/user-attachments/assets/411931c4-5473-4a4d-8958-cabc74333103" />
+   <img width="50%" src="https://github.com/user-attachments/assets/b86f7722-0be2-433e-9f5b-2698ddd42ce8" />
 
 ## Preferences
 
@@ -42,7 +42,7 @@ You can customize which categories to display in your **Collections** list via t
 <table>
   <tr>
     <td width="50%">
-      <img src="https://github.com/user-attachments/assets/2fea6987-adcd-4db5-ad1c-ff1483e3c86f" />
+      <img src="https://github.com/user-attachments/assets/84ca0109-d773-44be-92b6-61daa01122d6" />
     </td>
     <td>
 
