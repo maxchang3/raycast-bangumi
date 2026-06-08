@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.0](https://github.com/maxchang3/raycast-bangumi/compare/v1.0.0...v1.1.0) (2026-06-08)
+
+
+### ✨ New
+
+* **MyCollection:** add subject type filtering ([8c8d40f](https://github.com/maxchang3/raycast-bangumi/commit/8c8d40f7a2da1dd01f39e51ae9147bfeab8fc482))
+
+
+### 💎 Improvements
+
+* internationalize UI strings and preferences to English ([ddf590a](https://github.com/maxchang3/raycast-bangumi/commit/ddf590a5c396cf7e06dbb597dad97282e7aa157e))
+* rename CollectionList component to MyCollection ([e178d1b](https://github.com/maxchang3/raycast-bangumi/commit/e178d1be513f2acab7bad90c5fcdd8bd928d5d50))
+* rename command identifiers ([447adf0](https://github.com/maxchang3/raycast-bangumi/commit/447adf054bbe5ed078a922bb8bacfa80333a4c8d))
+
 ## 1.0.0 - 2026-06-08
 
 
