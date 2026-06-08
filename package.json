@@ -30,14 +30,13 @@
     "@types/node": "22.19.17",
     "@types/react": "19.0.10",
     "eslint": "^9.39.2",
-    "nano-staged": "^1.0.2",
     "openapi-typescript": "^7.13.0",
     "prettier": "^3.5.3",
     "simple-git-hooks": "^2.13.1",
     "typescript": "^5.9.3"
   },
   "simple-git-hooks": {
-    "pre-commit": "./node_modules/.bin/nano-staged"
+    "pre-commit": "npm run fix-lint"
   },
   "icon": "extension-icon.png",
   "commands": [
