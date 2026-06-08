@@ -1,7 +1,7 @@
 import { withAccessToken } from "@raycast/utils"
 import { bangumiAuth } from "@/api/oauth"
-import CollectionList from "@/components/CollectionList"
+import MyCollection from "@/components/MyCollection"
 
-const Command = () => <CollectionList />
+const Command = () => <MyCollection />
 
 export default withAccessToken(bangumiAuth)(Command)

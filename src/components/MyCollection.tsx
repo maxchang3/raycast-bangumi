@@ -21,11 +21,11 @@ const enabledTypes = new Set<SubjectType>(
 
 const PAGE_SIZE = 20
 
-interface CollectionListProps {
+interface MyCollectionProps {
   filterType?: SubjectCollectionType
 }
 
-export default function CollectionList({ filterType }: CollectionListProps) {
+export default function MyCollection({ filterType }: MyCollectionProps) {
   const abortControllerRef = useRef<AbortController>(null)
 
   const { data, isLoading, pagination, mutate } = usePromise(
