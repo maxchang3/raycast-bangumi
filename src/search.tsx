@@ -47,11 +47,11 @@ const SearchSubjects = (props: LaunchProps<{ arguments: SearchArguments }>) => {
           value={subjectType.toString()}
           onChange={(newValue) => setSubjectType(parseInt(newValue) as SubjectType)}
         >
-          <List.Dropdown.Item title="Anime (动画)" value={SubjectType.Anime.toString()} />
-          <List.Dropdown.Item title="Book (书籍)" value={SubjectType.Book.toString()} />
-          <List.Dropdown.Item title="Music (音乐)" value={SubjectType.Music.toString()} />
-          <List.Dropdown.Item title="Game (游戏)" value={SubjectType.Game.toString()} />
-          <List.Dropdown.Item title="Real (三次元)" value={SubjectType.Real.toString()} />
+          <List.Dropdown.Item title="Anime" value={SubjectType.Anime.toString()} />
+          <List.Dropdown.Item title="Book" value={SubjectType.Book.toString()} />
+          <List.Dropdown.Item title="Music" value={SubjectType.Music.toString()} />
+          <List.Dropdown.Item title="Game" value={SubjectType.Game.toString()} />
+          <List.Dropdown.Item title="Real" value={SubjectType.Real.toString()} />
         </List.Dropdown>
       }
     >

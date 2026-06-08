@@ -68,12 +68,12 @@ export enum EpisodeType {
   Other = 6,
 }
 
-export const SubjectVerb: Record<SubjectType, string> = {
-  [SubjectType.Anime]: "看",
-  [SubjectType.Book]: "读",
-  [SubjectType.Music]: "听",
-  [SubjectType.Game]: "玩",
-  [SubjectType.Real]: "看",
+export const SubjectVerb: Record<SubjectType, { wish: string; collect: string; doing: string }> = {
+  [SubjectType.Anime]: { wish: "Wishlist", collect: "Watched", doing: "Watching" },
+  [SubjectType.Book]: { wish: "Wishlist", collect: "Read", doing: "Reading" },
+  [SubjectType.Music]: { wish: "Wishlist", collect: "Listened", doing: "Listening" },
+  [SubjectType.Game]: { wish: "Wishlist", collect: "Played", doing: "Playing" },
+  [SubjectType.Real]: { wish: "Wishlist", collect: "Watched", doing: "Watching" },
 }
 
 class Bangumi {
