@@ -43,7 +43,7 @@ export default function MyCollection({ filterType }: MyCollectionProps) {
       )
       return {
         data,
-        hasMore: offset + PAGE_SIZE < total,
+        hasMore: offset + PAGE_SIZE < total && data.some((item) => enabledTypes.has(item.subject_type)),
       }
     },
     [subjectType],
