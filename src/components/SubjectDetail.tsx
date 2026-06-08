@@ -60,7 +60,7 @@ ${data.summary || "No summary available."}
 
 ${
   characters && characters.length > 0
-    ? `## 声优\n\n${characters
+    ? `## Voice Actors\n\n${characters
         .slice(0, 10)
         .map((char) => {
           const cvs = char.actors && char.actors.length > 0 ? char.actors.map((a) => a.name).join(", ") : "N/A"
