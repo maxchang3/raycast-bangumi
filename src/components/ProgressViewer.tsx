@@ -52,6 +52,7 @@ const getEpisodeAppearance = (ep: Episode, collectionType: EpisodeCollectionType
     return { bg: "#C7E2BD", color: "#3A7D22", textDeco: "none" }
   }
 
+  // sv-SE locale formats as YYYY-MM-DD in local time, matching the airdate format
   const todayStr = new Date().toLocaleDateString("sv-SE")
   const isToday = ep.airdate === todayStr
 
