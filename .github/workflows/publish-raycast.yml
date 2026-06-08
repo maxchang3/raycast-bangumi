@@ -12,7 +12,7 @@ jobs:
       - name: Publish Extension to Raycast
         uses: maxchang3/publish-raycast-extension@2
         with:
-          raycast_extensions_fork_full_name: maxchang3/extensions
+          raycast_extensions_fork_full_name: maxchang3/raycast-extensions
           github_username: maxchang3
           extension_name: bangumi
           ignore_paths: |
