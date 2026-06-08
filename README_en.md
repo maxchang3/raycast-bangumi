@@ -14,13 +14,15 @@ A Raycast extension for Bangumi. Browse and manage your [bangumi.tv](https://ban
 - **Search Subjects:** Search for subjects on Bangumi.
 - **AI Tools:** Fully integrated with Raycast AI. You can manage your progress and search for anime directly in AI chat.
 
-| Current Collections | Progress Management |
-| - | - |
-| <img src="https://github.com/user-attachments/assets/e7049ec1-936a-45ab-ad35-f1e66f9b4681" /> | <img src="https://github.com/user-attachments/assets/d2ea7cdc-3a20-46a3-afed-01e60d1eefa7" /> |
 
 | Subject Details | Daily Calendar |
 | - | - |
 | <img src="https://github.com/user-attachments/assets/e5f5c33e-8f0d-4657-8c42-a01be8e67c78" /> | <img src="https://github.com/user-attachments/assets/641beeb6-6f2b-4215-832c-675528e2d078" /> |
+
+
+| Current Collections | Progress Management |
+| - | - |
+| <img src="https://github.com/user-attachments/assets/e7049ec1-936a-45ab-ad35-f1e66f9b4681" /> | <img src="https://github.com/user-attachments/assets/d2ea7cdc-3a20-46a3-afed-01e60d1eefa7" /> |
 
 
 | View Progress | Daily Airing | Search | Update Status |
@@ -33,7 +35,7 @@ A Raycast extension for Bangumi. Browse and manage your [bangumi.tv](https://ban
 1. Search for `bangumi` in the Raycast Store and select install.
 2. Upon first use, you will need to log in to your Bangumi account. Please follow the prompts to complete the login process.
 
-   <img width="50%" src="https://github.com/user-attachments/assets/b86f7722-0be2-433e-9f5b-2698ddd42ce8" />
+   <img width="50%" src="https://github.com/user-attachments/assets/9631328a-9b22-4f98-b2b9-68a36e661065" />
 
 ## Preferences
 
