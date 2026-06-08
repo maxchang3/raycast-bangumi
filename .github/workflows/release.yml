@@ -1,0 +1,73 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+      prs_created: ${{ steps.release.outputs.prs_created }}
+      pr: ${{ steps.release.outputs.pr }}
+      pr_branch: ${{ fromJSON(steps.release.outputs.pr || '{}').headBranchName }}
+    steps:
+      - name: Run release-please
+        id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          config-file: release-please-config.json
+
+  format-changelog:
+    runs-on: ubuntu-latest
+    needs: release-please
+    if: ${{ needs.release-please.outputs.pr }}
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.release-please.outputs.pr_branch }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Modify Changelog & Fix Lint
+        run: |
+          node -e "
+            const fs = require('fs');
+            const file = 'CHANGELOG.md';
+            if (fs.existsSync(file)) {
+              let content = fs.readFileSync(file, 'utf8');
+              content = content.replace(/(##\s+\S+.*?)\s+\((\d{4}-\d{2}-\d{2})\)/g, '\$1 - \$2');
+              fs.writeFileSync(file, content);
+            }
+          "
+
+          npm run fix-lint
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+
+          if ! git diff --staged --quiet; then
+            git commit --no-verify -m "chore: lint auto fix"
+            git push origin HEAD:${{ needs.release-please.outputs.pr_branch }}
+            echo "✅ Fixes committed and pushed to PR."
+          else
+            echo "✨ No fixes needed, tree is clean."
+          fi
