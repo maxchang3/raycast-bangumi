@@ -21,7 +21,7 @@
 
 | 当前收藏 | 进度管理 |
 | - | - |
-| <img src="https://github.com/user-attachments/assets/e7049ec1-936a-45ab-ad35-f1e66f9b4681" /> | <img src="https://github.com/user-attachments/assets/d2ea7cdc-3a20-46a3-afed-01e60d1eefa7" /> |
+| <img src="https://github.com/user-attachments/assets/e7049ec1-936a-45ab-ad35-f1e66f9b4681" /> | <img src="https://github.com/user-attachments/assets/e4765cec-71ea-4531-b413-ae1ef3148e3b" /> |
 
 
 | 查看进度 | 每日放送 | 搜索 | 状态更新 |
@@ -33,7 +33,7 @@
 
 1. 在 Raycast Store 中搜索 `bangumi`，并选择安装。
 2. 首次使用时，需要登录你的 Bangumi 账号。请按照提示完成登录流程。
-   <img width="50%" src="https://github.com/user-attachments/assets/b86f7722-0be2-433e-9f5b-2698ddd42ce8" />
+   <img width="50%" src="https://github.com/user-attachments/assets/9631328a-9b22-4f98-b2b9-68a36e661065" />
 
 ## 设置
 
