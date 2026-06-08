@@ -43,13 +43,13 @@
       "mode": "view",
       "name": "list-collections",
       "title": "List Collections",
-      "description": "View and update your watching, playing, or reading items."
+      "description": "View and update your watching, playing, or reading subjects."
     },
     {
       "mode": "view",
       "name": "list-current-collections",
       "title": "List Current Collections",
-      "description": "View your current watching, playing, or reading items."
+      "description": "View your current watching, playing, or reading subjects."
     },
     {
       "mode": "view",
@@ -118,40 +118,40 @@
       "name": "showBook",
       "type": "checkbox",
       "required": false,
-      "description": "在收藏列表中显示书籍类条目",
-      "label": "显示书籍",
+      "description": "Show book subjects in the collection list",
+      "label": "Show Books",
       "default": true
     },
     {
       "name": "showAnime",
       "type": "checkbox",
       "required": false,
-      "description": "在收藏列表中显示动画类条目",
-      "label": "显示动画",
+      "description": "Show anime subjects in the collection list",
+      "label": "Show Anime",
       "default": true
     },
     {
       "name": "showMusic",
       "type": "checkbox",
       "required": false,
-      "description": "在收藏列表中显示音乐类条目",
-      "label": "显示音乐",
+      "description": "Show music subjects in the collection list",
+      "label": "Show Music",
       "default": false
     },
     {
       "name": "showGame",
       "type": "checkbox",
       "required": false,
-      "description": "在收藏列表中显示游戏类条目",
-      "label": "显示游戏",
+      "description": "Show game subjects in the collection list",
+      "label": "Show Games",
       "default": false
     },
     {
       "name": "showReal",
       "type": "checkbox",
       "required": false,
-      "description": "在收藏列表中显示三次元类条目",
-      "label": "显示三次元",
+      "description": "Show real-life subjects in the collection list",
+      "label": "Show Real Life",
       "default": true
     }
   ],

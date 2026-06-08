@@ -26,21 +26,21 @@ export const getCollectionTag = (
   collectionType: SubjectCollectionType,
   subjectType: SubjectType = SubjectType.Anime
 ): CollectionTag => {
-  const verb = SubjectVerb[subjectType]
+  const verbs = SubjectVerb[subjectType]
   const color = SubjectCollectionColor[collectionType]
 
   switch (collectionType) {
     case SubjectCollectionType.Wish:
-      return { value: `想${verb}`, color }
+      return { value: verbs.wish, color }
     case SubjectCollectionType.Collect:
-      return { value: `${verb}过`, color }
+      return { value: verbs.collect, color }
     case SubjectCollectionType.Doing:
-      return { value: `在${verb}`, color }
+      return { value: verbs.doing, color }
     case SubjectCollectionType.OnHold:
-      return { value: "搁置", color }
+      return { value: "On Hold", color }
     case SubjectCollectionType.Dropped:
-      return { value: "抛弃", color }
+      return { value: "Dropped", color }
     default:
-      return { value: "未知", color }
+      return { value: "Unknown", color }
   }
 }

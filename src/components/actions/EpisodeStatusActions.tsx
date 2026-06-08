@@ -23,14 +23,14 @@ export const EpisodeStatusActions = ({
     <ActionPanel.Section title="Change Status">
       {statusType !== EpisodeCollectionType.Watched && (
         <Action
-          title="Mark as 看过"
+          title="Mark as Watched"
           icon={Icon.Checkmark}
           onAction={() => onUpdateStatus(episode.id, EpisodeCollectionType.Watched)}
         />
       )}
       {statusType !== EpisodeCollectionType.Watched && (
         <Action
-          title="Mark up to Here as 看过"
+          title="Mark up to Here as Watched"
           icon={Icon.CheckCircle}
           onAction={() => {
             const idsToUpdate = sortedEps
@@ -51,21 +51,21 @@ export const EpisodeStatusActions = ({
       )}
       {statusType !== EpisodeCollectionType.Wish && statusType !== EpisodeCollectionType.Watched && (
         <Action
-          title="Mark as 想看"
+          title="Mark as Wishlist"
           icon={Icon.Star}
           onAction={() => onUpdateStatus(episode.id, EpisodeCollectionType.Wish)}
         />
       )}
       {statusType !== EpisodeCollectionType.Dropped && statusType !== EpisodeCollectionType.Watched && (
         <Action
-          title="Mark as 抛弃"
+          title="Mark as Dropped"
           icon={Icon.Trash}
           onAction={() => onUpdateStatus(episode.id, EpisodeCollectionType.Dropped)}
         />
       )}
       {statusType !== EpisodeCollectionType.NotCollected && (
         <Action
-          title="Reset to 未看"
+          title="Reset to Unwatched"
           icon={Icon.XMarkCircle}
           onAction={() => onUpdateStatus(episode.id, EpisodeCollectionType.NotCollected)}
         />
