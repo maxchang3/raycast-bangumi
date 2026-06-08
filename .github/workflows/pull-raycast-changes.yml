@@ -1,0 +1,19 @@
+name: Pull upstream changes from the `raycast/extensions` repo
+
+on:
+  schedule:
+    - cron:  '0 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: maxchang3/pull-raycast-extension-changes@2
+        with:
+          extension_name: bangumi
+          ignore_paths: |
+            CHANGELOG.md
+            .github/
+          github_access_token: ${{ secrets.RAYCAST_EXTENSIONS_TOKEN }}
