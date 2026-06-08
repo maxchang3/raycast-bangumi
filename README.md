@@ -2,6 +2,8 @@
 
 # raycast-bangumi
 
+| 简体中文 | [English](./README_en.md) |
+
 一个基于 Raycast 的 Bangumi 客户端，直接在 Raycast 中浏览、管理你在 [bangumi.tv](https://bangumi.tv) 上的进度。
 
 ## 功能
