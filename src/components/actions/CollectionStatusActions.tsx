@@ -1,4 +1,5 @@
 import { Action, ActionPanel, showToast, Toast } from "@raycast/api"
+import { showFailureToast } from "@raycast/utils"
 import { bangumi, SubjectCollectionType, SubjectType } from "@/api/bangumi"
 import { getCollectionTag, SubjectCollectionIcon } from "@/utils"
 
@@ -23,8 +24,8 @@ export const CollectionStatusActions = ({
         onStatusChange()
       }
       await showToast({ title: "Updated collection successfully", style: Toast.Style.Success })
-    } catch {
-      await showToast({ title: "Failed to update collection", style: Toast.Style.Failure })
+    } catch (e) {
+      await showFailureToast(e, { title: "Failed to update collection" })
     }
   }
 

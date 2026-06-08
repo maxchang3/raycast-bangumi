@@ -1,5 +1,5 @@
 import { ActionPanel, Grid, showToast, Toast } from "@raycast/api"
-import { usePromise } from "@raycast/utils"
+import { usePromise, showFailureToast } from "@raycast/utils"
 import { useState } from "react"
 import { bangumi, EpisodeCollectionType, EpisodeType } from "@/api/bangumi"
 import type { components } from "@/types/generated"
@@ -114,9 +114,7 @@ export default function ProgressViewer({
       toast.style = Toast.Style.Success
       toast.title = "Updated successfully"
     } catch (e) {
-      toast.style = Toast.Style.Failure
-      toast.title = "Failed to update"
-      toast.message = String(e)
+      await showFailureToast(e, { title: "Failed to update" })
     }
   }
 
@@ -136,9 +134,7 @@ export default function ProgressViewer({
       toast.style = Toast.Style.Success
       toast.title = "Batch updated successfully"
     } catch (e) {
-      toast.style = Toast.Style.Failure
-      toast.title = "Failed to batch update"
-      toast.message = String(e)
+      await showFailureToast(e, { title: "Failed to batch update" })
     }
   }
 
