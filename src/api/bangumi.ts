@@ -25,7 +25,6 @@ class BangumiApiError extends Error {
   }
 }
 
-
 class Bangumi {
   client = createClient<paths>({
     baseUrl: "https://api.bgm.tv/",

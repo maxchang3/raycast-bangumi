@@ -53,13 +53,13 @@
     },
     {
       "mode": "view",
-      "name": "calendar",
+      "name": "daily-calendar",
       "title": "Daily Calendar",
       "description": "View the daily airing schedule of anime."
     },
     {
       "mode": "view",
-      "name": "search",
+      "name": "search-subjects",
       "title": "Search Subjects",
       "description": "Search for anime, games, books, etc. on Bangumi.",
       "arguments": [

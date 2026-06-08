@@ -33,11 +33,11 @@ export default function MyCollection({ filterType }: MyCollectionProps) {
     (subjectType: string) => async (options: { page: number }) => {
       const offset = options.page * PAGE_SIZE
       const { data, total } = await bangumi.getMyCollections(
-        { 
-          limit: PAGE_SIZE, 
-          offset, 
+        {
+          limit: PAGE_SIZE,
+          offset,
           type: filterType,
-          ...(subjectType !== "all" && { subject_type: parseInt(subjectType)})
+          ...(subjectType !== "all" && { subject_type: parseInt(subjectType) }),
         },
         abortControllerRef.current?.signal
       )
@@ -61,15 +61,11 @@ export default function MyCollection({ filterType }: MyCollectionProps) {
     : undefined
 
   return (
-    <List 
-      isLoading={isLoading} 
+    <List
+      isLoading={isLoading}
       pagination={safePagination}
       searchBarAccessory={
-        <List.Dropdown
-          tooltip="Select Category"
-          value={subjectType}
-          onChange={setSubjectType}
-        >
+        <List.Dropdown tooltip="Select Category" value={subjectType} onChange={setSubjectType}>
           <List.Dropdown.Item title="All" value="all" />
           {Array.from(enabledTypes).map((type) => (
             <List.Dropdown.Item key={type} title={SubjectTypeName[type]} value={type.toString()} />
@@ -86,9 +82,7 @@ export default function MyCollection({ filterType }: MyCollectionProps) {
             title={item.subject?.name_cn || item.subject?.name || `Subject ${item.subject_id}`}
             subtitle={item.subject?.name_cn ? item.subject?.name || "" : ""}
             accessories={[{ tag: getCollectionTag(item.type, item.subject_type) }]}
-            keywords={[
-              getCollectionTag(item.type, item.subject_type).value
-            ]}
+            keywords={[getCollectionTag(item.type, item.subject_type).value]}
             actions={
               <ActionPanel title={`${item.subject?.name_cn || item.subject?.name}`}>
                 <ActionPanel.Section>
