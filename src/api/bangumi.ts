@@ -1,5 +1,5 @@
 import createClient from "openapi-fetch"
-import type { paths } from "../types/generated"
+import type { paths } from "@/types/generated"
 import { getAccessToken } from "@raycast/utils"
 
 interface BangumiErrorResponse {
