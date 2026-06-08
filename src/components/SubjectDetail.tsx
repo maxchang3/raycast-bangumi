@@ -1,9 +1,9 @@
-import { Action, ActionPanel, Detail, Icon } from "@raycast/api"
+import { ActionPanel, Detail, Icon } from "@raycast/api"
 import { usePromise, withAccessToken } from "@raycast/utils"
 import { useRef } from "react"
 import { bangumi } from "@/api/bangumi"
 import { bangumiAuth } from "@/api/oauth"
-import { CollectionStatusActions } from "./CollectionStatusActions"
+import { CollectionStatusActions, OpenInBgmBrowser } from "./actions"
 import { getCollectionTag, SubjectCollectionIcon } from "@/utils"
 
 interface SubjectDetailProps {
@@ -128,10 +128,7 @@ ${
       actions={
         <ActionPanel>
           <ActionPanel.Section>
-            <Action.OpenInBrowser
-              url={`https://bgm.tv/subject/${subjectId}`}
-              shortcut={{ modifiers: ["cmd"], key: "o" }}
-            />
+            <OpenInBgmBrowser path={`subject/${subjectId}`} />
           </ActionPanel.Section>
           <CollectionStatusActions
             subjectId={subjectId}

@@ -1,11 +1,11 @@
-import { ActionPanel, Action, Grid, showToast, Toast } from "@raycast/api"
+import { ActionPanel, Grid, showToast, Toast } from "@raycast/api"
 import { usePromise } from "@raycast/utils"
 import { useState } from "react"
 import { bangumi, EpisodeCollectionType, EpisodeType } from "@/api/bangumi"
 import type { components } from "@/types/generated"
-import { EpisodeStatusActions } from "./EpisodeStatusActions"
+import { EpisodeStatusActions, OpenInBgmBrowser } from "./actions"
 
-interface ViewProgressProps {
+interface ProgressViewerProps {
   subjectId: number
   subjectName?: string
   subjectNameCn?: string
@@ -86,8 +86,18 @@ const buildEpisodeIcon = (text: string, appearance: EpAppearance): string => {
   return `data:image/svg+xml;base64,${btoa(svg)}`
 }
 
-export default function ViewProgress({ subjectId, subjectName, subjectNameCn, epStatus, totalEps }: ViewProgressProps) {
-  const { data, isLoading, mutate } = usePromise(() => bangumi.getUserSubjectEpisodeCollection(subjectId, {}), [])
+export default function ProgressViewer({
+  subjectId,
+  subjectName,
+  subjectNameCn,
+  epStatus,
+  totalEps,
+}: ProgressViewerProps) {
+  const {
+    data: { data: episodes = [] } = {},
+    isLoading,
+    mutate,
+  } = usePromise(() => bangumi.getUserSubjectEpisodeCollection(subjectId, {}), [])
 
   const handleUpdateStatus = async (episodeId: number, status: EpisodeCollectionType) => {
     const toast = await showToast({ style: Toast.Style.Animated, title: "Updating status..." })
@@ -132,10 +142,8 @@ export default function ViewProgress({ subjectId, subjectName, subjectNameCn, ep
     }
   }
 
-  const episodes = data?.data ?? []
-
   const title = subjectNameCn || subjectName
-  const displayEpStatus = data
+  const displayEpStatus = !isLoading
     ? episodes.filter((ep) => ep.episode.type === EpisodeType.Main && ep.type === EpisodeCollectionType.Watched).length
     : epStatus
 
@@ -145,7 +153,7 @@ export default function ViewProgress({ subjectId, subjectName, subjectNameCn, ep
     if (a.episode.type !== b.episode.type) {
       return a.episode.type - b.episode.type
     }
-    return (a.episode.sort ?? 0) - (b.episode.sort ?? 0)
+    return a.episode.sort - b.episode.sort
   })
 
   const [selectedId, setSelectedId] = useState<string>()
@@ -199,6 +207,9 @@ export default function ViewProgress({ subjectId, subjectName, subjectNameCn, ep
                 keywords={[epLabel, epTitle]}
                 actions={
                   <ActionPanel>
+                    {statusType === EpisodeCollectionType.Watched && (
+                      <OpenInBgmBrowser path={`ep/${ep.episode.id}`} isPrimary />
+                    )}
                     <EpisodeStatusActions
                       episode={ep.episode}
                       statusType={statusType}
@@ -206,12 +217,11 @@ export default function ViewProgress({ subjectId, subjectName, subjectNameCn, ep
                       onBatchUpdateStatus={handleBatchUpdateStatus}
                       sortedEps={sortedEps}
                     />
-                    <ActionPanel.Section>
-                      <Action.OpenInBrowser
-                        url={`https://bgm.tv/ep/${ep.episode.id}`}
-                        shortcut={{ modifiers: ["cmd"], key: "o" }}
-                      />
-                    </ActionPanel.Section>
+                    {statusType !== EpisodeCollectionType.Watched && (
+                      <ActionPanel.Section>
+                        <OpenInBgmBrowser path={`ep/${ep.episode.id}`} />
+                      </ActionPanel.Section>
+                    )}
                   </ActionPanel>
                 }
               />

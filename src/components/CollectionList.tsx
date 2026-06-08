@@ -3,9 +3,9 @@ import { usePromise } from "@raycast/utils"
 import { useRef } from "react"
 import { bangumi, SubjectCollectionType, SubjectType } from "@/api/bangumi"
 import { getCollectionTag } from "@/utils"
-import ViewProgress from "./ViewProgress"
+import ProgressViewer from "./ProgressViewer"
 import SubjectDetail from "./SubjectDetail"
-import { CollectionStatusActions } from "./CollectionStatusActions"
+import { CollectionStatusActions, OpenInBgmBrowser } from "./actions"
 
 const preferences = getPreferenceValues<Preferences>()
 
@@ -73,7 +73,7 @@ export default function CollectionList({ filterType }: CollectionListProps) {
                       title="View Progress"
                       icon={Icon.BarChart}
                       target={
-                        <ViewProgress
+                        <ProgressViewer
                           subjectId={item.subject_id}
                           subjectName={item.subject?.name}
                           subjectNameCn={item.subject?.name_cn}
@@ -88,10 +88,7 @@ export default function CollectionList({ filterType }: CollectionListProps) {
                     icon={Icon.Sidebar}
                     target={<SubjectDetail subjectId={item.subject_id} />}
                   />
-                  <Action.OpenInBrowser
-                    url={`https://bgm.tv/subject/${item.subject_id}`}
-                    shortcut={{ modifiers: ["cmd"], key: "o" }}
-                  />
+                  <OpenInBgmBrowser path={`subject/${item.subject_id}`} />
                 </ActionPanel.Section>
                 <CollectionStatusActions
                   subjectId={item.subject_id}

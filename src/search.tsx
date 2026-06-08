@@ -4,6 +4,7 @@ import { useRef, useState } from "react"
 import { bangumi, SubjectType } from "@/api/bangumi"
 import { bangumiAuth } from "@/api/oauth"
 import SubjectDetail from "./components/SubjectDetail"
+import { OpenInBgmBrowser } from "@/components/actions"
 
 const PAGE_SIZE = 30
 
@@ -74,10 +75,7 @@ const SearchSubjects = (props: LaunchProps<{ arguments: SearchArguments }>) => {
                   icon={Icon.Sidebar}
                   target={<SubjectDetail subjectId={subject.id} />}
                 />
-                <Action.OpenInBrowser
-                  url={`https://bgm.tv/subject/${subject.id}`}
-                  shortcut={{ modifiers: ["cmd"], key: "o" }}
-                />
+                <OpenInBgmBrowser path={`subject/${subject.id}`} />
               </ActionPanel>
             }
           />
