@@ -15,10 +15,15 @@ type Input = {
   episodeIds: number[]
 
   /**
-   * The new collection status for the episodes.
-   * 0 = NotCollected (撤销收藏), 1 = Wish (想看), 2 = Watched (看过), 3 = Dropped (抛弃)
+   * Status to set for the episodes.
+   * 0 = NotCollected (撤销), 1 = Wish (想看), 2 = Watched (看过), 3 = Dropped (抛弃)
    */
   collectionType: number
+
+  /**
+   * Name of the subject (for display purposes in the confirmation prompt).
+   */
+  subjectName?: string
 }
 
 const episodeCollectionTypeMap: Record<number, string> = {
@@ -30,8 +35,9 @@ const episodeCollectionTypeMap: Record<number, string> = {
 
 export const confirmation: Tool.Confirmation<Input> = async (input) => {
   const statusName = episodeCollectionTypeMap[input.collectionType] || input.collectionType.toString()
+  const displayName = input.subjectName || String(input.subjectId)
   return {
-    message: `Are you sure you want to update ${input.episodeIds?.length || 0} episode(s) of subject ${input.subjectId} to "${statusName}"?`,
+    message: `Are you sure you want to update ${input.episodeIds?.length || 0} episode(s) of "${displayName}" to "${statusName}"?`,
   }
 }
 
