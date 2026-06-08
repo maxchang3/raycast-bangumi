@@ -1,7 +1,8 @@
 import { Action, ActionPanel, Icon, List, LaunchProps } from "@raycast/api"
 import { usePromise, withAccessToken } from "@raycast/utils"
 import { useRef, useState } from "react"
-import { bangumi, SubjectType } from "@/api/bangumi"
+import { bangumi } from "@/api/bangumi"
+import { SubjectType, SubjectTypeName } from "@/const"
 import { bangumiAuth } from "@/api/oauth"
 import SubjectDetail from "@/components/SubjectDetail"
 import { OpenInBgmBrowser } from "@/components/actions"
@@ -47,11 +48,9 @@ const SearchSubjects = (props: LaunchProps<{ arguments: SearchArguments }>) => {
           value={subjectType.toString()}
           onChange={(newValue) => setSubjectType(parseInt(newValue) as SubjectType)}
         >
-          <List.Dropdown.Item title="Anime" value={SubjectType.Anime.toString()} />
-          <List.Dropdown.Item title="Book" value={SubjectType.Book.toString()} />
-          <List.Dropdown.Item title="Music" value={SubjectType.Music.toString()} />
-          <List.Dropdown.Item title="Game" value={SubjectType.Game.toString()} />
-          <List.Dropdown.Item title="Real" value={SubjectType.Real.toString()} />
+          {[SubjectType.Anime, SubjectType.Book, SubjectType.Music, SubjectType.Game, SubjectType.Real].map((type) => (
+            <List.Dropdown.Item key={type} title={SubjectTypeName[type]} value={type.toString()} />
+          ))}
         </List.Dropdown>
       }
     >

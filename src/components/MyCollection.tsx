@@ -1,8 +1,8 @@
 import { ActionPanel, List, Action, Icon, getPreferenceValues } from "@raycast/api"
 import { usePromise } from "@raycast/utils"
-import { useRef } from "react"
-import { bangumi, SubjectCollectionType, SubjectType } from "@/api/bangumi"
-import { getCollectionTag } from "@/utils"
+import { useRef, useState } from "react"
+import { bangumi } from "@/api/bangumi"
+import { SubjectCollectionType, SubjectType, SubjectTypeName, getCollectionTag } from "@/const"
 import ProgressViewer from "./ProgressViewer"
 import SubjectDetail from "./SubjectDetail"
 import { CollectionStatusActions, OpenInBgmBrowser } from "./actions"
@@ -26,13 +26,19 @@ interface MyCollectionProps {
 }
 
 export default function MyCollection({ filterType }: MyCollectionProps) {
+  const [subjectType, setSubjectType] = useState<string>("all")
   const abortControllerRef = useRef<AbortController>(null)
 
   const { data, isLoading, pagination, mutate } = usePromise(
-    () => async (options: { page: number }) => {
+    (subjectType: string) => async (options: { page: number }) => {
       const offset = options.page * PAGE_SIZE
       const { data, total } = await bangumi.getMyCollections(
-        { limit: PAGE_SIZE, offset, type: filterType },
+        { 
+          limit: PAGE_SIZE, 
+          offset, 
+          type: filterType,
+          ...(subjectType !== "all" && { subject_type: parseInt(subjectType)})
+        },
         abortControllerRef.current?.signal
       )
       return {
@@ -40,7 +46,7 @@ export default function MyCollection({ filterType }: MyCollectionProps) {
         hasMore: offset + PAGE_SIZE < total,
       }
     },
-    [],
+    [subjectType],
     { abortable: abortControllerRef }
   )
 
@@ -55,7 +61,22 @@ export default function MyCollection({ filterType }: MyCollectionProps) {
     : undefined
 
   return (
-    <List isLoading={isLoading} pagination={safePagination}>
+    <List 
+      isLoading={isLoading} 
+      pagination={safePagination}
+      searchBarAccessory={
+        <List.Dropdown
+          tooltip="Select Category"
+          value={subjectType}
+          onChange={setSubjectType}
+        >
+          <List.Dropdown.Item title="All" value="all" />
+          {Array.from(enabledTypes).map((type) => (
+            <List.Dropdown.Item key={type} title={SubjectTypeName[type]} value={type.toString()} />
+          ))}
+        </List.Dropdown>
+      }
+    >
       {data
         ?.filter((item) => enabledTypes.has(item.subject_type))
         .map((item) => (
@@ -65,6 +86,9 @@ export default function MyCollection({ filterType }: MyCollectionProps) {
             title={item.subject?.name_cn || item.subject?.name || `Subject ${item.subject_id}`}
             subtitle={item.subject?.name_cn ? item.subject?.name || "" : ""}
             accessories={[{ tag: getCollectionTag(item.type, item.subject_type) }]}
+            keywords={[
+              getCollectionTag(item.type, item.subject_type).value
+            ]}
             actions={
               <ActionPanel title={`${item.subject?.name_cn || item.subject?.name}`}>
                 <ActionPanel.Section>
