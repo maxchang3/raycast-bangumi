@@ -22,7 +22,6 @@
   "dependencies": {
     "@raycast/api": "^1.103.0",
     "@raycast/utils": "^2.2.1",
-    "bgmc": "^0.2.0",
     "openapi-fetch": "^0.17.0"
   },
   "devDependencies": {
