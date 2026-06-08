@@ -48,6 +48,11 @@
   </tr>
 </table>
 
+## Credits
+
+- [yjl9903/bgmx](https://github.com/yjl9903/bgmx) - 参考了部分实现细节。
+- [bangumi/api](https://github.com/bangumi/api) - 感谢 Bangumi 官方提供的 API。
+
 ## LICENSE
 
 [MIT](LICENSE)
