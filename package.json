@@ -73,6 +73,43 @@
       ]
     }
   ],
+  "tools": [
+    {
+      "name": "get-collections",
+      "title": "Get Collections",
+      "description": "Get the user's current collections (watching, playing, reading, etc) on Bangumi."
+    },
+    {
+      "name": "update-collection",
+      "title": "Update Collection Status",
+      "description": "Update the collection status for a given subject on Bangumi."
+    },
+    {
+      "name": "search-subjects",
+      "title": "Search Subjects",
+      "description": "Search for subjects (anime, games, books, etc.) by keyword on Bangumi."
+    },
+    {
+      "name": "get-calendar",
+      "title": "Get Daily Calendar",
+      "description": "Get the daily airing schedule of anime on Bangumi."
+    },
+    {
+      "name": "get-subject-details",
+      "title": "Get Subject Details",
+      "description": "Get detailed information about a specific subject on Bangumi."
+    },
+    {
+      "name": "get-subject-episodes",
+      "title": "Get Subject Episodes",
+      "description": "Get the episode list and user collection status for a subject's episodes on Bangumi."
+    },
+    {
+      "name": "update-episodes",
+      "title": "Update Episodes Status",
+      "description": "Update the collection status (e.g., mark as watched) for specific episodes of a subject on Bangumi."
+    }
+  ],
   "platforms": [
     "Windows",
     "macOS"
