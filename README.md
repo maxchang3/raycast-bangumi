@@ -39,7 +39,7 @@
 <table>
   <tr>
     <td width="50%">
-      <img src="https://github.com/user-attachments/assets/479c1d0d-fd58-4999-a3d0-789198a75ed1" />
+      <img src="https://github.com/user-attachments/assets/2fea6987-adcd-4db5-ad1c-ff1483e3c86f" />
     </td>
     <td>
 
