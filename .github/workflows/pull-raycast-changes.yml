@@ -1,8 +1,8 @@
-name: Pull upstream changes from the `raycast/extensions` repo
+name: Pull raycast changes
 
 on:
   schedule:
-    - cron:  '0 5 * * *'
+    - cron: "0 5 * * *"
   workflow_dispatch:
 
 jobs:
