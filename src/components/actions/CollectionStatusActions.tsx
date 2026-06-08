@@ -1,7 +1,7 @@
 import { Action, ActionPanel, showToast, Toast } from "@raycast/api"
 import { showFailureToast } from "@raycast/utils"
-import { bangumi, SubjectCollectionType, SubjectType } from "@/api/bangumi"
-import { getCollectionTag, SubjectCollectionIcon } from "@/utils"
+import { bangumi } from "@/api/bangumi"
+import { SubjectCollectionType, SubjectType, getCollectionTag, SubjectCollectionIcon } from "@/const"
 
 interface Props {
   subjectId: number

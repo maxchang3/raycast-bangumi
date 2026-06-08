@@ -1,5 +1,64 @@
 import { Color, Icon } from "@raycast/api"
-import { SubjectCollectionType, SubjectType, SubjectVerb } from "@/api/bangumi"
+
+export enum SubjectCollectionType {
+  Wish = 1,
+  Collect = 2,
+  Doing = 3,
+  OnHold = 4,
+  Dropped = 5,
+}
+
+export enum SubjectType {
+  Book = 1,
+  Anime = 2,
+  Music = 3,
+  Game = 4,
+  Real = 6,
+}
+
+export const SubjectTypeName: Record<SubjectType, string> = {
+  [SubjectType.Book]: "Book",
+  [SubjectType.Anime]: "Anime",
+  [SubjectType.Music]: "Music",
+  [SubjectType.Game]: "Game",
+  [SubjectType.Real]: "Real",
+}
+
+export enum EpisodeCollectionType {
+  /** 未收藏 */
+  NotCollected = 0,
+  /** 想看 */
+  Wish = 1,
+  /** 看过 */
+  Watched = 2,
+  /** 抛弃 */
+  Dropped = 3,
+}
+
+export enum EpisodeType {
+  /** 本篇 */
+  Main = 0,
+  /** 特别篇 */
+  SP = 1,
+  /** OP */
+  OP = 2,
+  /** ED */
+  ED = 3,
+  /** 预告/宣传/广告 */
+  Trailer = 4,
+  /** MAD */
+  MAD = 5,
+  /** 其他 */
+  Other = 6,
+}
+
+export const SubjectVerb: Record<SubjectType, { wish: string; collect: string; doing: string }> = {
+  [SubjectType.Anime]: { wish: "Wishlist", collect: "Watched", doing: "Watching" },
+  [SubjectType.Book]: { wish: "Wishlist", collect: "Read", doing: "Reading" },
+  [SubjectType.Music]: { wish: "Wishlist", collect: "Listened", doing: "Listening" },
+  [SubjectType.Game]: { wish: "Wishlist", collect: "Played", doing: "Playing" },
+  [SubjectType.Real]: { wish: "Wishlist", collect: "Watched", doing: "Watching" },
+}
 
 export interface CollectionTag {
   value: string

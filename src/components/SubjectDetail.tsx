@@ -4,7 +4,7 @@ import { useRef } from "react"
 import { bangumi } from "@/api/bangumi"
 import { bangumiAuth } from "@/api/oauth"
 import { CollectionStatusActions, OpenInBgmBrowser } from "./actions"
-import { getCollectionTag, SubjectCollectionIcon } from "@/utils"
+import { getCollectionTag, SubjectCollectionIcon } from "@/const"
 
 interface SubjectDetailProps {
   subjectId: number
