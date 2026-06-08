@@ -223,20 +223,16 @@ class Bangumi {
   }
 
   async getSubjectCollection(subjectId: number, signal?: AbortSignal) {
-    try {
-      const username = await this.getUsername(signal)
-      const { data, error } = await this.client.GET("/v0/users/{username}/collections/{subject_id}", {
-        params: { path: { username, subject_id: subjectId } },
-        signal,
-      })
-      if (error) {
-        // Return null if not collected (usually 404 or specific error)
-        return null
-      }
-      return data
-    } catch {
-      return null
+    const username = await this.getUsername(signal)
+    const { data, error, response } = await this.client.GET("/v0/users/{username}/collections/{subject_id}", {
+      params: { path: { username, subject_id: subjectId } },
+      signal,
+    })
+    if (error) {
+      if (response.status === 404) return null
+      throw new BangumiApiError(error)
     }
+    return data
   }
 
   async updateSubjectCollection(subjectId: number, type: SubjectCollectionType, signal?: AbortSignal) {
