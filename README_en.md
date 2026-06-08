@@ -35,7 +35,7 @@ A Raycast extension for Bangumi. Browse and manage your [bangumi.tv](https://ban
 1. Search for `bangumi` in the Raycast Store and select install.
 2. Upon first use, you will need to log in to your Bangumi account. Please follow the prompts to complete the login process.
 
-   <img width="50%" src="https://github.com/user-attachments/assets/9631328a-9b22-4f98-b2b9-68a36e661065" />
+   <img width="50%" src="https://github.com/user-attachments/assets/b86f7722-0be2-433e-9f5b-2698ddd42ce8" />
 
 ## Preferences
 
@@ -44,7 +44,7 @@ You can customize which categories to display in your **Collections** list via t
 <table>
   <tr>
     <td width="50%">
-      <img src="https://github.com/user-attachments/assets/84ca0109-d773-44be-92b6-61daa01122d6" />
+      <img src="https://github.com/user-attachments/assets/9631328a-9b22-4f98-b2b9-68a36e661065" />
     </td>
     <td>
 

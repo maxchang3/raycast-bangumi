@@ -33,7 +33,7 @@
 
 1. 在 Raycast Store 中搜索 `bangumi`，并选择安装。
 2. 首次使用时，需要登录你的 Bangumi 账号。请按照提示完成登录流程。
-   <img width="50%" src="https://github.com/user-attachments/assets/9631328a-9b22-4f98-b2b9-68a36e661065" />
+   <img width="50%" src="https://github.com/user-attachments/assets/b86f7722-0be2-433e-9f5b-2698ddd42ce8" />
 
 ## 设置
 
@@ -42,7 +42,7 @@
 <table>
   <tr>
     <td width="50%">
-      <img src="https://github.com/user-attachments/assets/84ca0109-d773-44be-92b6-61daa01122d6" />
+      <img src="https://github.com/user-attachments/assets/9631328a-9b22-4f98-b2b9-68a36e661065" />
     </td>
     <td>
 
