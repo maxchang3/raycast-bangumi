@@ -119,7 +119,7 @@
       "name": "showBook",
       "type": "checkbox",
       "required": false,
-      "description": "在列表中显示书籍类条目",
+      "description": "在收藏列表中显示书籍类条目",
       "label": "显示书籍",
       "default": true
     },
@@ -127,7 +127,7 @@
       "name": "showAnime",
       "type": "checkbox",
       "required": false,
-      "description": "在列表中显示动画类条目",
+      "description": "在收藏列表中显示动画类条目",
       "label": "显示动画",
       "default": true
     },
@@ -135,7 +135,7 @@
       "name": "showMusic",
       "type": "checkbox",
       "required": false,
-      "description": "在列表中显示音乐类条目",
+      "description": "在收藏列表中显示音乐类条目",
       "label": "显示音乐",
       "default": false
     },
@@ -143,7 +143,7 @@
       "name": "showGame",
       "type": "checkbox",
       "required": false,
-      "description": "在列表中显示游戏类条目",
+      "description": "在收藏列表中显示游戏类条目",
       "label": "显示游戏",
       "default": false
     },
@@ -151,7 +151,7 @@
       "name": "showReal",
       "type": "checkbox",
       "required": false,
-      "description": "在列表中显示三次元类条目",
+      "description": "在收藏列表中显示三次元类条目",
       "label": "显示三次元",
       "default": true
     }
