@@ -28,33 +28,35 @@ export const EpisodeStatusActions = ({
           onAction={() => onUpdateStatus(episode.id, EpisodeCollectionType.Watched)}
         />
       )}
-      <Action
-        title="Mark up to Here as 看过"
-        icon={Icon.CheckCircle}
-        onAction={() => {
-          const idsToUpdate = sortedEps
-            .filter(
-              (e) =>
-                e.episode.type === episode.type &&
-                (e.episode.sort ?? 0) <= (episode.sort ?? 0) &&
-                e.type !== EpisodeCollectionType.Watched
-            )
-            .map((e) => e.episode.id)
-          if (idsToUpdate.length > 0) {
-            onBatchUpdateStatus(idsToUpdate, EpisodeCollectionType.Watched)
-          } else {
-            showToast({ title: "Already marked as watched", style: Toast.Style.Success })
-          }
-        }}
-      />
-      {statusType !== EpisodeCollectionType.Wish && (
+      {statusType !== EpisodeCollectionType.Watched && (
+        <Action
+          title="Mark up to Here as 看过"
+          icon={Icon.CheckCircle}
+          onAction={() => {
+            const idsToUpdate = sortedEps
+              .filter(
+                (e) =>
+                  e.episode.type === episode.type &&
+                  e.episode.sort <= episode.sort &&
+                  e.type !== EpisodeCollectionType.Watched
+              )
+              .map((e) => e.episode.id)
+            if (idsToUpdate.length > 0) {
+              onBatchUpdateStatus(idsToUpdate, EpisodeCollectionType.Watched)
+            } else {
+              showToast({ title: "Already marked as watched", style: Toast.Style.Success })
+            }
+          }}
+        />
+      )}
+      {statusType !== EpisodeCollectionType.Wish && statusType !== EpisodeCollectionType.Watched && (
         <Action
           title="Mark as 想看"
           icon={Icon.Star}
           onAction={() => onUpdateStatus(episode.id, EpisodeCollectionType.Wish)}
         />
       )}
-      {statusType !== EpisodeCollectionType.Dropped && (
+      {statusType !== EpisodeCollectionType.Dropped && statusType !== EpisodeCollectionType.Watched && (
         <Action
           title="Mark as 抛弃"
           icon={Icon.Trash}
