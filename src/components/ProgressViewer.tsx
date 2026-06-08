@@ -51,8 +51,7 @@ const getEpisodeAppearance = (ep: Episode, collectionType: EpisodeCollectionType
     return { bg: "#C7E2BD", color: "#3A7D22", textDeco: "none" }
   }
 
-  const today = new Date()
-  const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`
+  const todayStr = new Date().toLocaleDateString("sv-SE")
   const isToday = ep.airdate === todayStr
 
   if (isToday) {
