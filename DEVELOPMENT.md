@@ -4,7 +4,7 @@
 >
 > **Do not submit Pull Requests directly to the `raycast/extensions` repository!**
 >
-> This extension is actively maintained in this standalone repository. Any PRs submitted directly to the official Raycast repository might be overwritten by our automated CI/CD synchronization or cause conflicts. Please submit all issues and PRs to this repository (`maxchang3/bangumi`) instead.
+> This extension is actively maintained in this standalone repository. Any PRs submitted directly to the official Raycast repository might be overwritten by our automated CI/CD synchronization or cause conflicts. Please submit all PRs to this repository (`maxchang3/raycast-bangumi`) instead.
 
 ## Prerequisites
 
@@ -17,7 +17,7 @@ Before you start, make sure you have installed:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/maxchang3/bangumi.git
+   git clone https://github.com/maxchang3/raycast-bangumi.git
    cd bangumi
    ```
 

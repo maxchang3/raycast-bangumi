@@ -4,7 +4,7 @@
 >
 > **请勿直接向 `raycast/extensions` 仓库提交 Pull Requests！**
 >
-> 本插件在此独立仓库中进行主动维护。任何直接提交到官方 Raycast 仓库的 PR 都可能会被我们的自动化 CI/CD 同步脚本覆盖或引发冲突。请将所有的 Issues 和 PR 提交到本仓库（`maxchang3/bangumi`）。
+> 本插件在此独立仓库中进行主动维护。任何直接提交到官方 Raycast 仓库的 PR 都可能会被我们的自动化 CI/CD 同步脚本覆盖或引发冲突。请将所有的 PR 提交到本仓库（`maxchang3/raycast-bangumi`）。
 
 ## 环境要求
 
@@ -17,7 +17,7 @@
 
 1. **克隆仓库：**
    ```bash
-   git clone https://github.com/maxchang3/bangumi.git
+   git clone https://github.com/maxchang3/raycast-bangumi.git
    cd bangumi
    ```
 
