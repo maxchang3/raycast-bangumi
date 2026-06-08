@@ -3,7 +3,7 @@ import { usePromise, withAccessToken } from "@raycast/utils"
 import { useRef, useState } from "react"
 import { bangumi, SubjectType } from "@/api/bangumi"
 import { bangumiAuth } from "@/api/oauth"
-import SubjectDetail from "./components/SubjectDetail"
+import SubjectDetail from "@/components/SubjectDetail"
 import { OpenInBgmBrowser } from "@/components/actions"
 
 const PAGE_SIZE = 30
