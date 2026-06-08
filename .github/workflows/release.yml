@@ -26,6 +26,7 @@ jobs:
         uses: googleapis/release-please-action@v4
         with:
           config-file: release-please-config.json
+          token: ${{ secrets.RAYCAST_EXTENSIONS_TOKEN }}
 
   format-changelog:
     runs-on: ubuntu-latest
