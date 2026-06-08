@@ -27,10 +27,10 @@ type Input = {
 }
 
 const episodeCollectionTypeMap: Record<number, string> = {
-  0: "NotCollected (撤销)",
-  1: "Wish (想看)",
-  2: "Watched (看过)",
-  3: "Dropped (抛弃)",
+  0: "NotCollected",
+  1: "Wish",
+  2: "Watched",
+  3: "Dropped",
 }
 
 export const confirmation: Tool.Confirmation<Input> = async (input) => {

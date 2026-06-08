@@ -15,10 +15,10 @@ interface ProgressViewerProps {
 }
 
 const EPISODE_COLLECTION_NAME: Record<EpisodeCollectionType, string> = {
-  [EpisodeCollectionType.NotCollected]: "未看",
-  [EpisodeCollectionType.Watched]: "已看",
-  [EpisodeCollectionType.Wish]: "想看",
-  [EpisodeCollectionType.Dropped]: "抛弃",
+  [EpisodeCollectionType.NotCollected]: "Unwatched",
+  [EpisodeCollectionType.Watched]: "Watched",
+  [EpisodeCollectionType.Wish]: "Wishlist",
+  [EpisodeCollectionType.Dropped]: "Dropped",
 }
 
 const EP_TYPE_PREFIX: Record<number, string> = {
