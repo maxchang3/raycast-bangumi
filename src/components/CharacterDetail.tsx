@@ -103,6 +103,7 @@ const CharacterDetail = ({ characterId }: CharacterDetailProps) => {
                       name_cn: sub.name_cn,
                       image: sub.image,
                       relationType: sub.staff,
+                      subjectType: sub.type,
                     }))}
                   />
                 }

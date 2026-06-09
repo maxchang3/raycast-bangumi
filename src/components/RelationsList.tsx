@@ -1,5 +1,6 @@
 import { Action, ActionPanel, Color, Icon, List } from "@raycast/api"
 import SubjectDetail from "./SubjectDetail"
+import { SubjectTypeName, SubjectType } from "@/shared/const"
 
 export interface RelationItem {
   id: number
@@ -7,6 +8,7 @@ export interface RelationItem {
   name_cn: string
   image?: string
   relationType?: string
+  subjectType?: number
 }
 
 interface RelationsListProps {
@@ -43,11 +45,21 @@ export default function RelationsList({ relations, title = "Related Subjects" }:
           icon={relation.image || Icon.Image}
           title={relation.name_cn || relation.name}
           subtitle={relation.name !== relation.name_cn ? relation.name : undefined}
-          accessories={
-            relation.relationType
+          accessories={[
+            ...(relation.relationType
               ? [{ tag: { value: relation.relationType, color: getRelationColor(relation.relationType) } }]
-              : []
-          }
+              : []),
+            ...(relation.subjectType && SubjectTypeName[relation.subjectType as SubjectType]
+              ? [
+                  {
+                    tag: {
+                      value: SubjectTypeName[relation.subjectType as SubjectType],
+                      color: Color.SecondaryText,
+                    },
+                  },
+                ]
+              : []),
+          ]}
           actions={
             <ActionPanel>
               <Action.Push

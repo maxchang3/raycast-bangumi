@@ -141,6 +141,7 @@ ${formatSummary(data.summary)}${getTranslationMarkdown(isTranslating, translated
                       name_cn: rel.name_cn,
                       image: rel.images?.grid,
                       relationType: rel.relation,
+                      subjectType: rel.type,
                     }))}
                   />
                 }
