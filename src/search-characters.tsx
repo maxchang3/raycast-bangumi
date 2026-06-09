@@ -1,7 +1,7 @@
 import { Action, ActionPanel, Icon, LaunchProps, Grid } from "@raycast/api"
 import { usePromise, withAccessToken } from "@raycast/utils"
 import { useRef, useState } from "react"
-import { bangumi, InfoboxItem } from "@/api/bangumi"
+import { bangumi, Infobox } from "@/api/bangumi"
 import { bangumiAuth } from "@/api/oauth"
 import { OpenInBgmBrowser } from "@/components/actions"
 import CharacterDetail from "@/components/CharacterDetail"
@@ -56,7 +56,7 @@ const SearchCharacters = (props: LaunchProps<{ arguments: Arguments.SearchCharac
         <Grid.EmptyView icon={Icon.MagnifyingGlass} title="Type something to search Characters" />
       ) : (
         data?.map((character) => {
-          const infobox = character.infobox as InfoboxItem[] | undefined
+          const infobox = character.infobox as Infobox | undefined
           const nameCnItem = infobox?.find((box) => box.key === "简体中文名")
           const nameCn = nameCnItem && typeof nameCnItem.value === "string" ? nameCnItem.value : ""
 

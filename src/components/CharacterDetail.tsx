@@ -1,7 +1,7 @@
 import { Action, ActionPanel, Detail, Icon } from "@raycast/api"
 import { usePromise, withAccessToken } from "@raycast/utils"
 import { useRef } from "react"
-import { bangumi, InfoboxItem } from "@/api/bangumi"
+import { bangumi, Infobox } from "@/api/bangumi"
 import { bangumiAuth } from "@/api/oauth"
 import { OpenInBgmBrowser } from "./actions"
 import RelationsList from "./RelationsList"
@@ -38,7 +38,7 @@ const CharacterDetail = ({ characterId }: CharacterDetailProps) => {
   const { translatedText, isTranslating, translate } = useAITranslate(`char_summary_translation_${characterId}`)
 
   const coverUrl = data?.images?.large
-  const infobox = data?.infobox as InfoboxItem[] | undefined
+  const infobox = data?.infobox as Infobox | undefined
   const nameCnItem = infobox?.find((box) => box.key === "简体中文名")
   const nameCn = nameCnItem && typeof nameCnItem.value === "string" ? nameCnItem.value : ""
 
@@ -73,7 +73,7 @@ const CharacterDetail = ({ characterId }: CharacterDetailProps) => {
                 return (
                   <Detail.Metadata.TagList key={box.key} title={box.key}>
                     {box.value.map((item, idx) => (
-                      <Detail.Metadata.TagList.Item key={idx} text={item.k ? `${item.k}: ${item.v}` : item.v} />
+                      <Detail.Metadata.TagList.Item key={idx} text={"k" in item ? `${item.k}: ${item.v}` : item.v} />
                     ))}
                   </Detail.Metadata.TagList>
                 )
