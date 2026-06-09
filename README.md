@@ -22,7 +22,7 @@ A Raycast extension for Bangumi. Browse and manage your [bangumi.tv](https://ban
 
 | Current Collections | Progress Management |
 | - | - |
-| <img src="https://github.com/user-attachments/assets/e7049ec1-936a-45ab-ad35-f1e66f9b4681" /> | <img src="https://github.com/user-attachments/assets/d2ea7cdc-3a20-46a3-afed-01e60d1eefa7" /> |
+| <img src="https://github.com/user-attachments/assets/e7049ec1-936a-45ab-ad35-f1e66f9b4681" /> | <img src="https://github.com/user-attachments/assets/e4765cec-71ea-4531-b413-ae1ef3148e3b" /> |
 
 
 | View Progress | Daily Airing | Search | Update Status |
