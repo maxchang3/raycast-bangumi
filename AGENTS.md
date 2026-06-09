@@ -9,7 +9,7 @@ This repository contains the Bangumi extension for Raycast. It integrates with B
 - **UI/UX Consistency:** Relies strictly on Raycast UI components (`List`, `Grid`, `Detail`, `Form`, `ActionPanel`). Adheres to Raycast's design patterns (e.g., loading states, empty views, metadata).
 - **Authentication & Data:** Manages user authentication securely. Uses Raycast's built-in preference and caching mechanisms instead of custom implementations.
 
-When contributing to or modifying this extension, always adhere to the following code guidelines to ensure consistency, stability, and compliance with the Raycast Store requirements.
+When contributing to or modifying this extension, always adhere to the following code guidelines to ensure consistency, stability, and compliance with the Raycast Store requirements. For general guidance, see the [Extension Guidelines](https://developers.raycast.com/basics/prepare-an-extension-for-store.md) and [Publishing Extensions](https://developers.raycast.com/basics/publish-an-extension.md).
 
 ## Code Guidelines
 
@@ -33,24 +33,8 @@ When contributing to or modifying this extension, always adhere to the following
 - **getSelectedText():** Always wrap `getSelectedText()` in a `try-catch` block and gracefully handle cases where no text is selected or system focus fails.
 - **Toasts:** Use `showFailureToast` from `@raycast/utils` to simplify error presentation boilerplate instead of manually configuring `Toast.Style.Failure`.
 
-### Tools Configuration
-- **AI Evals:** When adding `tools` in `package.json`, ensure you also include an `ai` section with `evals` to evaluate tool calls. ([Reference](https://developers.raycast.com/ai/write-evals-for-your-ai-extension.md))
-  ```json
-  "ai": {
-    "evals": [
-      {
-        "input": "Example input",
-        "expected": [{ "callsTool": { "name": "tool-name", "arguments": { "key": { "includes": "val" } } } }]
-      }
-    ]
-  }
-  ```
 
 ### Tooling & Ecosystem
 - **ESLint:** For ESLint v9+, ensure the flat configuration pattern uses `import { defineConfig } from "eslint/config"`.
 - **Lock Files:** Exclusively use `package-lock.json` and fetch dependencies strictly from `https://registry.npmjs.org`. Check `.npmrc` to block scoped/alternative registries, and do not use `yarn.lock`, `bun.lock`, or `pnpm-lock.yaml`.
 
-## General Reference Links
-
-- [Extension Guidelines](https://developers.raycast.com/basics/prepare-an-extension-for-store.md)
-- [Publishing Extensions](https://developers.raycast.com/basics/publish-an-extension.md)
