@@ -5,6 +5,7 @@ import { bangumi } from "@/api/bangumi"
 import { bangumiAuth } from "@/api/oauth"
 import { CollectionStatusActions, OpenInBgmBrowser } from "./actions"
 import SubjectCharactersList from "./SubjectCharactersList"
+import RelationsList from "./RelationsList"
 import { getCollectionTag, SubjectCollectionIcon } from "@/shared/const"
 import { formatSummary } from "@/shared/utils"
 import { useAITranslate, getTranslationMarkdown, AITranslateAction } from "@/shared/useAITranslate"
@@ -17,6 +18,7 @@ const SubjectDetail = ({ subjectId }: SubjectDetailProps) => {
   const abortable = useRef<AbortController>(null)
   const collectionAbortable = useRef<AbortController>(null)
   const charactersAbortable = useRef<AbortController>(null)
+  const relatedSubjectsAbortable = useRef<AbortController>(null)
 
   const { data, isLoading } = usePromise(
     async (id) => {
@@ -49,6 +51,15 @@ const SubjectDetail = ({ subjectId }: SubjectDetailProps) => {
     { abortable: charactersAbortable }
   )
 
+  const { data: relatedSubjects, isLoading: isRelatedSubjectsLoading } = usePromise(
+    async (id) => {
+      const res = await bangumi.getRelatedSubjectsBySubjectId(id, relatedSubjectsAbortable.current?.signal)
+      return res
+    },
+    [subjectId],
+    { abortable: relatedSubjectsAbortable }
+  )
+
   const { translatedText, isTranslating, translate } = useAITranslate(`subject_summary_translation_${subjectId}`)
 
   const coverUrl = data?.images?.large
@@ -68,7 +79,7 @@ ${formatSummary(data.summary)}${getTranslationMarkdown(isTranslating, translated
 
   return (
     <Detail
-      isLoading={isLoading || isCollectionLoading || isCharactersLoading || isTranslating}
+      isLoading={isLoading || isCollectionLoading || isCharactersLoading || isRelatedSubjectsLoading || isTranslating}
       markdown={markdown}
       metadata={
         data ? (
@@ -114,6 +125,24 @@ ${formatSummary(data.summary)}${getTranslationMarkdown(isTranslating, translated
       actions={
         <ActionPanel>
           <ActionPanel.Section>
+            {relatedSubjects?.length ? (
+              <Action.Push
+                title="Show Related Subjects"
+                icon={Icon.List}
+                target={
+                  <RelationsList
+                    title="Related Subjects"
+                    relations={relatedSubjects.map((rel) => ({
+                      id: rel.id,
+                      name: rel.name,
+                      name_cn: rel.name_cn,
+                      image: rel.images?.grid,
+                      relationType: rel.relation,
+                    }))}
+                  />
+                }
+              />
+            ) : null}
             {characters?.length ? (
               <Action.Push
                 title="Show Characters & Voice Actors"

@@ -4,7 +4,7 @@ import { useRef } from "react"
 import { bangumi, InfoboxItem } from "@/api/bangumi"
 import { bangumiAuth } from "@/api/oauth"
 import { OpenInBgmBrowser } from "./actions"
-import RelatedWorksList from "./RelatedWorksList"
+import RelationsList from "./RelationsList"
 import { formatSummary } from "@/shared/utils"
 import { useAITranslate, getTranslationMarkdown, AITranslateAction } from "@/shared/useAITranslate"
 
@@ -91,7 +91,18 @@ const CharacterDetail = ({ characterId }: CharacterDetailProps) => {
               <Action.Push
                 title="Show Related Works"
                 icon={Icon.List}
-                target={<RelatedWorksList subjects={subjects} />}
+                target={
+                  <RelationsList
+                    title="Related Works"
+                    relations={subjects.map((sub) => ({
+                      id: sub.id,
+                      name: sub.name,
+                      name_cn: sub.name_cn,
+                      image: sub.image,
+                      relationType: sub.staff,
+                    }))}
+                  />
+                }
               />
             ) : null}
             <AITranslateAction text={data?.summary} onTranslate={translate} />
