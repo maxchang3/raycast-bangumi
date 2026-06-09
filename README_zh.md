@@ -13,7 +13,7 @@
 - **每日放送 (Daily Calendar):** 查看每日放送。
 - **搜索条目 (Search Subjects):** 在 Bangumi 上搜索条目。
 - **搜索角色 (Search Characters):** 在 Bangumi 上搜索角色。
-- **AI 工具 (AI Tools):** 全面接入 Raycast AI，你可以直接在对话中让 AI 帮你管理进度、搜索番剧。
+- **AI 工具 (AI Tools):** 全面接入 Raycast AI，直接在对话中让 AI 帮你管理进度、搜索番剧。
 
 
 | 详情页 | 每日放送 |

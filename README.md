@@ -13,7 +13,7 @@ A Raycast extension for Bangumi. Browse and manage your [bangumi.tv](https://ban
 - **Daily Calendar:** View the daily airing schedule.
 - **Search Subjects:** Search for subjects on Bangumi.
 - **Search Characters:** Search for characters on Bangumi.
-- **AI Tools:** Fully integrated with Raycast AI. You can manage your progress and search for anime directly in AI chat.
+- **AI Tools:** Fully integrated with Raycast AI. Manage your progress and search for anime directly in AI chat.
 
 
 | Subject Details | Daily Calendar |
