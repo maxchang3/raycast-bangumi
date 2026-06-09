@@ -65,7 +65,12 @@ const SearchSubjects = (props: LaunchProps<{ arguments: Arguments.SearchSubjects
             key={subject.id}
             title={subject.name_cn || subject.name || "Unknown"}
             subtitle={subject.name}
-            icon={subject.images?.common || Icon.Image}
+            icon={
+              subject.images?.common || {
+                source: Icon.Image,
+                tintColor: "#969696",
+              }
+            }
             accessories={[
               ...(subject.date ? [{ tag: subject.date }] : []),
               { icon: Icon.Star, text: subject.rating?.score ? subject.rating.score.toFixed(1) : "N/A" },

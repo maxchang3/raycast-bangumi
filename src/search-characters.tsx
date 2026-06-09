@@ -68,7 +68,12 @@ const SearchCharacters = (props: LaunchProps<{ arguments: Arguments.SearchCharac
               key={character.id}
               title={titleName || "Unknown"}
               subtitle={subtitleName}
-              content={character.images?.grid || Icon.Person}
+              content={
+                character.images?.grid || {
+                  source: Icon.Person,
+                  tintColor: "#969696",
+                }
+              }
               actions={
                 <ActionPanel>
                   <Action.Push
