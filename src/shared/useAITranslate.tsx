@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { Action, Icon, environment, AI, Cache, showToast, Toast, getPreferenceValues } from "@raycast/api"
+import { Action, Icon, environment, AI, Cache, getPreferenceValues } from "@raycast/api"
+import { showFailureToast } from "@raycast/utils"
 
 const cache = new Cache()
 
@@ -21,8 +22,8 @@ export const useAITranslate = (cacheKey: string) => {
       })
       await answer
       cache.set(cacheKey, result)
-    } catch {
-      await showToast({ title: "Translation failed", style: Toast.Style.Failure })
+    } catch (e) {
+      showFailureToast(e, { title: "Translation failed" })
     } finally {
       setIsTranslating(false)
     }
@@ -41,8 +42,8 @@ export const getTranslationMarkdown = (
       ? formatFn
         ? formatFn(translatedText)
         : translatedText
-      : "<p>正在翻译...</p>"
-    return `<br/><br/><b>[AI 翻译]</b><br/>${formattedContent}`
+      : "<p>Translating...</p>"
+    return `<br/><br/><b>[AI Translation]</b><br/>${formattedContent}`
   }
   return ""
 }
