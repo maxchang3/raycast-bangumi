@@ -48,7 +48,7 @@ const CharacterDetail = ({ characterId }: CharacterDetailProps) => {
     ? `# ${titleName}
 <table>
   <tr>
-    <td width="100">${coverUrl ? `<img src="${coverUrl}" width="100" />` : ""}</td>
+    <td width="100" valign="top">${coverUrl ? `<img src="${coverUrl}" width="100" />` : ""}</td>
     <td valign="top">${formatSummary(data.summary)}${getTranslationMarkdown(isTranslating, translatedText, formatSummary)}</td>
   </tr>
 </table>
