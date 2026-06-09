@@ -9,11 +9,7 @@ import { OpenInBgmBrowser } from "@/components/actions"
 
 const PAGE_SIZE = 30
 
-interface SearchArguments {
-  keyword?: string
-}
-
-const SearchSubjects = (props: LaunchProps<{ arguments: SearchArguments }>) => {
+const SearchSubjects = (props: LaunchProps<{ arguments: Arguments.SearchSubjects }>) => {
   const [searchText, setSearchText] = useState(props.arguments.keyword || "")
   const [subjectType, setSubjectType] = useState<SubjectType>(SubjectType.Anime)
   const abortable = useRef<AbortController>(null)
