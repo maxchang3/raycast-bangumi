@@ -31,6 +31,7 @@ export default function SubjectCharactersList({ characters }: SubjectCharactersL
             key={char.id}
             icon={char.images?.grid || Icon.Person}
             title={char.name}
+            subtitle={char.summary}
             accessories={[
               { tag: { value: char.relation, color: getRelationColor(char.relation) } },
               ...(cvs !== "N/A" ? [{ tag: { value: `CV: ${cvs}`, color: Color.Purple } }] : []),
