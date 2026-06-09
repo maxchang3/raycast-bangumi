@@ -21,7 +21,13 @@ const SearchSubjects = (props: LaunchProps<{ arguments: Arguments.SearchSubjects
         return { data: [], hasMore: false }
       }
       const offset = options.page * PAGE_SIZE
-      const { data, total } = await bangumi.searchSubjects(text, PAGE_SIZE, offset, type, abortable.current?.signal)
+      const { data, total } = await bangumi.searchSubjects({
+        keyword: text,
+        limit: PAGE_SIZE,
+        offset,
+        subjectType: type,
+        signal: abortable.current?.signal,
+      })
       return {
         data,
         hasMore: offset + PAGE_SIZE < total,

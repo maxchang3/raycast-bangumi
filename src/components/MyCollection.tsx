@@ -32,15 +32,15 @@ export default function MyCollection({ filterType }: MyCollectionProps) {
   const { data, isLoading, pagination, mutate } = usePromise(
     (subjectType: string) => async (options: { page: number }) => {
       const offset = options.page * PAGE_SIZE
-      const { data, total } = await bangumi.getMyCollections(
-        {
+      const { data, total } = await bangumi.getMyCollections({
+        query: {
           limit: PAGE_SIZE,
           offset,
           type: filterType,
           ...(subjectType !== "all" && { subject_type: parseInt(subjectType) }),
         },
-        abortControllerRef.current?.signal
-      )
+        signal: abortControllerRef.current?.signal,
+      })
       return {
         data,
         hasMore: offset + PAGE_SIZE < total,

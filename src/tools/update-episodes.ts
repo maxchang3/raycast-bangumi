@@ -46,7 +46,11 @@ const tool = async (input: Input) => {
     throw new Error("No episode IDs provided")
   }
 
-  await bangumi.updateSubjectEpisodesCollection(input.subjectId, input.episodeIds, input.collectionType)
+  await bangumi.updateSubjectEpisodesCollection({
+    subjectId: input.subjectId,
+    episodeIds: input.episodeIds,
+    type: input.collectionType,
+  })
 
   const statusName = episodeCollectionTypeMap[input.collectionType] || input.collectionType.toString()
   return {

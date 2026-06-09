@@ -19,7 +19,7 @@ export const CollectionStatusActions = ({
   const handleStatusChange = async (type: SubjectCollectionType) => {
     try {
       await showToast({ title: "Updating collection...", style: Toast.Style.Animated })
-      await bangumi.updateSubjectCollection(subjectId, type)
+      await bangumi.updateSubjectCollection({ subjectId, type })
       if (onStatusChange) {
         onStatusChange()
       }

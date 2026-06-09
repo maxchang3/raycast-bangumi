@@ -98,12 +98,12 @@ export default function ProgressViewer({
     data: { data: episodes = [] } = {},
     isLoading,
     mutate,
-  } = usePromise(() => bangumi.getUserSubjectEpisodeCollection(subjectId, {}), [])
+  } = usePromise(() => bangumi.getUserSubjectEpisodeCollection({ subjectId }), [])
 
   const handleUpdateStatus = async (episodeId: number, status: EpisodeCollectionType) => {
     const toast = await showToast({ style: Toast.Style.Animated, title: "Updating status..." })
     try {
-      await mutate(bangumi.updateEpisodeCollection(episodeId, status), {
+      await mutate(bangumi.updateEpisodeCollection({ episodeId, type: status }), {
         optimisticUpdate: (currentData) => {
           if (!currentData) return currentData!
           return {
@@ -122,7 +122,7 @@ export default function ProgressViewer({
   const handleBatchUpdateStatus = async (episodesToUpdate: number[], status: EpisodeCollectionType) => {
     const toast = await showToast({ style: Toast.Style.Animated, title: "Batch updating status..." })
     try {
-      await mutate(bangumi.updateSubjectEpisodesCollection(subjectId, episodesToUpdate, status), {
+      await mutate(bangumi.updateSubjectEpisodesCollection({ subjectId, episodeIds: episodesToUpdate, type: status }), {
         optimisticUpdate: (currentData) => {
           if (!currentData) return currentData!
           const idsSet = new Set(episodesToUpdate)

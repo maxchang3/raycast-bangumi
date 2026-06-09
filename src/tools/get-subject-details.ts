@@ -10,7 +10,7 @@ type Input = {
 }
 
 const tool = async (input: Input) => {
-  const result = await bangumi.getSubjectById(input.subjectId)
+  const result = await bangumi.getSubjectById({ subjectId: input.subjectId })
   return result
 }
 

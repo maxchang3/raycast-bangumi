@@ -18,7 +18,7 @@ const CharacterDetail = ({ characterId }: CharacterDetailProps) => {
 
   const { data, isLoading } = usePromise(
     async (id) => {
-      return await bangumi.getCharacterById(id, abortable.current?.signal)
+      return await bangumi.getCharacterById({ characterId: id, signal: abortable.current?.signal })
     },
     [characterId],
     { abortable }
@@ -26,7 +26,10 @@ const CharacterDetail = ({ characterId }: CharacterDetailProps) => {
 
   const { data: subjects, isLoading: isSubjectsLoading } = usePromise(
     async (id) => {
-      return await bangumi.getRelatedSubjectsByCharacterId(id, subjectsAbortable.current?.signal)
+      return await bangumi.getRelatedSubjectsByCharacterId({
+        characterId: id,
+        signal: subjectsAbortable.current?.signal,
+      })
     },
     [characterId],
     { abortable: subjectsAbortable }

@@ -22,10 +22,13 @@ type Input = {
 }
 
 const tool = async (input: Input) => {
-  const result = await bangumi.getUserSubjectEpisodeCollection(input.subjectId, {
-    limit: input.limit || 100,
-    offset: input.offset || 0,
-    episode_type: input.episodeType,
+  const result = await bangumi.getUserSubjectEpisodeCollection({
+    subjectId: input.subjectId,
+    query: {
+      limit: input.limit || 100,
+      offset: input.offset || 0,
+      episode_type: input.episodeType,
+    },
   })
 
   return result

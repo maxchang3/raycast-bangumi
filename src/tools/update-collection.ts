@@ -37,7 +37,7 @@ export const confirmation: Tool.Confirmation<Input> = async (input) => {
 }
 
 const tool = async (input: Input) => {
-  await bangumi.updateSubjectCollection(input.subjectId, input.collectionType)
+  await bangumi.updateSubjectCollection({ subjectId: input.subjectId, type: input.collectionType })
 
   const statusName = getCollectionTag(input.collectionType, input.subjectType).value
   return {

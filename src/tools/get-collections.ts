@@ -24,10 +24,12 @@ type Input = {
 
 const tool = async (input: Input) => {
   const result = await bangumi.getMyCollections({
-    subject_type: input.subjectType,
-    type: input.collectionType,
-    limit: input.limit || 30,
-    offset: input.offset || 0,
+    query: {
+      subject_type: input.subjectType,
+      type: input.collectionType,
+      limit: input.limit || 30,
+      offset: input.offset || 0,
+    },
   })
 
   return result

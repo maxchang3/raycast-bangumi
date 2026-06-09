@@ -16,7 +16,11 @@ type Input = {
 }
 
 const tool = async (input: Input) => {
-  const result = await bangumi.searchCharacters(input.keyword, input.limit || 10, input.offset || 0)
+  const result = await bangumi.searchCharacters({
+    keyword: input.keyword,
+    limit: input.limit || 10,
+    offset: input.offset || 0,
+  })
 
   return result
 }

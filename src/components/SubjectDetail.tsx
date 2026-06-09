@@ -22,7 +22,7 @@ const SubjectDetail = ({ subjectId }: SubjectDetailProps) => {
 
   const { data, isLoading } = usePromise(
     async (id) => {
-      const res = await bangumi.getSubjectById(id, abortable.current?.signal)
+      const res = await bangumi.getSubjectById({ subjectId: id, signal: abortable.current?.signal })
       return res
     },
     [subjectId],
@@ -35,7 +35,7 @@ const SubjectDetail = ({ subjectId }: SubjectDetailProps) => {
     mutate: mutateCollection,
   } = usePromise(
     async (id) => {
-      const res = await bangumi.getSubjectCollection(id, collectionAbortable.current?.signal)
+      const res = await bangumi.getSubjectCollection({ subjectId: id, signal: collectionAbortable.current?.signal })
       return res
     },
     [subjectId],
@@ -44,7 +44,7 @@ const SubjectDetail = ({ subjectId }: SubjectDetailProps) => {
 
   const { data: characters, isLoading: isCharactersLoading } = usePromise(
     async (id) => {
-      const res = await bangumi.getSubjectCharacters(id, charactersAbortable.current?.signal)
+      const res = await bangumi.getSubjectCharacters({ subjectId: id, signal: charactersAbortable.current?.signal })
       return res
     },
     [subjectId],
@@ -53,7 +53,10 @@ const SubjectDetail = ({ subjectId }: SubjectDetailProps) => {
 
   const { data: relatedSubjects, isLoading: isRelatedSubjectsLoading } = usePromise(
     async (id) => {
-      const res = await bangumi.getRelatedSubjectsBySubjectId(id, relatedSubjectsAbortable.current?.signal)
+      const res = await bangumi.getRelatedSubjectsBySubjectId({
+        subjectId: id,
+        signal: relatedSubjectsAbortable.current?.signal,
+      })
       return res
     },
     [subjectId],

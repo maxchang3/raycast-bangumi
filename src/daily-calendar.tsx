@@ -16,7 +16,7 @@ const Calendar = () => {
   const abortable = useRef<AbortController>(null)
   const { data, isLoading } = usePromise(
     async () => {
-      return bangumi.getCalendar(abortable.current?.signal)
+      return bangumi.getCalendar({ signal: abortable.current?.signal })
     },
     [],
     { abortable }
