@@ -58,7 +58,7 @@ ${coverUrl ? `<img src="${coverUrl}" width="120%" />` : ""}
 ${name.length > 20 ? "###" : name.length > 15 ? "##" : "#"} ${name}
 ${subtitleName ? `\n<sup>${subtitleName}</sup>` : ""}
 
-${data.summary || "No summary available."}
+${data.summary?.replace(/\r?\n/g, "<br />") || "No summary available."}
 `
     : ""
 

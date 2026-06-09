@@ -43,7 +43,13 @@ const CharacterDetail = ({ characterId }: CharacterDetailProps) => {
   <tr>
     <td width="100">${coverUrl ? `<img src="${coverUrl}" width="100" />` : ""}</td>
     <td valign="top">
-      ${data.summary?.replace(/\r?\n/g, "<br />") || "No summary available."}
+      ${
+        data.summary
+          ?.split(/\r?\n/)
+          .filter(Boolean)
+          .map((line) => `<p>${line}</p>`)
+          .join("") || "No summary available."
+      }
     </td>
   </tr>
 </table>
