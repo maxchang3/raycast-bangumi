@@ -1,7 +1,7 @@
 import createClient from "openapi-fetch"
 import type { paths } from "@/types/generated"
 import { getAccessToken } from "@raycast/utils"
-import { EpisodeCollectionType, EpisodeType, SubjectCollectionType, SubjectType } from "@/const"
+import { EpisodeCollectionType, EpisodeType, SubjectCollectionType, SubjectType } from "@/shared/const"
 
 export type InfoboxItem = {
   key: string

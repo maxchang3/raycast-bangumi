@@ -5,6 +5,7 @@ import { bangumi, InfoboxItem } from "@/api/bangumi"
 import { bangumiAuth } from "@/api/oauth"
 import { OpenInBgmBrowser } from "./actions"
 import RelatedWorksList from "./RelatedWorksList"
+import { formatSummary } from "@/shared/utils"
 
 interface CharacterDetailProps {
   characterId: number
@@ -43,13 +44,7 @@ const CharacterDetail = ({ characterId }: CharacterDetailProps) => {
   <tr>
     <td width="100">${coverUrl ? `<img src="${coverUrl}" width="100" />` : ""}</td>
     <td valign="top">
-      ${
-        data.summary
-          ?.split(/\r?\n/)
-          .filter(Boolean)
-          .map((line) => `<p>${line}</p>`)
-          .join("") || "No summary available."
-      }
+      ${formatSummary(data.summary)}
     </td>
   </tr>
 </table>

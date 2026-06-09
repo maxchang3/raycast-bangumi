@@ -5,7 +5,8 @@ import { bangumi } from "@/api/bangumi"
 import { bangumiAuth } from "@/api/oauth"
 import { CollectionStatusActions, OpenInBgmBrowser } from "./actions"
 import SubjectCharactersList from "./SubjectCharactersList"
-import { getCollectionTag, SubjectCollectionIcon } from "@/const"
+import { getCollectionTag, SubjectCollectionIcon } from "@/shared/const"
+import { formatSummary } from "@/shared/utils"
 
 interface SubjectDetailProps {
   subjectId: number
@@ -58,7 +59,7 @@ ${coverUrl ? `<img src="${coverUrl}" width="120%" />` : ""}
 ${name.length > 20 ? "###" : name.length > 15 ? "##" : "#"} ${name}
 ${subtitleName ? `\n<sup>${subtitleName}</sup>` : ""}
 
-${data.summary?.replace(/\r?\n/g, "<br />") || "No summary available."}
+${formatSummary(data.summary)}
 `
     : ""
 

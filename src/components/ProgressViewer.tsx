@@ -2,7 +2,7 @@ import { ActionPanel, Grid, showToast, Toast } from "@raycast/api"
 import { usePromise, showFailureToast } from "@raycast/utils"
 import { useState } from "react"
 import { bangumi } from "@/api/bangumi"
-import { EpisodeCollectionType, EpisodeType } from "@/const"
+import { EpisodeCollectionType, EpisodeType } from "@/shared/const"
 import type { components } from "@/types/generated"
 import { EpisodeStatusActions, OpenInBgmBrowser } from "./actions"
 
