@@ -7,7 +7,7 @@ import { bangumiAuth } from "@/api/oauth"
 import SubjectDetail from "@/components/SubjectDetail"
 import { OpenInBgmBrowser } from "@/components/actions"
 
-const PAGE_SIZE = 30
+const PAGE_SIZE = 20
 
 const SearchSubjects = (props: LaunchProps<{ arguments: Arguments.SearchSubjects }>) => {
   const [searchText, setSearchText] = useState(props.arguments.keyword || "")

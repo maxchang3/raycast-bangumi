@@ -14,7 +14,7 @@ type Input = {
    */
   subjectType?: number
 
-  /** Limit of items to return, default 10 */
+  /** Limit of items to return, default 10, max to 20 */
   limit?: number
 
   /** Offset, default 0 */
