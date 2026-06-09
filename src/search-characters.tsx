@@ -6,7 +6,7 @@ import { bangumiAuth } from "@/api/oauth"
 import { OpenInBgmBrowser } from "@/components/actions"
 import CharacterDetail from "@/components/CharacterDetail"
 
-// Whatever you pass, only 20 items will be returned.
+// Max to 20
 const PAGE_SIZE = 20
 
 const SearchCharacters = (props: LaunchProps<{ arguments: Arguments.SearchCharacters }>) => {

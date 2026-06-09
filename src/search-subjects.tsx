@@ -7,6 +7,7 @@ import { bangumiAuth } from "@/api/oauth"
 import SubjectDetail from "@/components/SubjectDetail"
 import { OpenInBgmBrowser } from "@/components/actions"
 
+// Max to 20
 const PAGE_SIZE = 20
 
 const SearchSubjects = (props: LaunchProps<{ arguments: Arguments.SearchSubjects }>) => {
