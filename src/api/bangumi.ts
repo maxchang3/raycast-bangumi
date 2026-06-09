@@ -3,6 +3,11 @@ import type { paths } from "@/types/generated"
 import { getAccessToken } from "@raycast/utils"
 import { EpisodeCollectionType, EpisodeType, SubjectCollectionType, SubjectType } from "@/const"
 
+export type InfoboxItem = {
+  key: string
+  value: string | { k?: string; v: string }[]
+}
+
 interface BangumiErrorResponse {
   title: string
   description: string
@@ -116,6 +121,28 @@ class Bangumi {
     return data
   }
 
+  async getCharacterById(characterId: number, signal?: AbortSignal) {
+    const { data, error } = await this.client.GET("/v0/characters/{character_id}", {
+      params: {
+        path: { character_id: characterId },
+      },
+      signal,
+    })
+    if (error) throw new BangumiApiError(error)
+    return data
+  }
+
+  async getRelatedSubjectsByCharacterId(characterId: number, signal?: AbortSignal) {
+    const { data, error } = await this.client.GET("/v0/characters/{character_id}/subjects", {
+      params: {
+        path: { character_id: characterId },
+      },
+      signal,
+    })
+    if (error) throw new BangumiApiError(error)
+    return data
+  }
+
   async searchSubjects(
     keyword: string,
     limit: number,
@@ -131,6 +158,18 @@ class Bangumi {
         keyword,
         filter: subjectType ? { type: [subjectType] } : undefined,
       },
+      signal,
+    })
+    if (error) throw new BangumiApiError(error)
+    return data
+  }
+
+  async searchCharacters(keyword: string, limit: number, offset: number, signal?: AbortSignal) {
+    const { data, error } = await this.client.POST("/v0/search/characters", {
+      params: {
+        query: { limit, offset },
+      },
+      body: { keyword },
       signal,
     })
     if (error) throw new BangumiApiError(error)

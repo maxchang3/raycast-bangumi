@@ -1,9 +1,10 @@
-import { ActionPanel, Detail, Icon } from "@raycast/api"
+import { Action, ActionPanel, Detail, Icon } from "@raycast/api"
 import { usePromise, withAccessToken } from "@raycast/utils"
 import { useRef } from "react"
 import { bangumi } from "@/api/bangumi"
 import { bangumiAuth } from "@/api/oauth"
 import { CollectionStatusActions, OpenInBgmBrowser } from "./actions"
+import SubjectCharactersList from "./SubjectCharactersList"
 import { getCollectionTag, SubjectCollectionIcon } from "@/const"
 
 interface SubjectDetailProps {
@@ -57,18 +58,6 @@ ${coverUrl ? `<img src="${coverUrl}" width="120%" />` : ""}
 
 
 ${data.summary || "No summary available."}
-
-${
-  characters && characters.length > 0
-    ? `## Voice Actors\n\n${characters
-        .slice(0, 10)
-        .map((char) => {
-          const cvs = char.actors && char.actors.length > 0 ? char.actors.map((a) => a.name).join(", ") : "N/A"
-          return `- **${char.name}** (${char.relation}) - CV: ${cvs}`
-        })
-        .join("\n")}`
-    : ""
-}
 `
     : ""
 
@@ -120,6 +109,13 @@ ${
       actions={
         <ActionPanel>
           <ActionPanel.Section>
+            {characters?.length ? (
+              <Action.Push
+                title="Show Characters & Voice Actors"
+                icon={Icon.List}
+                target={<SubjectCharactersList characters={characters} />}
+              />
+            ) : null}
             <OpenInBgmBrowser path={`subject/${subjectId}`} />
           </ActionPanel.Section>
           <CollectionStatusActions

@@ -78,6 +78,20 @@
           "required": false
         }
       ]
+    },
+    {
+      "mode": "view",
+      "name": "search-characters",
+      "title": "Search Characters",
+      "description": "Search for characters on Bangumi.",
+      "arguments": [
+        {
+          "name": "keyword",
+          "placeholder": "Keyword",
+          "type": "text",
+          "required": false
+        }
+      ]
     }
   ],
   "tools": [
@@ -95,6 +109,11 @@
       "name": "search-subjects",
       "title": "Search Subjects",
       "description": "Search for subjects (anime, games, books, etc.) by keyword on Bangumi."
+    },
+    {
+      "name": "search-characters",
+      "title": "Search Characters",
+      "description": "Search for characters by keyword on Bangumi."
     },
     {
       "name": "get-calendar",
