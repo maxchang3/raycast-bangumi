@@ -1,0 +1,61 @@
+import { useState } from "react"
+import { Action, Icon, environment, AI, Cache, showToast, Toast, getPreferenceValues } from "@raycast/api"
+
+const cache = new Cache()
+
+export const useAITranslate = (cacheKey: string) => {
+  const [translatedText, setTranslatedText] = useState<string | undefined>(cache.get(cacheKey))
+  const [isTranslating, setIsTranslating] = useState(false)
+
+  const translate = async (text: string) => {
+    setIsTranslating(true)
+    try {
+      const preferences = getPreferenceValues<Preferences>()
+      const targetLang = preferences.aiTranslationLanguage || "English"
+      const prompt = `Translate the following text into ${targetLang}. If it is already in ${targetLang}, return an empty string. Do not add any additional text or explanations.\n\n${text}`
+      const answer = AI.ask(prompt, { creativity: "low" })
+      let result = ""
+      answer.on("data", (chunk) => {
+        result += chunk
+        setTranslatedText(result)
+      })
+      await answer
+      cache.set(cacheKey, result)
+    } catch {
+      await showToast({ title: "Translation failed", style: Toast.Style.Failure })
+    } finally {
+      setIsTranslating(false)
+    }
+  }
+
+  return { translatedText, isTranslating, translate }
+}
+
+export const getTranslationMarkdown = (
+  isTranslating: boolean,
+  translatedText?: string,
+  formatFn?: (text?: string) => string
+) => {
+  if (isTranslating || (translatedText !== undefined && translatedText !== "")) {
+    const formattedContent = translatedText
+      ? formatFn
+        ? formatFn(translatedText)
+        : translatedText
+      : "<p>正在翻译...</p>"
+    return `<br/><br/><b>[AI 翻译]</b><br/>${formattedContent}`
+  }
+  return ""
+}
+
+export const AITranslateAction = ({ text, onTranslate }: { text?: string; onTranslate: (text: string) => void }) => {
+  if (!text || !environment.canAccess(AI)) return null
+
+  return (
+    <Action
+      title="AI Translate Summary"
+      icon={Icon.Pencil}
+      shortcut={{ modifiers: ["cmd", "shift"], key: "t" }}
+      onAction={() => onTranslate(text)}
+    />
+  )
+}

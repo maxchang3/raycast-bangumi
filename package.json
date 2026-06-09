@@ -180,6 +180,32 @@
       "description": "Show real-life subjects in the collection list",
       "label": "Show Real Life",
       "default": true
+    },
+    {
+      "name": "aiTranslationLanguage",
+      "type": "dropdown",
+      "required": false,
+      "title": "AI Translation Language",
+      "description": "The target language for AI summary translation",
+      "default": "English",
+      "data": [
+        {
+          "title": "English",
+          "value": "English"
+        },
+        {
+          "title": "简体中文",
+          "value": "简体中文"
+        },
+        {
+          "title": "繁體中文",
+          "value": "繁體中文"
+        },
+        {
+          "title": "日本語",
+          "value": "日本語"
+        }
+      ]
     }
   ],
   "title": "Bangumi",

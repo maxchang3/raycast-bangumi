@@ -6,6 +6,7 @@ import { bangumiAuth } from "@/api/oauth"
 import { OpenInBgmBrowser } from "./actions"
 import RelatedWorksList from "./RelatedWorksList"
 import { formatSummary } from "@/shared/utils"
+import { useAITranslate, getTranslationMarkdown, AITranslateAction } from "@/shared/useAITranslate"
 
 interface CharacterDetailProps {
   characterId: number
@@ -31,6 +32,8 @@ const CharacterDetail = ({ characterId }: CharacterDetailProps) => {
     { abortable: subjectsAbortable }
   )
 
+  const { translatedText, isTranslating, translate } = useAITranslate(`char_summary_translation_${characterId}`)
+
   const coverUrl = data?.images?.large
   const infobox = data?.infobox as InfoboxItem[] | undefined
   const nameCnItem = infobox?.find((box) => box.key === "简体中文名")
@@ -43,9 +46,7 @@ const CharacterDetail = ({ characterId }: CharacterDetailProps) => {
 <table>
   <tr>
     <td width="100">${coverUrl ? `<img src="${coverUrl}" width="100" />` : ""}</td>
-    <td valign="top">
-      ${formatSummary(data.summary)}
-    </td>
+    <td valign="top">${formatSummary(data.summary)}${getTranslationMarkdown(isTranslating, translatedText, formatSummary)}</td>
   </tr>
 </table>
 `
@@ -53,7 +54,7 @@ const CharacterDetail = ({ characterId }: CharacterDetailProps) => {
 
   return (
     <Detail
-      isLoading={isLoading || isSubjectsLoading}
+      isLoading={isLoading || isSubjectsLoading || isTranslating}
       markdown={markdown}
       metadata={
         data ? (
@@ -93,6 +94,7 @@ const CharacterDetail = ({ characterId }: CharacterDetailProps) => {
                 target={<RelatedWorksList subjects={subjects} />}
               />
             ) : null}
+            <AITranslateAction text={data?.summary} onTranslate={translate} />
             <OpenInBgmBrowser path={`character/${characterId}`} />
           </ActionPanel.Section>
         </ActionPanel>

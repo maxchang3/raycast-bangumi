@@ -7,6 +7,7 @@ import { CollectionStatusActions, OpenInBgmBrowser } from "./actions"
 import SubjectCharactersList from "./SubjectCharactersList"
 import { getCollectionTag, SubjectCollectionIcon } from "@/shared/const"
 import { formatSummary } from "@/shared/utils"
+import { useAITranslate, getTranslationMarkdown, AITranslateAction } from "@/shared/useAITranslate"
 
 interface SubjectDetailProps {
   subjectId: number
@@ -48,6 +49,8 @@ const SubjectDetail = ({ subjectId }: SubjectDetailProps) => {
     { abortable: charactersAbortable }
   )
 
+  const { translatedText, isTranslating, translate } = useAITranslate(`subject_summary_translation_${subjectId}`)
+
   const coverUrl = data?.images?.large
   const name = data?.name_cn || data?.name || ""
   const subtitleName = data?.name && data.name !== name ? data.name : ""
@@ -59,13 +62,13 @@ ${coverUrl ? `<img src="${coverUrl}" width="120%" />` : ""}
 ${name.length > 20 ? "###" : name.length > 15 ? "##" : "#"} ${name}
 ${subtitleName ? `\n<sup>${subtitleName}</sup>` : ""}
 
-${formatSummary(data.summary)}
+${formatSummary(data.summary)}${getTranslationMarkdown(isTranslating, translatedText, formatSummary)}
 `
     : ""
 
   return (
     <Detail
-      isLoading={isLoading || isCollectionLoading || isCharactersLoading}
+      isLoading={isLoading || isCollectionLoading || isCharactersLoading || isTranslating}
       markdown={markdown}
       metadata={
         data ? (
@@ -118,6 +121,7 @@ ${formatSummary(data.summary)}
                 target={<SubjectCharactersList characters={characters} />}
               />
             ) : null}
+            <AITranslateAction text={data?.summary} onTranslate={translate} />
             <OpenInBgmBrowser path={`subject/${subjectId}`} />
           </ActionPanel.Section>
           <CollectionStatusActions
