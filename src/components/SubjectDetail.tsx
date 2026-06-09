@@ -48,14 +48,15 @@ const SubjectDetail = ({ subjectId }: SubjectDetailProps) => {
   )
 
   const coverUrl = data?.images?.large
+  const name = data?.name_cn || data?.name || ""
+  const subtitleName = data?.name && data.name !== name ? data.name : ""
+
   const markdown = data
     ? `
 ${coverUrl ? `<img src="${coverUrl}" width="120%" />` : ""}
 
-# ${data.name_cn || data.name}${
-        data.name_cn && data.name && data.name !== data.name_cn ? `\n<sup>${data.name}</sup>` : ""
-      }
-
+${name.length > 20 ? "###" : name.length > 15 ? "##" : "#"} ${name}
+${subtitleName ? `\n<sup>${subtitleName}</sup>` : ""}
 
 ${data.summary || "No summary available."}
 `
