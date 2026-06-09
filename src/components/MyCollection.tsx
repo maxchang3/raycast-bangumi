@@ -86,6 +86,11 @@ export default function MyCollection({ filterType }: MyCollectionProps) {
             actions={
               <ActionPanel title={`${item.subject?.name_cn || item.subject?.name}`}>
                 <ActionPanel.Section>
+                  <Action.Push
+                    title="Show Details"
+                    icon={Icon.Sidebar}
+                    target={<SubjectDetail subjectId={item.subject_id} />}
+                  />
                   {item.subject_type === SubjectType.Anime && (
                     <Action.Push
                       title="View Progress"
@@ -101,11 +106,6 @@ export default function MyCollection({ filterType }: MyCollectionProps) {
                       }
                     />
                   )}
-                  <Action.Push
-                    title="Show Details"
-                    icon={Icon.Sidebar}
-                    target={<SubjectDetail subjectId={item.subject_id} />}
-                  />
                   <OpenInBgmBrowser path={`subject/${item.subject_id}`} />
                 </ActionPanel.Section>
                 <CollectionStatusActions
