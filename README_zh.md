@@ -11,7 +11,8 @@
 - **列出收藏 (List Collections):** 显示全部的收藏。
 - **列出当前收藏 (List Current Collections):** 管理你的状态为「在看/在玩/在读」的条目。
 - **每日放送 (Daily Calendar):** 查看每日放送。
-- **搜索条目 (Search Subjects):** 在 Bangumi 上搜索。
+- **搜索条目 (Search Subjects):** 在 Bangumi 上搜索条目。
+- **搜索角色 (Search Characters):** 在 Bangumi 上搜索角色。
 - **AI 工具 (AI Tools):** 全面接入 Raycast AI，你可以直接在对话中让 AI 帮你管理进度、搜索番剧。
 
 
