@@ -82,8 +82,8 @@ const CharacterDetail = ({ characterId }: CharacterDetailProps) => {
               return null
             })}
             <Detail.Metadata.Separator />
-            <Detail.Metadata.Label title="Collects" text={data.stat?.collects?.toString() || "0"} icon={Icon.Heart} />
-            <Detail.Metadata.Label title="Comments" text={data.stat?.comments?.toString() || "0"} icon={Icon.Message} />
+            <Detail.Metadata.Label title="Collects" text={data.stat.collects.toString()} icon={Icon.Heart} />
+            <Detail.Metadata.Label title="Comments" text={data.stat.comments.toString()} icon={Icon.Message} />
           </Detail.Metadata>
         ) : null
       }

@@ -89,19 +89,19 @@ ${formatSummary(data.summary)}${getTranslationMarkdown(isTranslating, translated
           <Detail.Metadata>
             <Detail.Metadata.Label
               title="Rating"
-              text={data.rating?.score ? `${data.rating.score.toFixed(1)} / 10` : "N/A"}
+              text={data.rating.score ? `${data.rating.score.toFixed(1)} / 10` : "N/A"}
               icon={Icon.Star}
             />
-            {data.rating?.rank && (
+            {data.rating.rank ? (
               <Detail.Metadata.Label title="Rank" text={`#${data.rating.rank}`} icon={Icon.Trophy} />
-            )}
-            {data.date && <Detail.Metadata.Label title="Air Date" text={data.date} icon={Icon.Calendar} />}
+            ) : null}
+            {data.date ? <Detail.Metadata.Label title="Air Date" text={data.date} icon={Icon.Calendar} /> : null}
             <Detail.Metadata.Label
               title="Episodes"
               text={data.eps ? data.eps.toString() : data.total_episodes ? data.total_episodes.toString() : "N/A"}
               icon={Icon.List}
             />
-            {data.tags && data.tags.length > 0 && (
+            {data.tags.length > 0 && (
               <Detail.Metadata.TagList title="Tags">
                 {data.tags.slice(0, 5).map((tag) => (
                   <Detail.Metadata.TagList.Item key={tag.name} text={tag.name} />
@@ -115,13 +115,9 @@ ${formatSummary(data.summary)}${getTranslationMarkdown(isTranslating, translated
               icon={collection ? SubjectCollectionIcon[collection.type] : Icon.Circle}
             />
             <Detail.Metadata.Separator />
-            <Detail.Metadata.Label title="Doing" text={data.collection?.doing?.toString() || "0"} icon={Icon.Play} />
-            <Detail.Metadata.Label title="Wishlist" text={data.collection?.wish?.toString() || "0"} icon={Icon.Heart} />
-            <Detail.Metadata.Label
-              title="Collected"
-              text={data.collection?.collect?.toString() || "0"}
-              icon={Icon.Check}
-            />
+            <Detail.Metadata.Label title="Doing" text={data.collection.doing.toString()} icon={Icon.Play} />
+            <Detail.Metadata.Label title="Wishlist" text={data.collection.wish.toString()} icon={Icon.Heart} />
+            <Detail.Metadata.Label title="Collected" text={data.collection.collect.toString()} icon={Icon.Check} />
           </Detail.Metadata>
         ) : null
       }
