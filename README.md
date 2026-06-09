@@ -4,7 +4,7 @@
 
 A Raycast extension for Bangumi. Browse and manage your [bangumi.tv](https://bangumi.tv) progress directly within Raycast.
 
-| [简体中文](./README.md) | English |
+| [简体中文](./README_zh.md) | English |
 
 ## Features
 
