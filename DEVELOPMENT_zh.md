@@ -9,6 +9,7 @@
 ## 环境要求
 
 在开始之前，请确保你已经安装了：
+
 - [Node.js](https://nodejs.org/) (推荐 v24 或更高版本)
 - [npm](https://www.npmjs.com/) (通常随 Node.js 一起安装)
 - [Raycast](https://raycast.com/)
@@ -16,12 +17,14 @@
 ## 开发环境配置
 
 1. **克隆仓库：**
+
    ```bash
    git clone https://github.com/maxchang3/raycast-bangumi.git
    cd bangumi
    ```
 
 2. **安装依赖：**
+
    ```bash
    npm install
    ```
@@ -53,6 +56,7 @@ npm run generate-types
 ### 1. 发布到 Raycast (`publish-raycast.yml`)
 
 当创建一个新的 GitHub Release 时（通常是通过合并 `release-please` 的自动 PR），此工作流会自动将其提交到 Raycast 商店：
+
 - **智能 CHANGELOG 处理：** 它会自动将最新 `CHANGELOG.md` 条目中的本地生成日期替换为 `{PR_MERGE_DATE}`（Raycast 要求使用的占位符），而不会破坏历史记录的日期。
 - **路径过滤：** 它会安全地忽略仅限本地的配置文件（如 `.vscode`、`.github`、`release-please` 配置和 `skills-lock.json`）。
 - **自动创建 PR：** 它将清理后的代码推送到维护者的 fork (`maxchang3/extensions`)，并在官方的 `raycast/extensions` 仓库中自动创建一个 Pull Request。
@@ -60,6 +64,7 @@ npm run generate-types
 ### 2. 拉取上游更改 (`pull-raycast-changes.yml`)
 
 有时候，Raycast 团队或社区贡献者可能会直接在中央的 `raycast/extensions` 仓库中对此插件进行更改（例如：核心 API 的大版本迁移、安全补丁）。这个定时工作流可确保我们始终保持代码同步：
+
 - **定时同步：** 每天自动运行以检查上游是否有修改。
 - **安全合并：** 它会自动过滤掉上游的 `CHANGELOG.md` 和 `.github/` 目录，以防止与我们本地的 `release-please` 追踪发生冲突。
 - **自动创建 PR：** 如果检测到上游更改，它会在本仓库中自动开启一个 Pull Request，以便对其进行安全的审查和合并。
