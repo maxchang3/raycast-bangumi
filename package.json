@@ -16,6 +16,7 @@
     "build": "ray build",
     "publish": "npx @raycast/api@latest publish",
     "typecheck": "tsc --noEmit",
+    "postinstall": "npx simple-git-hooks",
     "generate-types": "openapi-typescript --output src/types/generated.ts https://bangumi.github.io/api/dist.json",
     "prepublishOnly": "echo \"\\n\\nIt seems like you are trying to publish the Raycast extension to npm.\\n\\nIf you did intend to publish it to npm, remove the \\`prepublishOnly\\` script and rerun \\`npm publish\\` again.\\nIf you wanted to publish it to the Raycast Store instead, use \\`npm run publish\\` instead.\\n\\n\" && exit 1"
   },
@@ -29,13 +30,20 @@
     "@types/node": "22.19.17",
     "@types/react": "19.0.10",
     "eslint": "^9.39.2",
+    "nano-staged": "^1.0.2",
     "openapi-typescript": "^7.13.0",
     "prettier": "^3.5.3",
     "simple-git-hooks": "^2.13.1",
     "typescript": "^5.9.3"
   },
   "simple-git-hooks": {
-    "pre-commit": "npm run fix-lint"
+    "pre-commit": "./node_modules/.bin/nano-staged"
+  },
+  "nano-staged": {
+    "*.{ts,tsx,js,jsx}": "eslint --fix",
+    "**/*": [
+      "prettier --write . --ignore-unknown"
+    ]
   },
   "icon": "extension-icon.png",
   "commands": [
