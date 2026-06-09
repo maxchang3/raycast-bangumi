@@ -42,7 +42,7 @@
   "nano-staged": {
     "*.{ts,tsx,js,jsx}": "eslint --fix",
     "**/*": [
-      "prettier --write . --ignore-unknown"
+      "prettier --write --ignore-unknown"
     ]
   },
   "icon": "extension-icon.png",
