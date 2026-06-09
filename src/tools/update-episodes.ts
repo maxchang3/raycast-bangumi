@@ -37,12 +37,12 @@ export const confirmation: Tool.Confirmation<Input> = async (input) => {
   const statusName = episodeCollectionTypeMap[input.collectionType] || input.collectionType.toString()
   const displayName = input.subjectName || String(input.subjectId)
   return {
-    message: `Are you sure you want to update ${input.episodeIds?.length || 0} episode(s) of "${displayName}" to "${statusName}"?`,
+    message: `Are you sure you want to update ${input.episodeIds.length} episode(s) of "${displayName}" to "${statusName}"?`,
   }
 }
 
 const tool = async (input: Input) => {
-  if (!input.episodeIds || input.episodeIds.length === 0) {
+  if (input.episodeIds.length === 0) {
     throw new Error("No episode IDs provided")
   }
 

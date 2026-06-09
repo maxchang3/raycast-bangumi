@@ -1,6 +1,7 @@
 import { bangumi } from "@/api/bangumi"
 import { withAccessToken } from "@raycast/utils"
 import { bangumiAuth } from "@/api/oauth"
+import { formatCharacterToMarkdown } from "./utils"
 
 type Input = {
   /**
@@ -22,7 +23,16 @@ const tool = async (input: Input) => {
     offset: input.offset || 0,
   })
 
-  return result
+  const items = result.data.map(formatCharacterToMarkdown).join("\n\n") || "No characters found."
+
+  return {
+    pagination: {
+      total: result.total,
+      limit: result.limit,
+      offset: result.offset,
+    },
+    content: `# Character Search Results for "${input.keyword}"\n\n${items}`,
+  }
 }
 
 export default withAccessToken(bangumiAuth)(tool)
