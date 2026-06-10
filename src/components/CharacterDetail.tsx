@@ -5,7 +5,7 @@ import { bangumi, Infobox } from "@/api/bangumi"
 import { bangumiAuth } from "@/api/oauth"
 import { OpenInBgmBrowser } from "./actions"
 import RelationsList from "./RelationsList"
-import { formatSummary } from "@/shared/utils"
+import { formatSummary, getImageUrl } from "@/shared/utils"
 import { useAITranslate, getTranslationMarkdown, AITranslateAction } from "@/shared/useAITranslate"
 
 interface CharacterDetailProps {
@@ -37,7 +37,7 @@ const CharacterDetail = ({ characterId }: CharacterDetailProps) => {
 
   const { translatedText, isTranslating, translate } = useAITranslate(`char_summary_translation_${characterId}`)
 
-  const coverUrl = data?.images?.large
+  const coverUrl = getImageUrl(data?.images?.large)
   const infobox = data?.infobox as Infobox | undefined
   const nameCnItem = infobox?.find((box) => box.key === "简体中文名")
   const nameCn = nameCnItem && typeof nameCnItem.value === "string" ? nameCnItem.value : ""

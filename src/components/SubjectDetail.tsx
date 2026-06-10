@@ -7,7 +7,7 @@ import { CollectionStatusActions, OpenInBgmBrowser } from "./actions"
 import SubjectCharactersList from "./SubjectCharactersList"
 import RelationsList from "./RelationsList"
 import { getCollectionTag, SubjectCollectionIcon } from "@/shared/const"
-import { formatSummary } from "@/shared/utils"
+import { formatSummary, getImageUrl } from "@/shared/utils"
 import { useAITranslate, getTranslationMarkdown, AITranslateAction } from "@/shared/useAITranslate"
 
 interface SubjectDetailProps {
@@ -65,7 +65,7 @@ const SubjectDetail = ({ subjectId }: SubjectDetailProps) => {
 
   const { translatedText, isTranslating, translate } = useAITranslate(`subject_summary_translation_${subjectId}`)
 
-  const coverUrl = data?.images?.large
+  const coverUrl = getImageUrl(data?.images?.large)
   const name = data?.name_cn || data?.name || ""
   const subtitleName = data?.name && data.name !== name ? data.name : ""
 

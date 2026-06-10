@@ -4,13 +4,9 @@ import { bangumi } from "@/api/bangumi"
 import { bangumiAuth } from "@/api/oauth"
 import SubjectDetail from "@/components/SubjectDetail"
 import { OpenInBgmBrowser } from "@/components/actions"
+import { getImageUrl } from "@/shared/utils"
 
 import { useRef } from "react"
-
-const getImageUrl = (url?: string) => {
-  if (!url) return undefined
-  return url.replace(/^http:\/\//i, "https://")
-}
 
 const Calendar = () => {
   const abortable = useRef<AbortController>(null)
