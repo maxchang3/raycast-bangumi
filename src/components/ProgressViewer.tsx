@@ -207,9 +207,7 @@ export default function ProgressViewer({
                 keywords={[epLabel, epTitle]}
                 actions={
                   <ActionPanel>
-                    {statusType === EpisodeCollectionType.Watched && (
-                      <OpenInBgmBrowser path={`ep/${ep.episode.id}`} isPrimary />
-                    )}
+                    {statusType === EpisodeCollectionType.Watched && <OpenInBgmBrowser path={`ep/${ep.episode.id}`} />}
                     <EpisodeStatusActions
                       episode={ep.episode}
                       statusType={statusType}
