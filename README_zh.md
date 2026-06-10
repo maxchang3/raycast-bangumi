@@ -8,13 +8,13 @@
 
 ## 功能
 
-- **列出收藏 (List Collections):** 显示全部的收藏。
-- **列出当前收藏 (List Current Collections):** 管理你的状态为「在看/在玩/在读」的条目。
-- **每日放送 (Daily Calendar):** 查看每日放送。
-- **搜索条目 (Search Subjects):** 在 Bangumi 上搜索条目。
-- **搜索角色 (Search Characters):** 在 Bangumi 上搜索角色。
-- **AI 工具 (AI Tools):** 全面接入 Raycast AI，直接在对话中让 AI 帮你管理进度、搜索番剧。
-- **AI 翻译 (AI Translation):** 基于 Raycast AI 自动翻译条目和角色简介。
+* **收藏管理 (Collections Management)**: 列出并浏览你所有的 Bangumi 收藏。
+* **进度追踪 (Current Status Tracking)**: 管理你当前状态为*在看*、*在玩*和*在读*的条目。
+* **每日放送 (Daily Calendar)**: 查看每日新番放送时间表。
+* **搜索条目 (Search Subjects)**: 在 Bangumi 上搜索动画、书籍和游戏等。
+* **搜索角色 (Search Characters)**: 发现并搜索角色资料。
+* **AI 工具集成 (AI Tools Integration)**: 全面接入 Raycast AI，直接在对话中管理进度和搜索内容。
+* **AI 翻译 (AI Translation)**: 使用 Raycast AI 翻译条目和角色简介。
 
 
 | 详情页 | 每日放送 |
