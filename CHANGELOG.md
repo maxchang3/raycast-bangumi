@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.0](https://github.com/maxchang3/raycast-bangumi/compare/v1.1.0...v1.2.0) - 2026-06-10
+
+### ✨ New
+
+- centralize image URL sanitization logic in shared utils and apply it to detail views ([9d96332](https://github.com/maxchang3/raycast-bangumi/commit/9d96332bdfd1aa3cab66e46e22939daa76487a30))
+
 ## [1.1.0](https://github.com/maxchang3/raycast-bangumi/compare/v1.0.0...v1.1.0) - 2026-06-10
 
 ### ✨ New
