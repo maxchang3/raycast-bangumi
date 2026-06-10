@@ -9,16 +9,15 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Publish Extension to Raycast
-        uses: maxchang3/publish-raycast-extension@2
-        with:
-          raycast_extensions_fork_full_name: maxchang3/raycast-extensions
-          github_username: maxchang3
-          extension_name: bangumi
-          ignore_paths: |
-            .vscode
-            .github
-            release-please-config.json
-            .release-please-manifest.json
-            skills-lock.json
-          github_access_token: ${{ secrets.RAYCAST_EXTENSIONS_TOKEN }}
+      uses: maxchang3/raycast-extension-actions/publish@v1
+      with:
+        raycast_extensions_fork_full_name: maxchang3/raycast-extensions
+        github_username: maxchang3
+        extension_name: bangumi
+        ignore_paths: |
+          .vscode
+          .github
+          release-please-config.json
+          .release-please-manifest.json
+          skills-lock.json
+        github_access_token: ${{ secrets.RAYCAST_EXTENSIONS_TOKEN }}
