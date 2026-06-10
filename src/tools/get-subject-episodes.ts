@@ -23,7 +23,7 @@ type Input = {
 }
 
 const tool = async (input: Input) => {
-  const result = await bangumi.getUserSubjectEpisodeCollection({
+  const { total, limit, offset, data } = await bangumi.getUserSubjectEpisodeCollection({
     subjectId: input.subjectId,
     query: {
       limit: input.limit || 100,
@@ -33,7 +33,7 @@ const tool = async (input: Input) => {
   })
 
   const items =
-    result.data
+    data
       ?.map((ep) => {
         const epMd = formatEpisodeToMarkdown(ep.episode)
         const typeStr = ep.type === 1 ? "Wish" : ep.type === 2 ? "Watched" : ep.type === 3 ? "Drop" : "None"
@@ -43,9 +43,9 @@ const tool = async (input: Input) => {
 
   return {
     pagination: {
-      total: result.total,
-      limit: result.limit,
-      offset: result.offset,
+      total,
+      limit,
+      offset,
     },
     content: `# Subject Episodes (Subject ID: ${input.subjectId})\n\n${items}`,
   }
