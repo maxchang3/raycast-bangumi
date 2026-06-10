@@ -1,10 +1,11 @@
-import { ActionPanel, Grid, showToast, Toast } from "@raycast/api"
+import { Action, ActionPanel, Grid, Icon, showToast, Toast } from "@raycast/api"
 import { usePromise, showFailureToast } from "@raycast/utils"
 import { useState } from "react"
 import { bangumi } from "@/api/bangumi"
 import { EpisodeCollectionType, EpisodeType } from "@/shared/const"
 import type { components } from "@/types/generated"
-import { EpisodeStatusActions, OpenInBgmBrowser } from "./actions"
+import { EpisodeStatusActions } from "./actions"
+import EpisodeDetail from "./EpisodeDetail"
 
 interface ProgressViewerProps {
   subjectId: number
@@ -238,7 +239,11 @@ export default function ProgressViewer({
                 keywords={[epLabel, epTitle]}
                 actions={
                   <ActionPanel>
-                    {statusType === EpisodeCollectionType.Watched && <OpenInBgmBrowser path={`ep/${ep.episode.id}`} />}
+                    <Action.Push
+                      title="View Details"
+                      icon={Icon.BlankDocument}
+                      target={<EpisodeDetail episode={ep.episode} />}
+                    />
                     <EpisodeStatusActions
                       episode={ep.episode}
                       statusType={statusType}
@@ -246,11 +251,6 @@ export default function ProgressViewer({
                       onBatchUpdateStatus={handleBatchUpdateStatus}
                       sortedEps={sortedEps}
                     />
-                    {statusType !== EpisodeCollectionType.Watched && (
-                      <ActionPanel.Section>
-                        <OpenInBgmBrowser path={`ep/${ep.episode.id}`} />
-                      </ActionPanel.Section>
-                    )}
                   </ActionPanel>
                 }
               />
