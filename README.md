@@ -2,7 +2,7 @@
 
 # raycast-bangumi
 
-A Raycast extension for Bangumi. Browse and manage your [bangumi.tv](https://bangumi.tv) progress directly within Raycast.
+A full-featured Bangumi([bangumi.tv](https://bangumi.tv)) client for Raycast. Manage collections, track progress, search subjects and characters, view daily schedules. Includes AI tools for Raycast AI.
 
 | [简体中文](./README_zh.md) | English |
 

@@ -4,7 +4,8 @@
 
 | 简体中文 | [English](./README.md) |
 
-一个基于 Raycast 的 Bangumi 客户端，直接在 Raycast 中浏览、管理你在 [bangumi.tv](https://bangumi.tv) 上的进度。
+一个全功能的 Bangumi([bangumi.tv](https://bangumi.tv)) Raycast 客户端。管理收藏、追踪进度、搜索条目和角色、查看每日放送。提供 AI 工具集成。
+
 
 ## 功能
 
