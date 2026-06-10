@@ -2,7 +2,7 @@ import { ActionPanel, List, Action, Icon, getPreferenceValues } from "@raycast/a
 import { usePromise } from "@raycast/utils"
 import { useRef, useState } from "react"
 import { bangumi } from "@/api/bangumi"
-import { SubjectCollectionType, SubjectType, SubjectTypeName, getCollectionTag } from "@/shared/const"
+import { SubjectCollectionType, SubjectType, SubjectTypeName, getCollectionTag } from "@/const"
 import ProgressViewer from "./ProgressViewer"
 import SubjectDetail from "./SubjectDetail"
 import { CollectionStatusActions, OpenInBgmBrowser } from "./actions"
@@ -32,15 +32,15 @@ export default function MyCollection({ filterType }: MyCollectionProps) {
   const { data, isLoading, pagination, mutate } = usePromise(
     (subjectType: string) => async (options: { page: number }) => {
       const offset = options.page * PAGE_SIZE
-      const { data, total } = await bangumi.getMyCollections({
-        query: {
+      const { data, total } = await bangumi.getMyCollections(
+        {
           limit: PAGE_SIZE,
           offset,
           type: filterType,
           ...(subjectType !== "all" && { subject_type: parseInt(subjectType) }),
         },
-        signal: abortControllerRef.current?.signal,
-      })
+        abortControllerRef.current?.signal
+      )
       return {
         data,
         hasMore: offset + PAGE_SIZE < total,
@@ -86,11 +86,6 @@ export default function MyCollection({ filterType }: MyCollectionProps) {
             actions={
               <ActionPanel title={`${item.subject?.name_cn || item.subject?.name}`}>
                 <ActionPanel.Section>
-                  <Action.Push
-                    title="Show Details"
-                    icon={Icon.Sidebar}
-                    target={<SubjectDetail subjectId={item.subject_id} />}
-                  />
                   {item.subject_type === SubjectType.Anime && (
                     <Action.Push
                       title="View Progress"
@@ -106,6 +101,11 @@ export default function MyCollection({ filterType }: MyCollectionProps) {
                       }
                     />
                   )}
+                  <Action.Push
+                    title="Show Details"
+                    icon={Icon.Sidebar}
+                    target={<SubjectDetail subjectId={item.subject_id} />}
+                  />
                   <OpenInBgmBrowser path={`subject/${item.subject_id}`} />
                 </ActionPanel.Section>
                 <CollectionStatusActions

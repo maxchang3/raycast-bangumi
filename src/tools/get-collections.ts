@@ -1,8 +1,6 @@
 import { bangumi } from "@/api/bangumi"
 import { withAccessToken } from "@raycast/utils"
 import { bangumiAuth } from "@/api/oauth"
-import { formatSubjectToMarkdown } from "./utils"
-import { getCollectionTag } from "@/shared/const"
 
 type Input = {
   /**
@@ -26,34 +24,12 @@ type Input = {
 
 const tool = async (input: Input) => {
   const result = await bangumi.getMyCollections({
-    query: {
-      subject_type: input.subjectType,
-      type: input.collectionType,
-      limit: input.limit || 30,
-      offset: input.offset || 0,
-    },
+    subject_type: input.subjectType,
+    type: input.collectionType,
+    limit: input.limit || 30,
+    offset: input.offset || 0,
   })
 
-  const items = result.data.map((item) => {
-    const statusStr = getCollectionTag(item.type, item.subject?.type).value
-    const subjectMd = item.subject ? formatSubjectToMarkdown(item.subject) : ""
-
-    const progressStr =
-      `  - Progress: ${item.ep_status || 0} eps watched` + (item.vol_status ? `, ${item.vol_status} vols read` : "")
-    const rateStr = item.rate ? `\n  - My Rating: ${item.rate}` : ""
-
-    return `### [${statusStr}] Collection Info\n${subjectMd}${progressStr}${rateStr}`
-  })
-
-  const markdownItems = items.join("\n\n") || "No collections found."
-
-  return {
-    pagination: {
-      total: result.total,
-      limit: result.limit,
-      offset: result.offset,
-    },
-    content: `# User Collections\n\n${markdownItems}`,
-  }
+  return result
 }
 export default withAccessToken(bangumiAuth)(tool)

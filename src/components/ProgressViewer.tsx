@@ -2,7 +2,7 @@ import { ActionPanel, Grid, showToast, Toast } from "@raycast/api"
 import { usePromise, showFailureToast } from "@raycast/utils"
 import { useState } from "react"
 import { bangumi } from "@/api/bangumi"
-import { EpisodeCollectionType, EpisodeType } from "@/shared/const"
+import { EpisodeCollectionType, EpisodeType } from "@/const"
 import type { components } from "@/types/generated"
 import { EpisodeStatusActions, OpenInBgmBrowser } from "./actions"
 
@@ -98,12 +98,12 @@ export default function ProgressViewer({
     data: { data: episodes = [] } = {},
     isLoading,
     mutate,
-  } = usePromise(() => bangumi.getUserSubjectEpisodeCollection({ subjectId }), [])
+  } = usePromise(() => bangumi.getUserSubjectEpisodeCollection(subjectId, {}), [])
 
   const handleUpdateStatus = async (episodeId: number, status: EpisodeCollectionType) => {
     const toast = await showToast({ style: Toast.Style.Animated, title: "Updating status..." })
     try {
-      await mutate(bangumi.updateEpisodeCollection({ episodeId, type: status }), {
+      await mutate(bangumi.updateEpisodeCollection(episodeId, status), {
         optimisticUpdate: (currentData) => {
           if (!currentData) return currentData!
           return {
@@ -122,7 +122,7 @@ export default function ProgressViewer({
   const handleBatchUpdateStatus = async (episodesToUpdate: number[], status: EpisodeCollectionType) => {
     const toast = await showToast({ style: Toast.Style.Animated, title: "Batch updating status..." })
     try {
-      await mutate(bangumi.updateSubjectEpisodesCollection({ subjectId, episodeIds: episodesToUpdate, type: status }), {
+      await mutate(bangumi.updateSubjectEpisodesCollection(subjectId, episodesToUpdate, status), {
         optimisticUpdate: (currentData) => {
           if (!currentData) return currentData!
           const idsSet = new Set(episodesToUpdate)

@@ -1,7 +1,6 @@
 import { bangumi } from "@/api/bangumi"
 import { withAccessToken } from "@raycast/utils"
 import { bangumiAuth } from "@/api/oauth"
-import { formatSubjectToMarkdown } from "./utils"
 
 type Input = {
   /**
@@ -15,7 +14,7 @@ type Input = {
    */
   subjectType?: number
 
-  /** Limit of items to return, default 10, max to 20 */
+  /** Limit of items to return, default 10 */
   limit?: number
 
   /** Offset, default 0 */
@@ -23,23 +22,9 @@ type Input = {
 }
 
 const tool = async (input: Input) => {
-  const result = await bangumi.searchSubjects({
-    keyword: input.keyword,
-    limit: input.limit || 10,
-    offset: input.offset || 0,
-    subjectType: input.subjectType,
-  })
+  const result = await bangumi.searchSubjects(input.keyword, input.limit || 10, input.offset || 0, input.subjectType)
 
-  const items = result.data.map(formatSubjectToMarkdown).join("\n\n") || "No results found."
-
-  return {
-    pagination: {
-      total: result.total,
-      limit: result.limit,
-      offset: result.offset,
-    },
-    content: `# Search Results for "${input.keyword}"\n\n${items}`,
-  }
+  return result
 }
 
 export default withAccessToken(bangumiAuth)(tool)

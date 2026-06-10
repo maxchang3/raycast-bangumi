@@ -1,7 +1,7 @@
 import { Action, ActionPanel, showToast, Toast } from "@raycast/api"
 import { showFailureToast } from "@raycast/utils"
 import { bangumi } from "@/api/bangumi"
-import { SubjectCollectionType, SubjectType, getCollectionTag, SubjectCollectionIcon } from "@/shared/const"
+import { SubjectCollectionType, SubjectType, getCollectionTag, SubjectCollectionIcon } from "@/const"
 
 interface Props {
   subjectId: number
@@ -19,7 +19,7 @@ export const CollectionStatusActions = ({
   const handleStatusChange = async (type: SubjectCollectionType) => {
     try {
       await showToast({ title: "Updating collection...", style: Toast.Style.Animated })
-      await bangumi.updateSubjectCollection({ subjectId, type })
+      await bangumi.updateSubjectCollection(subjectId, type)
       if (onStatusChange) {
         onStatusChange()
       }

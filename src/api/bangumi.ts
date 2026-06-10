@@ -1,9 +1,7 @@
 import createClient from "openapi-fetch"
-import type { components, paths } from "@/types/generated"
+import type { paths } from "@/types/generated"
 import { getAccessToken } from "@raycast/utils"
-import { EpisodeCollectionType, EpisodeType, SubjectCollectionType, SubjectType } from "@/shared/const"
-
-export type Infobox = components["schemas"]["WikiV0"]
+import { EpisodeCollectionType, EpisodeType, SubjectCollectionType, SubjectType } from "@/const"
 
 interface BangumiErrorResponse {
   title: string
@@ -47,7 +45,7 @@ class Bangumi {
 
   private username?: string
 
-  private async getUsername({ signal }: { signal?: AbortSignal } = {}): Promise<string> {
+  private async getUsername(signal?: AbortSignal): Promise<string> {
     if (this.username) return this.username
     const { data, error } = await this.client.GET("/v0/me", { signal })
     if (error) throw new BangumiApiError(error)
@@ -55,19 +53,15 @@ class Bangumi {
     return this.username
   }
 
-  async getUserSubjectEpisodeCollection({
-    subjectId,
-    query,
-    signal,
-  }: {
-    subjectId: number
+  async getUserSubjectEpisodeCollection(
+    subjectId: number,
     query?: {
       offset?: number
       limit?: number
       episode_type?: EpisodeType
-    }
+    },
     signal?: AbortSignal
-  }) {
+  ) {
     const { data, error } = await this.client.GET("/v0/users/-/collections/{subject_id}/episodes", {
       params: {
         query,
@@ -79,19 +73,16 @@ class Bangumi {
     return data
   }
 
-  async getMyCollections({
-    query,
-    signal,
-  }: {
+  async getMyCollections(
     query: {
       subject_type?: SubjectType
       type?: SubjectCollectionType
       limit?: number
       offset?: number
-    }
+    },
     signal?: AbortSignal
-  }) {
-    const username = await this.getUsername({ signal })
+  ) {
+    const username = await this.getUsername(signal)
     const { data, error } = await this.client.GET("/v0/users/{username}/collections", {
       params: {
         query,
@@ -103,7 +94,7 @@ class Bangumi {
     return data
   }
 
-  async getSubjectById({ subjectId, signal }: { subjectId: number; signal?: AbortSignal }) {
+  async getSubjectById(subjectId: number, signal?: AbortSignal) {
     const { data, error } = await this.client.GET("/v0/subjects/{subject_id}", {
       params: {
         path: { subject_id: subjectId },
@@ -114,7 +105,7 @@ class Bangumi {
     return data
   }
 
-  async getSubjectCharacters({ subjectId, signal }: { subjectId: number; signal?: AbortSignal }) {
+  async getSubjectCharacters(subjectId: number, signal?: AbortSignal) {
     const { data, error } = await this.client.GET("/v0/subjects/{subject_id}/characters", {
       params: {
         path: { subject_id: subjectId },
@@ -125,52 +116,13 @@ class Bangumi {
     return data
   }
 
-  async getCharacterById({ characterId, signal }: { characterId: number; signal?: AbortSignal }) {
-    const { data, error } = await this.client.GET("/v0/characters/{character_id}", {
-      params: {
-        path: { character_id: characterId },
-      },
-      signal,
-    })
-    if (error) throw new BangumiApiError(error)
-    return data
-  }
-
-  async getRelatedSubjectsByCharacterId({ characterId, signal }: { characterId: number; signal?: AbortSignal }) {
-    const { data, error } = await this.client.GET("/v0/characters/{character_id}/subjects", {
-      params: {
-        path: { character_id: characterId },
-      },
-      signal,
-    })
-    if (error) throw new BangumiApiError(error)
-    return data
-  }
-
-  async getRelatedSubjectsBySubjectId({ subjectId, signal }: { subjectId: number; signal?: AbortSignal }) {
-    const { data, error } = await this.client.GET("/v0/subjects/{subject_id}/subjects", {
-      params: {
-        path: { subject_id: subjectId },
-      },
-      signal,
-    })
-    if (error) throw new BangumiApiError(error)
-    return data
-  }
-
-  async searchSubjects({
-    keyword,
-    limit,
-    offset,
-    subjectType,
-    signal,
-  }: {
-    keyword: string
-    limit: number
-    offset: number
-    subjectType?: SubjectType
+  async searchSubjects(
+    keyword: string,
+    limit: number,
+    offset: number,
+    subjectType?: SubjectType,
     signal?: AbortSignal
-  }) {
+  ) {
     const { data, error } = await this.client.POST("/v0/search/subjects", {
       params: {
         query: { limit, offset },
@@ -185,37 +137,7 @@ class Bangumi {
     return data
   }
 
-  async searchCharacters({
-    keyword,
-    limit,
-    offset,
-    signal,
-  }: {
-    keyword: string
-    limit: number
-    offset: number
-    signal?: AbortSignal
-  }) {
-    const { data, error } = await this.client.POST("/v0/search/characters", {
-      params: {
-        query: { limit, offset },
-      },
-      body: { keyword },
-      signal,
-    })
-    if (error) throw new BangumiApiError(error)
-    return data
-  }
-
-  async updateEpisodeCollection({
-    episodeId,
-    type,
-    signal,
-  }: {
-    episodeId: number
-    type: EpisodeCollectionType
-    signal?: AbortSignal
-  }) {
+  async updateEpisodeCollection(episodeId: number, type: EpisodeCollectionType, signal?: AbortSignal) {
     const { data, error } = await this.client.PUT("/v0/users/-/collections/-/episodes/{episode_id}", {
       params: {
         path: { episode_id: episodeId },
@@ -229,17 +151,12 @@ class Bangumi {
     return data
   }
 
-  async updateSubjectEpisodesCollection({
-    subjectId,
-    episodeIds,
-    type,
-    signal,
-  }: {
-    subjectId: number
-    episodeIds: number[]
-    type: EpisodeCollectionType
+  async updateSubjectEpisodesCollection(
+    subjectId: number,
+    episodeIds: number[],
+    type: EpisodeCollectionType,
     signal?: AbortSignal
-  }) {
+  ) {
     const { data, error } = await this.client.PATCH("/v0/users/-/collections/{subject_id}/episodes", {
       params: {
         path: { subject_id: subjectId },
@@ -254,8 +171,8 @@ class Bangumi {
     return data
   }
 
-  async getSubjectCollection({ subjectId, signal }: { subjectId: number; signal?: AbortSignal }) {
-    const username = await this.getUsername({ signal })
+  async getSubjectCollection(subjectId: number, signal?: AbortSignal) {
+    const username = await this.getUsername(signal)
     const { data, error, response } = await this.client.GET("/v0/users/{username}/collections/{subject_id}", {
       params: { path: { username, subject_id: subjectId } },
       signal,
@@ -267,15 +184,7 @@ class Bangumi {
     return data
   }
 
-  async updateSubjectCollection({
-    subjectId,
-    type,
-    signal,
-  }: {
-    subjectId: number
-    type: SubjectCollectionType
-    signal?: AbortSignal
-  }) {
+  async updateSubjectCollection(subjectId: number, type: SubjectCollectionType, signal?: AbortSignal) {
     const { error } = await this.client.POST("/v0/users/-/collections/{subject_id}", {
       params: { path: { subject_id: subjectId } },
       body: { type },
@@ -284,7 +193,7 @@ class Bangumi {
     if (error) throw new BangumiApiError(error)
   }
 
-  async getCalendar({ signal }: { signal?: AbortSignal } = {}) {
+  async getCalendar(signal?: AbortSignal) {
     const { data, error } = await this.client.GET("/calendar", { signal })
     if (error) throw new BangumiApiError(error)
     return data

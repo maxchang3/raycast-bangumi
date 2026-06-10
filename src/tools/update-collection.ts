@@ -1,6 +1,6 @@
 import { Tool } from "@raycast/api"
 import { bangumi } from "@/api/bangumi"
-import { getCollectionTag } from "@/shared/const"
+import { getCollectionTag } from "@/const"
 import { withAccessToken } from "@raycast/utils"
 import { bangumiAuth } from "@/api/oauth"
 
@@ -37,7 +37,7 @@ export const confirmation: Tool.Confirmation<Input> = async (input) => {
 }
 
 const tool = async (input: Input) => {
-  await bangumi.updateSubjectCollection({ subjectId: input.subjectId, type: input.collectionType })
+  await bangumi.updateSubjectCollection(input.subjectId, input.collectionType)
 
   const statusName = getCollectionTag(input.collectionType, input.subjectType).value
   return {

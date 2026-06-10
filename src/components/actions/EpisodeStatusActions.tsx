@@ -1,5 +1,5 @@
 import { Action, ActionPanel, Icon, showToast, Toast } from "@raycast/api"
-import { EpisodeCollectionType } from "@/shared/const"
+import { EpisodeCollectionType } from "@/const"
 import type { components } from "@/types/generated"
 
 type Episode = components["schemas"]["Episode"]

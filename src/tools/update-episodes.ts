@@ -37,20 +37,16 @@ export const confirmation: Tool.Confirmation<Input> = async (input) => {
   const statusName = episodeCollectionTypeMap[input.collectionType] || input.collectionType.toString()
   const displayName = input.subjectName || String(input.subjectId)
   return {
-    message: `Are you sure you want to update ${input.episodeIds.length} episode(s) of "${displayName}" to "${statusName}"?`,
+    message: `Are you sure you want to update ${input.episodeIds?.length || 0} episode(s) of "${displayName}" to "${statusName}"?`,
   }
 }
 
 const tool = async (input: Input) => {
-  if (input.episodeIds.length === 0) {
+  if (!input.episodeIds || input.episodeIds.length === 0) {
     throw new Error("No episode IDs provided")
   }
 
-  await bangumi.updateSubjectEpisodesCollection({
-    subjectId: input.subjectId,
-    episodeIds: input.episodeIds,
-    type: input.collectionType,
-  })
+  await bangumi.updateSubjectEpisodesCollection(input.subjectId, input.episodeIds, input.collectionType)
 
   const statusName = episodeCollectionTypeMap[input.collectionType] || input.collectionType.toString()
   return {
