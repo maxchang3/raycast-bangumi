@@ -2,6 +2,7 @@ import { bangumi } from "@/api/bangumi"
 import { withAccessToken } from "@raycast/utils"
 import { bangumiAuth } from "@/api/oauth"
 import { formatEpisodeToMarkdown } from "./utils"
+import { EpisodeCollectionTypeName } from "@/shared/const"
 
 type Input = {
   /**
@@ -36,7 +37,7 @@ const tool = async (input: Input) => {
     data
       ?.map((ep) => {
         const epMd = formatEpisodeToMarkdown(ep.episode)
-        const typeStr = ep.type === 1 ? "Wish" : ep.type === 2 ? "Watched" : ep.type === 3 ? "Drop" : "None"
+        const typeStr = EpisodeCollectionTypeName[ep.type] ?? "None"
         return `${epMd}\n    - User Status: ${typeStr}`
       })
       .join("\n") || "No episodes found."
