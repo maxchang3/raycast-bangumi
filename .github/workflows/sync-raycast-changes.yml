@@ -13,6 +13,7 @@ jobs:
       - uses: maxchang3/raycast-extension-actions/sync@v1
         with:
           extension_name: bangumi
+          raycast_extensions_fork_full_name: maxchang3/raycast-extensions
           ignore_paths: |
             CHANGELOG.md
           github_access_token: ${{ secrets.RAYCAST_EXTENSIONS_TOKEN }}
