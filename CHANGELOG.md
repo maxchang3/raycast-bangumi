@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.1.0](https://github.com/maxchang3/raycast-bangumi/compare/v1.0.0...v1.1.0) - 2026-06-10
+
+### ✨ New
+
+- add character search functionality, character detail views, and related works list component. ([775c891](https://github.com/maxchang3/raycast-bangumi/commit/775c8919f8040aa5425891143aa8c7eb12d6a4ee))
+- **AI-Tools:** format generated output as Markdown content ([437308b](https://github.com/maxchang3/raycast-bangumi/commit/437308b7e5c14f2afa6cbb046bd5fdf22fd6419f))
+- **CharacterDetail:** add AI-powered summary translation feature ([db2dad8](https://github.com/maxchang3/raycast-bangumi/commit/db2dad82537d3c910bfd82c578f2aedf2ba73b1b))
+- **Collection:** reorder Show Details action to the top ([bc40c9f](https://github.com/maxchang3/raycast-bangumi/commit/bc40c9f665d4999c5b327cb6660e209dbeefa686))
+- **Detail:** show related subjects and unify relations list UI ([fe26963](https://github.com/maxchang3/raycast-bangumi/commit/fe26963dd3b2f3e5f8de963daf629aca722bc588))
+- **RelationsList:** show subject type tag in accessories ([9fa77d5](https://github.com/maxchang3/raycast-bangumi/commit/9fa77d591dbd871733863939c45ca181a2e18065))
+- **SubjectCharactersList:** add character summary as subtitle ([41652ca](https://github.com/maxchang3/raycast-bangumi/commit/41652ca95507af53ce5852b3db08a4b468f8a7df))
+- **SubjectDetail:** improve display with dynamic markdown headers ([191d9d4](https://github.com/maxchang3/raycast-bangumi/commit/191d9d485fc21dd3a442448997ccfe6e6d709610))
+
+### 🐞 Fixes
+
+- improve summary text formatting ([0427e92](https://github.com/maxchang3/raycast-bangumi/commit/0427e921103374e67e141ebf29d8475ab7fa1999))
+- update search limit constraints to 20 for subjects and characters ([db1d8bb](https://github.com/maxchang3/raycast-bangumi/commit/db1d8bb5c81f61ee1c811b9b6f458788af49459f))
+
+### 💎 Improvements
+
+- remove unnecessary optional chaining for required properties ([ce8372e](https://github.com/maxchang3/raycast-bangumi/commit/ce8372e6f4a51aa1652a07d591c588b23f8b861a))
+- remove unneeded optional chaining ([64778b6](https://github.com/maxchang3/raycast-bangumi/commit/64778b63b0ca72bb233750473693a61f129cc67f))
+- transition all Bangumi API methods to use object-based parameters ([2d59265](https://github.com/maxchang3/raycast-bangumi/commit/2d592658e53c8c9ee64d4e441a95037720b67c73))
+- unify summary formatting ([2ff4af9](https://github.com/maxchang3/raycast-bangumi/commit/2ff4af91f2118cc2f4f73e4155e4a94b75a21588))
+
 ## 1.0.0 - 2026-06-08
 
 ### ✨ New
