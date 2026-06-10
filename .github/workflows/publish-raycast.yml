@@ -9,8 +9,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Publish Extension to Raycast
-        uses: maxchang3/publish-raycast-extension@2
+      - uses: maxchang3/raycast-extension-actions/publish@v1
         with:
           raycast_extensions_fork_full_name: maxchang3/raycast-extensions
           github_username: maxchang3

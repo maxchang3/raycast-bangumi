@@ -1,4 +1,4 @@
-name: Pull raycast changes
+name: Sync raycast/extension Changes
 
 on:
   schedule:
@@ -10,10 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: maxchang3/pull-raycast-extension-changes@2
+      - uses: maxchang3/raycast-extension-actions/sync@v1
         with:
           extension_name: bangumi
           ignore_paths: |
             CHANGELOG.md
-            .github/
           github_access_token: ${{ secrets.RAYCAST_EXTENSIONS_TOKEN }}
