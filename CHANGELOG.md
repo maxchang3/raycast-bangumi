@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.3.0](https://github.com/maxchang3/raycast-bangumi/compare/v1.2.0...v1.3.0) - 2026-06-10
+
+### ✨ New
+
+- add day filter dropdown to daily calendar grid ([4209fe7](https://github.com/maxchang3/raycast-bangumi/commit/4209fe7cbf6760d6fbc325c6430d15007aadfeab))
+- add EpisodeDetail component and integrate it into ProgressViewer actions ([04a68ce](https://github.com/maxchang3/raycast-bangumi/commit/04a68ce9b7e4bcd091eb64bf6292b809ce135e9d))
+- add translation state to AITranslateAction to prevent redundant requests ([f7278e3](https://github.com/maxchang3/raycast-bangumi/commit/f7278e36e0b7713dc1be3793dc61ace7e9a7ef8b))
+
+### 💎 Improvements
+
+- centralize episode collection and type naming configurations in constants ([0e8a3fc](https://github.com/maxchang3/raycast-bangumi/commit/0e8a3fcf339392368602648682fbf58ea0ade107))
+- destructure the API return value as early as possible ([3afaac6](https://github.com/maxchang3/raycast-bangumi/commit/3afaac68b5dbf9323a81cbf5e33148371ddf4560))
+- remove isPrimary prop and standardize OpenInBgmBrowser shortcut behavior ([9bc97a8](https://github.com/maxchang3/raycast-bangumi/commit/9bc97a806e4b84851f8d671fb4d5da2f35d6af9a))
+- use EpisodeCollectionTypeName mapping for status string formatting in update-episodes tool ([16b7fcc](https://github.com/maxchang3/raycast-bangumi/commit/16b7fcc653787c4b49f0b51ff61a0d706a236983))
+
+### 🐞 Fixes
+
+- do not swallow non-404 collection errors ([a4d014a](https://github.com/maxchang3/raycast-bangumi/commit/a4d014ad33f334bcc1c8df9bd2e91ab50106b33b))
+- **ProgressViewer:** add null checks for currentCollection and fallback to existing data during optimistic updates ([8e20e8a](https://github.com/maxchang3/raycast-bangumi/commit/8e20e8ad610f4fa6e063f53ac24b06f26666b0fb))
+- **ProgressViewer:** add pagination to episode list and support lazy-loading total episode counts ([303114d](https://github.com/maxchang3/raycast-bangumi/commit/303114d7060b7a23e56e795c479fef42403b4cf1))
+- **ProgressViewer:** increase precision of progress percentage calculation to one decimal place ([12df46b](https://github.com/maxchang3/raycast-bangumi/commit/12df46be9822072b844c626ed67af6a7363cf870))
+- **search:** prevent parallel double-fetch from throwing out-of-bounds error on last page ([1ddd202](https://github.com/maxchang3/raycast-bangumi/commit/1ddd2024ef7f7bb49322d29c5f15678a3e294bb8))
+- **tool:** adjust calendar day index to align Sunday with value 7 ([bf5c3d0](https://github.com/maxchang3/raycast-bangumi/commit/bf5c3d079b1c5969b55b238ffec9e5114e489caa))
+
 ## [1.2.0](https://github.com/maxchang3/raycast-bangumi/compare/v1.1.0...v1.2.0) - 2026-06-10
 
 ### ✨ New
