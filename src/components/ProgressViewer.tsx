@@ -176,7 +176,7 @@ export default function ProgressViewer({
           .length
       : epStatus
 
-  const percent = actualTotalEps ? Math.round((displayEpStatus / actualTotalEps) * 100) : 0
+  const percent = actualTotalEps ? parseFloat(((displayEpStatus / actualTotalEps) * 100).toFixed(1)) : 0
   const progressText = actualTotalEps ? `${displayEpStatus}/${actualTotalEps} (${percent}%)` : `${displayEpStatus}`
 
   const sortedEps = [...episodes].sort((a, b) => {
