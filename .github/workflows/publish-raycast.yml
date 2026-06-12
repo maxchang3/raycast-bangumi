@@ -8,6 +8,10 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+
+    environment:
+      name: raycast-publish
+
     steps:
       - uses: maxchang3/raycast-extension-actions/publish@v1
         with:
