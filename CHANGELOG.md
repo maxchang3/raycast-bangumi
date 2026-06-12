@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.1](https://github.com/maxchang3/raycast-bangumi/compare/v1.3.0...v1.3.1) (2026-06-12)
+
+
+### 💎 Improvements
+
+* **ai-translation:** remove unnecessary target language fallback ([ccc7c7d](https://github.com/maxchang3/raycast-bangumi/commit/ccc7c7d37da8aad0b35b2f44b330f12462d28175))
+* decouple character and subject list data fetching to individual components ([faeaa96](https://github.com/maxchang3/raycast-bangumi/commit/faeaa96ec9742811829270e325e686ae5b170bb3))
+* **EpisodeDetail:** update original title display to use superscript instead of blockquote ([0889ace](https://github.com/maxchang3/raycast-bangumi/commit/0889ace329a3d6dde49bb19b49d487182328df3f))
+* extract AI translation logic and centralize type definitions for better modularity ([4c232f9](https://github.com/maxchang3/raycast-bangumi/commit/4c232f9bca29d5789d89dfec22a7508873e49577))
+* improve BangumiApiError message formatting ([24adc6a](https://github.com/maxchang3/raycast-bangumi/commit/24adc6a1d039070c31318480dd9d817334d638bf))
+* reorganize components and extract barrel exports ([fe5a921](https://github.com/maxchang3/raycast-bangumi/commit/fe5a9215929d0360e6b7c86fc8eafa56b865dc4b))
+
 ## [1.3.0](https://github.com/maxchang3/raycast-bangumi/compare/v1.2.0...v1.3.0) - 2026-06-10
 
 ### ✨ New
