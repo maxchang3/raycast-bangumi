@@ -1,0 +1,33 @@
+name: Update bangumi Types
+
+on:
+  schedule:
+    - cron: "0 0 * * 0" # Run every Sunday at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  update-types:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate bangumi Types
+        run: npm run generate-types
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore: update bangumi types from upstream"
+          title: "chore: update bangumi types from upstream"
+          body: "Automatically generated PR to update bangumi types from upstream [bangumi/api](https://github.com/bangumi/api)."
+          branch: "update-openapi-types"
+          base: "main"
+          labels: "dependencies, automated pr"
