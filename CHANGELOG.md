@@ -1,11 +1,10 @@
 # Changelog
 
-## [1.3.2](https://github.com/maxchang3/raycast-bangumi/compare/v1.3.1...v1.3.2) (2026-06-12)
-
+## [1.3.2](https://github.com/maxchang3/raycast-bangumi/compare/v1.3.1...v1.3.2) - 2026-06-12
 
 ### 💎 Improvements
 
-* **ai-translation:** optimize AITranslate caching strategy ([c90e3f2](https://github.com/maxchang3/raycast-bangumi/commit/c90e3f2b3389320c068f88ef22598a36d2327b7f))
+- **ai-translation:** optimize AITranslate caching strategy ([c90e3f2](https://github.com/maxchang3/raycast-bangumi/commit/c90e3f2b3389320c068f88ef22598a36d2327b7f))
 
 ## [1.3.1](https://github.com/maxchang3/raycast-bangumi/compare/v1.3.0...v1.3.1) - 2026-06-12
 
