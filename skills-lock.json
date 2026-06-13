@@ -1,11 +1,11 @@
 {
   "version": 1,
   "skills": {
-    "raycast-extensions": {
-      "source": "alexi-build/raycast-extensions-skill",
+    "raycast-extension": {
+      "source": "maxchang3/skills",
       "sourceType": "github",
-      "skillPath": "SKILL.md",
-      "computedHash": "49a1192d4e2163872705889b05717512ee0695f29c7d5ba5b36cffc325f60626"
+      "skillPath": "raycast-extension/SKILL.md",
+      "computedHash": "63256e87b568d04f7bad80dfa829e25f7a219cbc2a4d8b5ae75322b2229ac80e"
     }
   }
 }
