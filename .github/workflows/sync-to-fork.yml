@@ -16,3 +16,12 @@ jobs:
           extension_name: bangumi
           github_access_token: ${{ secrets.RAYCAST_EXTENSIONS_TOKEN }}
           create_pr: true
+          ignore_paths: |
+            .vscode
+            .github
+            .claude
+            .agents
+            release-please-config.json
+            .release-please-manifest.json
+            skills-lock.json
+            CHANGELOG.md
