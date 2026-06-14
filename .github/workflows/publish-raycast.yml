@@ -21,6 +21,7 @@ jobs:
           ignore_paths: |
             .vscode
             .github
+            .claude
             release-please-config.json
             .release-please-manifest.json
             skills-lock.json
