@@ -1,0 +1,18 @@
+name: Sync to Fork
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: maxchang3/raycast-extension-actions/sync-to-fork@v1
+        with:
+          raycast_extensions_fork_full_name: maxchang3/raycast-extensions
+          github_username: maxchang3
+          extension_name: bangumi
+          github_access_token: ${{ secrets.RAYCAST_EXTENSIONS_TOKEN }}
+          create_pr: true
