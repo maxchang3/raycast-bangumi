@@ -20,7 +20,9 @@ jobs:
         run: npm ci
 
       - name: Generate bangumi Types
-        run: npm run generate-types
+        run: |
+          npm run generate-types
+          npm run fix-lint
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
