@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.4.0](https://github.com/maxchang3/raycast-bangumi/compare/v1.3.2...v1.4.0) (2026-06-14)
+
+
+### ✨ New
+
+* **ProgressGrid:** add dynamic airdate tooltips to episodes ([4e93213](https://github.com/maxchang3/raycast-bangumi/commit/4e93213260ea67c0fdb7bad770e711f6d3caa31a))
+
+
+### 💎 Improvements
+
+* **ProgressGrid:** add AbortController to requests ([077be01](https://github.com/maxchang3/raycast-bangumi/commit/077be01021e1f4f25606025c04a684f09b45daa0))
+
 ## [1.3.2](https://github.com/maxchang3/raycast-bangumi/compare/v1.3.1...v1.3.2) - 2026-06-12
 
 ### 💎 Improvements
