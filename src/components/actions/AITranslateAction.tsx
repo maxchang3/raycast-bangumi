@@ -15,7 +15,10 @@ export const AITranslateAction = ({
     <Action
       title={isTranslating ? "Translating…" : "AI Translate"}
       icon={Icon.Pencil}
-      shortcut={{ modifiers: ["cmd", "shift"], key: "t" }}
+      shortcut={{
+        macOS: { modifiers: ["cmd", "shift"], key: "t" },
+        Windows: { modifiers: ["ctrl", "shift"], key: "t" },
+      }}
       onAction={() => {
         if (!isTranslating) onTranslate(text)
       }}
