@@ -1,12 +1,11 @@
 # Changelog
 
-## [1.4.1](https://github.com/maxchang3/raycast-bangumi/compare/v1.4.0...v1.4.1) (2026-06-23)
-
+## [1.4.1](https://github.com/maxchang3/raycast-bangumi/compare/v1.4.0...v1.4.1) - 2026-06-23
 
 ### 🐞 Fixes
 
-* **OAuth:** token refresh with refreshTokenUrl and bodyEncoding ([6edf208](https://github.com/maxchang3/raycast-bangumi/commit/6edf208846d4860561056a7b819e68ae159041e6))
-* use cross-platform shortcuts ([e76e41c](https://github.com/maxchang3/raycast-bangumi/commit/e76e41c870a045e0f7387ad7f2d55c2f49e14a7d))
+- **OAuth:** token refresh with refreshTokenUrl and bodyEncoding ([6edf208](https://github.com/maxchang3/raycast-bangumi/commit/6edf208846d4860561056a7b819e68ae159041e6))
+- use cross-platform shortcuts ([e76e41c](https://github.com/maxchang3/raycast-bangumi/commit/e76e41c870a045e0f7387ad7f2d55c2f49e14a7d))
 
 ## [1.4.0](https://github.com/maxchang3/raycast-bangumi/compare/v1.3.2...v1.4.0) - 2026-06-14
 
